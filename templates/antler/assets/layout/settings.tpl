@@ -1,6 +1,7 @@
-<button class="btn-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><span class="fas fa-sliders-h"></span> <span>PANEL</span></button>
+<!-- Settings panel hidden -->
+<button class="btn-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="display: none !important;"><span class="fas fa-sliders-h"></span> <span>PANEL</span></button>
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel" style="display: none !important;">
   <div class="offcanvas-header">
     <h4 id="offcanvasRightLabel" class="fw-bold mb-0 f-24">Antler Setup</h4>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><i class="ico-x"></i></button>
@@ -151,9 +152,9 @@
 
   </div>
 </div>
-<div class="offcanvas-backdrop fade" data-bs-dismiss="offcanvas"></div>
+<div class="offcanvas-backdrop fade" data-bs-dismiss="offcanvas" style="display: none !important;"></div>
 
-<a href="https://inebur.com/antler/overview/#themes" target="_blank">
+<a href="https://inebur.com/antler/overview/#themes" target="_blank" style="display: none !important;">
   <button class="btn-demos" type="button"><span class="fas fa-layer-group"></span> <span>DEMOS</span></button>
 </a>
 <script defer src="{$WEB_ROOT}/templates/{$template}/assets/js/settings.js"></script>
