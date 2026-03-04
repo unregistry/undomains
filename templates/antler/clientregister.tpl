@@ -20,7 +20,7 @@ jQuery("#inputNewPassword1").keyup(registerFormPasswordStrengthFeedback);
     <div class="container">
         <div class="row login-page-header">
             <a class="navbar-brand" href="{$WEB_ROOT}/index.php">
-                <img class="logo-menu img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="{$companyname}" style="height: 50px; width: auto;">
+                <img class="logo-menu img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.png" alt="{$companyname}" style="height: 50px; width: auto;">
             </a>
             <a href="{$WEB_ROOT}/login.php"> <i class="ico-unlock" data-toggle="tooltip" data-placement="left" title="{$LANG.alreadyregistered}"></i> </a>
         </div>
