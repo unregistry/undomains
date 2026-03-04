@@ -1,0 +1,17 @@
+# WHMCS sensitive files
+configuration.php
+attachments/
+templates_c/
+status/
+crons/
+
+# Logs
+*.log
+
+# Database backups
+*.sql
+*.sql.gz
+
+# Cache
+vendor/
+*.cache
