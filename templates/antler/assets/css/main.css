@@ -78,7 +78,7 @@ p.text-muted {
   color: #eacd5c !important;
 }
 .c-danger {
-  color: #e26f6f !important;
+  color: #D4AF37 !important;
 }
 .c-default {
   color: #818182 !important;
@@ -119,7 +119,7 @@ p.text-muted {
   background-color: #eacd5c!important;
 }
 .bg-danger {
-  background-color: #e26f6f!important;
+  background-color: #D4AF37!important;
 }
 .bg-default {
   background-color: #818182 !important;
@@ -1263,7 +1263,7 @@ p.text-muted {
   letter-spacing: 0.5px;
 }
 .header .dropdown.open .dropdown-menu.notification:before, .header .dropdown.user-login.open .dropdown-menu:before {
-  color: #5e4698 !important;
+  color: #000000 !important;
 }
 .header .dropdown.user-login .login-header {
   display: flex;
@@ -1314,7 +1314,7 @@ p.text-muted {
   color: #818182;
 }
 .header .dropdown .notification .client-alerts li i.ico-help-circle {
-  color: #e26f6f !important;
+  color: #D4AF37 !important;
 }
 .header .dropdown .notification .client-alerts li i.ico-alert-circle {
   color: #eacd5c !important;
@@ -1480,7 +1480,7 @@ hr {
 .alert.alert-danger .pull-right a.btn {
   font-size: 12px!important;
   border: none;
-  background: #e26f6f;
+  background: #D4AF37;
   padding: 7px 15px;
   transform: none;
 }
@@ -2933,13 +2933,13 @@ nav.navbar .inner-navbar > .menu-caption.active:after, .navbar .inner-navbar > .
   border-color: transparent;
 }
 .checkbox.checkbox-danger input[type=checkbox]:checked + .cr:before {
-  background: #e26f6f;
-  border-color: #e26f6f;
+  background: #D4AF37;
+  border-color: #D4AF37;
   color: #ffffff;
 }
 .checkbox.checkbox-fill.checkbox-danger input[type=checkbox]:checked + .cr:before {
   background: transparent;
-  color: #e26f6f;
+  color: #D4AF37;
   border-color: transparent;
 }
 .checkbox.checkbox-success input[type=checkbox]:checked + .cr:before {
@@ -3040,10 +3040,10 @@ nav.navbar .inner-navbar > .menu-caption.active:after, .navbar .inner-navbar > .
   background: #04a9f5;
 }
 .radio.radio-danger input[type=radio]:checked + .cr:before {
-  border-color: #e26f6f;
+  border-color: #D4AF37;
 }
 .radio.radio-danger input[type=radio]:checked + .cr:after {
-  background: #e26f6f;
+  background: #D4AF37;
 }
 .radio.radio-success input[type=radio]:checked + .cr:before {
   border-color: #1de9b6;
@@ -3112,7 +3112,7 @@ nav.navbar .inner-navbar > .menu-caption.active:after, .navbar .inner-navbar > .
   color: #ffffff;
 }
 .label.label-danger {
-  background: #e26f6f;
+  background: #D4AF37;
   color: #ffffff;
 }
 .label.label-warning {
@@ -3475,7 +3475,7 @@ table.table-list tbody td .status {
   background: #04a9f5;
 }
 .switch.switch-danger input[type=checkbox]:checked + .cr:before {
-  background: #e26f6f;
+  background: #D4AF37;
 }
 .switch.switch-success input[type=checkbox]:checked + .cr:before {
   background: #1de9b6;
@@ -4529,7 +4529,7 @@ section#main-body .card-header .card-option .minimize-card, section#main-body .c
   border-radius: 4px;
 }
 .invoices-elements-tringo .invoice-pay-button.status-unpaid {
-  background: #e26f6f;
+  background: #D4AF37;
   -webkit-transition: all .2s linear 0s;
   -moz-transition: all .2s linear 0s;
   -ms-transition: all .2s linear 0s;
@@ -5642,7 +5642,7 @@ div.product-details div.product-icon h3 {
   line-height: 48px;
   margin: 0 auto;
   bottom: 0;
-  background: #e26f6f;
+  background: #D4AF37;
   color: #fff;
   text-align: center;
   border-radius: 12px;
@@ -6865,7 +6865,7 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
 }
 .kb-rate-article .btn.btn-no {
   color: #fff;
-  background-color: #e26f6f;
+  background-color: #D4AF37;
 }
 .kb-rate-article .btn.btn-no:hover {
   background-color: #d36666;
@@ -7291,7 +7291,7 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
   font-size: 11px !important;
   border-radius: 50px;
   padding: 3px 10px;
-  background-color: #e26f6f;
+  background-color: #D4AF37;
   font-weight: 600!important;
   color: #fff;
 }
