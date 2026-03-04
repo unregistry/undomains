@@ -93,10 +93,9 @@ FOOTER
   <div class="footer-bottom">
     <div class="container">
       <div class="row">
-        <div class="col-md-6 col-lg-6">          
+        <div class="col-md-6 col-lg-6">
           <ul class="footer-menu">
-            <li class="menu-item by ml-0">Hybrid Design With <span class="c-pink">♥</span> by
-              <a href="http://inebur.com/" target="_blank">Inebur</a>
+            <li class="menu-item by ml-0">Powered by <a href="https://u.onl" target="_blank">U.</a> | Part of <a href="https://un4.com" target="_blank">UN4</a>
             </li>
           </ul>
         </div>
