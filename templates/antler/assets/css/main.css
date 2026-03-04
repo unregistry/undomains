@@ -8180,7 +8180,7 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
 }
 
 [data-color="pink"] .product .product-desc .list-info .spec {
-    color: #a5215e!important;
+    color: #4a4a4a!important;
 }
 [data-color="blue"] .product .product-desc .list-info .spec {
     color: #1697bf!important;
@@ -8232,7 +8232,7 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
 }
 
 [data-color="pink"] .landing-page .navbar .navbar-nav > li.active > a {
-  background-color: #a5215e!important;
+  background-color: #4a4a4a!important;
 }
 [data-color="blue"] .landing-page .navbar .navbar-nav > li.active > a {
   background-color: #1697bf!important;
@@ -8414,7 +8414,7 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
 }
 
 [data-color="pink"] .login-header .logout-btn {
-  background-color: #a5215e !important;
+  background-color: #4a4a4a !important;
 }
 [data-color="blue"] .login-header .logout-btn {
   background-color: #1697bf !important;
