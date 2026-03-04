@@ -48,9 +48,7 @@
 {else}
 <html dir="ltr">
 <link href="{$WEB_ROOT}/templates/{$template}/assets/css/main.min.css" rel="stylesheet">
-{assetExists file="custom.css"}
-<link href="{$__assetPath__}" rel="stylesheet">
-{/assetExists}
+<link href="{$WEB_ROOT}/templates/{$template}/css/custom.css?v={$versionHash}" rel="stylesheet">
 <html>
 {/if}
 

@@ -159,37 +159,103 @@ html {
 }
 
 /* *****************************************************
-   Black & Gold Theme Overrides
+   Black & Gold Theme Overrides - UNDOMAINS
 ***************************************************** */
 
-/* Primary buttons - Black with Gold accents */
+/* Force override ALL Antler theme colors */
+* {
+    --primary-color: #000000 !important;
+    --secondary-color: #D4AF37 !important;
+    --accent-color: #D4AF37 !important;
+}
+
+/* Override specific Antler theme colors */
+.text-primary,
+[class*="text-primary"] {
+    color: #D4AF37 !important;
+}
+
+.bg-primary,
+[class*="bg-primary"] {
+    background-color: #000000 !important;
+    color: #D4AF37 !important;
+}
+
+/* Antler Header - Black background */
+.header,
+.header-wrapper,
+.navbar-main,
+.menu-wrap,
+.menu-wrap.fixed {
+    background-color: #000000 !important;
+    border-bottom: 2px solid #D4AF37 !important;
+}
+
+.header .navbar-nav > li > a,
+.navbar-main .navbar-nav > li > a,
+.menu-wrap .navbar-nav > li > a,
+.header .desk.navbar-nav > li a {
+    color: #D4AF37 !important;
+}
+
+.header .navbar-nav > li > a:hover,
+.navbar-main .navbar-nav > li > a:hover,
+.menu-wrap .navbar-nav > li > a:hover {
+    color: #FFD700 !important;
+}
+
+.header .logo-menu a,
+.navbar-header .logo-menu a {
+    color: #D4AF37 !important;
+}
+
+/* Mobile menu */
+#menu-mobile {
+    background-color: #000000 !important;
+}
+
+#menu-mobile .navbar-nav li a {
+    color: #D4AF37 !important;
+}
+
+#menu-mobile .navbar-nav li a:hover {
+    background-color: #D4AF37 !important;
+    color: #000000 !important;
+}
+
+/* Primary Buttons - Black with Gold text */
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:focus,
-.btn-primary:active {
+.btn-primary:active,
+.btn-lg.btn-primary,
+input.btn-primary,
+button.btn-primary {
     background-color: #000000 !important;
-    border-color: #000000 !important;
+    border-color: #D4AF37 !important;
     color: #D4AF37 !important;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
     background-color: #1a1a1a !important;
-    border-color: #D4AF37 !important;
+    border-color: #FFD700 !important;
+    color: #FFD700 !important;
 }
 
-/* Secondary buttons - Gold with Black text */
+/* Secondary Buttons - Gold with Black text */
 .btn-secondary,
 .btn-secondary:hover,
-.btn-secondary:focus {
+.btn-secondary:focus,
+.btn-lg.btn-secondary {
     background-color: #D4AF37 !important;
     border-color: #D4AF37 !important;
     color: #000000 !important;
 }
 
 .btn-secondary:hover {
-    background-color: #c9a332 !important;
-    border-color: #c9a332 !important;
+    background-color: #FFD700 !important;
+    border-color: #FFD700 !important;
 }
 
 /* Links - Gold color */
@@ -199,25 +265,17 @@ a:focus {
     color: #D4AF37 !important;
 }
 
-/* Navbar - Black background */
-.navbar,
-.navbar-default,
-header {
-    background-color: #000000 !important;
-    border-color: #D4AF37 !important;
-}
-
-.navbar-brand,
-.navbar-nav > li > a,
-.navbar-nav > li > a:hover {
-    color: #D4AF37 !important;
+a:hover {
+    color: #FFD700 !important;
 }
 
 /* Footer - Black background */
 footer,
-.footer {
+.footer,
+.footer-section {
     background-color: #000000 !important;
     color: #D4AF37 !important;
+    border-top: 2px solid #D4AF37 !important;
 }
 
 footer a,
@@ -225,54 +283,85 @@ footer a,
     color: #D4AF37 !important;
 }
 
-/* Headers - Black with Gold accents */
-h1, h2, h3, h4, h5, h6 {
+footer a:hover,
+.footer a:hover {
+    color: #FFD700 !important;
+}
+
+/* Hero Sections - Black with Gold gradient */
+.hero,
+.hero-section,
+.home-hero,
+.banner-section {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #D4AF37 100%) !important;
+}
+
+/* Headers - Black text */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
     color: #000000 !important;
 }
 
-/* Page backgrounds */
+/* Hero titles should be gold */
+.hero h1,
+.hero-section h1,
+.hero h2,
+.hero-section h2 {
+    color: #D4AF37 !important;
+}
+
+/* Page body background */
 body {
     background-color: #fafafa !important;
 }
 
-/* Cards and panels - White with Gold borders */
+/* Cards and Panels */
 .card,
 .panel,
-.panel-default {
+.panel-default,
+.client-home-panels .panel {
     border-color: #D4AF37 !important;
+    border-left: 3px solid #D4AF37 !important;
 }
 
 .card-header,
-.panel-heading {
+.panel-heading,
+.client-home-panels .panel-heading {
     background-color: #000000 !important;
     color: #D4AF37 !important;
     border-color: #D4AF37 !important;
 }
 
-/* Sidebar - Black background */
+/* Sidebar */
 .sidebar,
-aside {
+aside,
+.client-area-sidebar {
     background-color: #000000 !important;
 }
 
-.sidebar .nav > li > a {
+.sidebar .nav > li > a,
+aside .nav > li > a {
     color: #D4AF37 !important;
 }
 
 .sidebar .nav > li.active > a,
-.sidebar .nav > li > a:hover {
+.sidebar .nav > li > a:hover,
+aside .nav > li.active > a,
+aside .nav > li > a:hover {
     background-color: #D4AF37 !important;
     color: #000000 !important;
 }
 
-/* Tables - Gold borders */
+/* Tables */
 table,
-.table {
+.table,
+.table-bordered {
     border-color: #D4AF37 !important;
 }
 
 .table > thead > tr > th,
-.table > tbody > tr > td {
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
     border-color: #D4AF37 !important;
 }
 
@@ -281,21 +370,24 @@ table,
     color: #D4AF37 !important;
 }
 
-/* Form elements - Gold borders */
+/* Form Elements */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
+input[type="tel"],
 select,
 textarea,
 .form-control {
     border-color: #D4AF37 !important;
+    color: #000000 !important;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="number"]:focus,
+input[type="tel"]:focus,
 select:focus,
 textarea:focus,
 .form-control:focus {
@@ -303,18 +395,27 @@ textarea:focus,
     box-shadow: 0 0 5px rgba(212, 175, 55, 0.5) !important;
 }
 
-/* Badges and labels */
+/* Badges and Labels */
 .badge,
-.label {
+.label,
+.status-badge {
     background-color: #D4AF37 !important;
     color: #000000 !important;
 }
 
-/* Alerts - Black background with Gold border */
-.alert {
+/* Alerts */
+.alert,
+.alert-info,
+.alert-success,
+.alert-warning,
+.alert-danger {
     background-color: #000000 !important;
     border-color: #D4AF37 !important;
     color: #D4AF37 !important;
+}
+
+.alert a {
+    color: #FFD700 !important;
 }
 
 /* Pagination */
@@ -339,30 +440,31 @@ textarea:focus,
     color: #000000 !important;
 }
 
-/* Hero section */
-.hero-section,
-.hero {
-    background-color: #000000 !important;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #D4AF37 100%) !important;
-}
-
-/* Pricing cards */
-.pricing-card {
+/* Pricing Cards */
+.pricing-card,
+.pricing-table {
     border: 2px solid #D4AF37 !important;
 }
 
-.pricing-card.featured {
+.pricing-card.featured,
+.pricing-table.featured {
     background-color: #000000 !important;
     border: 3px solid #D4AF37 !important;
 }
 
-.pricing-card .price {
+.pricing-card .price,
+.pricing-table .price {
     color: #D4AF37 !important;
 }
 
-/* Menu items */
+/* Dropdown Menus */
 .dropdown-menu {
     border-color: #D4AF37 !important;
+    background-color: #000000 !important;
+}
+
+.dropdown-menu > li > a {
+    color: #D4AF37 !important;
 }
 
 .dropdown-menu > li > a:hover {
@@ -370,75 +472,159 @@ textarea:focus,
     color: #000000 !important;
 }
 
-/* Client area sidebar */
-.client-home-panels .panel {
-    border-color: #D4AF37 !important;
-}
-
-.client-home-panels .panel-heading {
-    background-color: #000000 !important;
-    color: #D4AF37 !important;
-}
-
-/* Status badges */
+/* Status Badges */
 .status-paid,
-.status-active {
+.status-active,
+.status-unpaid,
+.status-pending {
     background-color: #D4AF37 !important;
     color: #000000 !important;
 }
 
-/* Cart summary */
-.cart-summary {
+/* Cart */
+.cart-summary,
+.order-summary {
     background-color: #000000 !important;
+    border-color: #D4AF37 !important;
+    color: #D4AF37 !important;
+}
+
+/* Order Forms */
+.btn-order,
+.btn-checkout {
+    background-color: #000000 !important;
+    color: #D4AF37 !important;
     border-color: #D4AF37 !important;
 }
 
-/* Order form buttons */
-.btn-order {
-    background-color: #000000 !important;
-    color: #D4AF37 !important;
-}
-
-.btn-order:hover {
+.btn-order:hover,
+.btn-checkout:hover {
     background-color: #D4AF37 !important;
     color: #000000 !important;
 }
 
-/* Logo text */
+/* Logo */
 .logo-text,
-.site-logo {
+.site-logo,
+.logo a {
     color: #D4AF37 !important;
 }
 
-/* Social icons */
-.social-icons a {
+/* Social Icons */
+.social-icons a,
+.social-links a {
     color: #D4AF37 !important;
 }
 
-.social-icons a:hover {
+.social-icons a:hover,
+.social-links a:hover {
     color: #000000 !important;
     background-color: #D4AF37 !important;
+}
+
+/* Navigation indicators */
+.navbar-nav a:before,
+.navbar-nav a:hover:before {
+    background-color: #D4AF37 !important;
+}
+
+/* Feature boxes */
+.feature-box,
+.service-box {
+    border-color: #D4AF37 !important;
+}
+
+.feature-box:hover,
+.service-box:hover {
+    background-color: #000000 !important;
+    border-color: #FFD700 !important;
 }
 
 /* Gradients */
 .gradient-gold {
-    background: linear-gradient(135deg, #D4AF37 0%, #facc15 50%, #ca8a04 100%) !important;
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8860B 100%) !important;
 }
 
 .gradient-black {
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #262626 100%) !important;
 }
 
-/* Animations */
-@keyframes shimmer {
+/* Shimmer animation for gold */
+@keyframes shimmer-gold {
     0% { background-position: -1000px 0; }
     100% { background-position: 1000px 0; }
 }
 
 .shimmer-gold {
-    background: linear-gradient(90deg, #D4AF37 0%, #facc15 50%, #D4AF37 100%);
+    background: linear-gradient(90deg, #D4AF37 0%, #FFD700 50%, #D4AF37 100%);
     background-size: 1000px 100%;
-    animation: shimmer 3s infinite;
+    animation: shimmer-gold 3s infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+/* Override the original Antler theme colors */
+[class*="color-5e4698"],
+.color-purple,
+.color-primary {
+    color: #D4AF37 !important;
+}
+
+[class*="bg-5e4698"],
+.bg-purple,
+.bg-primary {
+    background-color: #000000 !important;
+}
+
+/* Specific Antler component overrides */
+.btn-default {
+    background-color: #000000 !important;
+    border-color: #D4AF37 !important;
+    color: #D4AF37 !important;
+}
+
+.btn-default:hover {
+    background-color: #D4AF37 !important;
+    color: #000000 !important;
+}
+
+/* Whmcs specific */
+.client-home-panels .panel-footer {
+    background-color: #fafafa !important;
+    border-color: #D4AF37 !important;
+}
+
+/* Announcements */
+.announcement {
+    border-color: #D4AF37 !important;
+}
+
+/* Knowledgebase */
+.kb-category {
+    border-color: #D4AF37 !important;
+}
+
+.kb-category:hover {
+    background-color: #000000 !important;
+}
+
+/* Downloads */
+.download-item {
+    border-color: #D4AF37 !important;
+}
+
+/* Domain checker */
+.domain-search-results .result {
+    border-color: #D4AF37 !important;
+}
+
+/* Tickets */
+.ticket-reply {
+    border-color: #D4AF37 !important;
+}
+
+/* Invoice */
+.invoice-summary {
+    background-color: #000000 !important;
+    border-color: #D4AF37 !important;
 }
