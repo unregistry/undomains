@@ -61,8 +61,8 @@ FOOTER
           </ul>
         </div>
         <div class="col-sm-6 col-md-3">
-          <a><img class="svg logo-footer d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/logo.svg" alt="logo Antler"></a>
-          <a><img class="svg logo-footer d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/logo-light.svg" alt="logo Antler"></a>
+          <a><img class="svg logo-footer d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="undomains"></a>
+          <a><img class="svg logo-footer d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="undomains"></a>
           <div class="copyright">{lang key="copyrightFooterNotice" year=$date_year company=$companyname}</div>
           <div class="soc-icons">
             <a href=""><i class="fab fa-facebook-f"></i></a>

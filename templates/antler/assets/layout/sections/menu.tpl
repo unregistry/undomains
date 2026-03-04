@@ -42,8 +42,8 @@
       <div class="row align-items-center">
         <div class="col-md-2">
           <a href="/antler/template/">
-            <img class="svg logo-menu d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/logo.svg" alt="{$companyname}">
-            <img class="svg logo-menu d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/logo-light.svg" alt="{$companyname}">
+            <img class="svg logo-menu d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="{$companyname}">
+            <img class="svg logo-menu d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="{$companyname}">
           </a>
         </div>
         <nav id="menu" class="col-md-10">
@@ -401,8 +401,8 @@
     <div class="row align-items-center">
       <div class="col-xs-6 col-md-6">
         <a href="/antler/template/" class=" d-flex">
-          <img class="svg logo-menu d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/logo.svg" alt="{$companyname}">
-          <img class="svg logo-menu d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/logo-light.svg" alt="{$companyname}">
+          <img class="svg logo-menu d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="{$companyname}">
+          <img class="svg logo-menu d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="{$companyname}">
         </a>
       </div>
       <div class="col-xs-6 col-md-6">
