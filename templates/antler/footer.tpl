@@ -61,8 +61,7 @@ FOOTER
           </ul>
         </div>
         <div class="col-sm-6 col-md-3">
-          <a><img class="svg logo-footer d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="undomains"></a>
-          <a><img class="svg logo-footer d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="undomains"></a>
+          <a><img class="logo-footer img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.svg" alt="undomains" style="height: 35px; width: auto;"></a>
           <div class="copyright">{lang key="copyrightFooterNotice" year=$date_year company=$companyname}</div>
           <div class="soc-icons">
             <a href=""><i class="fab fa-facebook-f"></i></a>
