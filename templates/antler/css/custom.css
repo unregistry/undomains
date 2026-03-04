@@ -165,8 +165,8 @@ html {
 /* Force override ALL Antler theme colors */
 * {
     --primary-color: #000000 !important;
-    --secondary-color: #D4AF37 !important;
-    --accent-color: #D4AF37 !important;
+    --secondary-color: #6c757d !important;
+    --accent-color: #cc9933 !important;
 }
 
 /* Override specific Antler theme colors */
