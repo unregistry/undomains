@@ -8030,7 +8030,6 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
   --bs-gutter-y: 0;
 }
 .btn-success {
-  color: #fff !important;
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
@@ -8478,16 +8477,12 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
 }
 
 [data-color="pink"] #order-standard_cart .order-summary {
-  background-color: #cc9933 !important;
 }
 [data-color="blue"] #order-standard_cart .order-summary {
-  background-color: #55bde5 !important;
 }
 [data-color="green"] #order-standard_cart .order-summary {
-  background-color: #97cb3b !important;
 }
 [data-color="black"] #order-standard_cart .order-summary {
-  background-color: #4c555d !important;
 }
 
 [data-color="pink"] #order-standard_cart .account-select-container div.account.active{

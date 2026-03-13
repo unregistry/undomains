@@ -874,7 +874,14 @@
 }
 
 #order-standard_cart .empty-cart .btn-link {
-    color: var(--dr-error);
+    background-color: var(--dr-accent);
+    color: #fff;
+    border-radius: 0;
+    padding: 6px 12px;
+}
+
+[data-background="dark"] #order-standard_cart .empty-cart .btn-link {
+    color: #000;
 }
 
 /* Promo/Gateway Sections */
@@ -942,7 +949,6 @@
 
 /* Order Summary Sidebar */
 #order-standard_cart .order-summary {
-    background-color: var(--dr-bg-secondary);
     border: 1px solid var(--dr-border);
     border-radius: 0;
     padding: 25px;
@@ -995,17 +1001,26 @@
 #order-standard_cart .btn-checkout {
     background-color: var(--dr-accent);
     border-color: var(--dr-accent);
-    color: #000;
+    color: #fff;
     font-weight: 600;
 }
 
 #order-standard_cart .btn-checkout:hover {
     background-color: var(--dr-accent-hover);
     border-color: var(--dr-accent-hover);
+    color: #fff;
+}
+
+[data-background="dark"] #order-standard_cart .btn-checkout {
+    color: #000;
+}
+
+[data-background="dark"] #order-standard_cart .btn-checkout:hover {
+    color: #000;
 }
 
 #order-standard_cart .btn-continue-shopping {
-    color: var(--dr-text-muted);
+    color: var(--dr-text-primary);
 }
 
 /* Separator */
@@ -1054,7 +1069,11 @@
 #order-standard_cart .btn-success {
     background-color: var(--dr-accent);
     border-color: var(--dr-accent);
-    color: #000;
+}
+
+/* Hide ticket icon label */
+#order-standard_cart label.field-icon {
+    display: none;
 }
 
 #order-standard_cart .btn-success:hover {

@@ -87,16 +87,16 @@
                                             <div class="{if $showqtyoptions}col-sm-5{else}col-sm-7{/if}">
                                                 <span class="item-title">
                                                     {$product.productinfo.name}
-                                                    <a href="{$WEB_ROOT}/cart.php?a=confproduct&i={$num}" class="btn btn-link btn-xs">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                        {$LANG.orderForm.edit}
-                                                    </a>
                                                     <span class="visible-xs-inline d-inline d-sm-none">
                                                         <button type="button" class="btn btn-link btn-xs btn-remove-from-cart" onclick="removeItem('p','{$num}')">
                                                             <i class="fas fa-times"></i>
                                                             {$LANG.orderForm.remove}
                                                         </button>
                                                     </span>
+                                                    <a href="{$WEB_ROOT}/cart.php?a=confproduct&i={$num}" class="btn btn-link btn-xs">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                        {$LANG.orderForm.edit}
+                                                    </a>
                                                 </span>
                                                 <span class="item-group">
                                                     {$product.productinfo.groupname}
