@@ -1,0 +1,50 @@
+# WHMCS Clean URLs - Add .php extension if needed
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Friendly URL for maintenance page (must come first)
+    RewriteRule ^maintenance$ /maintenance.html [END]
+
+    # Announcements friendly URLs (without .html)
+    RewriteRule ^announcements/([0-9]+)/(.+)\.html$ announcements/$1/$2 [R=301,L]
+    RewriteRule ^announcements/[0-9]+/.+$ announcements.php [NC,L]
+
+    # Domain Registration Clean URL
+    RewriteRule ^domain-registration$ cart.php?a=add&domain=register [NC,L]
+    # Domain Transfer Clean URL
+    RewriteRule ^domain-transfer$ cart.php?a=add&domain=transfer [NC,L]
+
+    # Support / Submit Ticket Clean URL
+    RewriteRule ^support$ submitticket.php [NC,L]
+    # Contact Clean URL
+    RewriteRule ^contact$ contact.php [NC,L]
+
+    # Domain Search Clean URL
+    RewriteRule ^search/(.+)$ cart.php?a=add&domain=register&query=$1 [NC,L]
+
+    # Add .php extension if file exists
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.*)$ $1.php [QSA,L]
+
+    # Fallback to index.php for WHMCS routing
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Security - Disable MultiViews to prevent content negotiation
+Options -Indexes -MultiViews
+
+# Block access to sensitive files
+<FilesMatch "^(configuration\.php|composer\.json|package\.json|\.htaccess|\.htpasswd)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Block access to .git directory and sensitive files
+RewriteRule ^\.git - [F,L]
+RewriteRule ^configuration\.php$ - [F,L]
+RewriteRule ^composer\.json$ - [F,L]
+RewriteRule ^package\.json$ - [F,L]

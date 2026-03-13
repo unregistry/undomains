@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Undomains - Maintenance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Open Sans', sans-serif;
+            padding: 40px 20px;
+        }
+
+        .logo {
+            margin-bottom: 50px;
+        }
+
+        .logo img {
+            max-width: 280px;
+            height: auto;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            margin: 0 auto 50px;
+        }
+
+        .bounce1, .bounce2 {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #D4AF37;
+            opacity: 0.6;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: bounce 2.0s infinite ease-in-out;
+        }
+
+        .bounce2 {
+            animation-delay: -1.0s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(0); }
+            50% { transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .footer {
+            margin-top: 60px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer a {
+            color: #D4AF37;
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                max-width: 200px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="/templates/undomains/assets/img/undomains-logo-dark.png" alt="Undomains">
+    </div>
+
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+    </div>
+
+    <h1>Under Maintenance</h1>
+    <p>We are currently performing maintenance and will be back shortly.</p>
+
+    <div class="footer">
+        Powered by <a href="https://u.onl" target="_blank">U.</a> | Part of <a href="https://un4.com" target="_blank">UN4</a>
+    </div>
+</body>
+</html>

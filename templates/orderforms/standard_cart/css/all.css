@@ -40,8 +40,6 @@
     width: 65%;
     position: relative;
     min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
 }
 
 #order-standard_cart .secondary-cart-sidebar {
@@ -699,7 +697,6 @@
 #order-standard_cart .view-cart-items-header {
     margin: 0;
     padding: 8px 15px;
-    background-color: #058;
     color: #fff;
     font-size: 0.9em;
     border-radius: 4px 4px 0 0;
@@ -711,7 +708,6 @@
 #order-standard_cart .view-cart-items .item {
     margin: 0;
     padding: 10px;
-    background-color: #fff;
     border-left: 0;
     border-right: 0;
     font-size: 0.8em;
@@ -762,7 +758,7 @@
 
 #order-standard_cart .empty-cart {
     text-align: right;
-    margin: -20px 20px 0 0;
+    margin: -20px 0 0 0;
     line-height: 1em;
 }
 #order-standard_cart .empty-cart .btn {
@@ -823,10 +819,8 @@
 #order-standard_cart .view-cart-tabs .nav-tabs a[aria-selected="true"],
 #order-standard_cart .view-cart-tabs .nav-tabs a[aria-expanded="true"] {
     border-color: #dee2e6 #dee2e6 #f8f8f8;
-    background-color: #f8f8f8;
 }
 #order-standard_cart .view-cart-tabs .tab-content {
-    background-color: #f8f8f8;
     padding: 15px;
 }
 
@@ -934,16 +928,6 @@ div.domainresults table tr td {
 .domain-checker-container {
     margin: 20px 0;
     padding: 0;
-    background-color: #ffce44;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -o-border-radius: 10px;
-    border-radius: 10px;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffb201), to(#ffd960));
-    background: -webkit-linear-gradient(top, #ffd960, #ffb201);
-    background: -moz-linear-gradient(top, #ffd960, #ffb201);
-    background: -ms-linear-gradient(top, #ffd960, #ffb201);
-    background: -o-linear-gradient(top, #ffd960, #ffb201);
 }
 
 .domain-checker-bg {
@@ -1092,15 +1076,12 @@ a.domain-tld-pricing-category {
     padding-top: 4px;
     padding-bottom: 4px;
     border-bottom: 6px solid #97b5d2;
-    background-color: #efefef;
     border-radius: 4px 4px 0 0;
 }
 .domain-pricing .no-bg {
     background-color: transparent !important;
 }
 .domain-pricing .tld-pricing-header div:nth-child(odd) {
-    border-color: #336699;
-    background-color: #f5f5f5;
 }
 .domain-pricing .two-row-center {
     line-height: 28px;
@@ -1374,7 +1355,6 @@ a.domain-tld-pricing-category {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: #f9f9f9;
     border: 1px solid #ddd;
     color: #333;
     border-radius: 4px;

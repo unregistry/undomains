@@ -1,0 +1,1101 @@
+/**
+ * Undomains Domain Registration - Modern Dark/Light Theme
+ * Matches home page styling (black/gold theme)
+ * Uses CSS Custom Properties for maintainability
+ * Version: 2026-03-08-07:05-UTC
+ */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+#order-standard_cart {
+    /* Dark Theme (Default) - Pure black matching home page */
+    --dr-bg-primary: #101010;
+    --dr-bg-secondary: #1a1a1a;
+    --dr-bg-tertiary: #262626;
+    --dr-bg-input: #1a1a1a;
+    --dr-bg-elevated: #0a0a0a;
+    --dr-border: #333333;
+    --dr-border-light: #404040;
+    --dr-text-primary: #ffffff;
+    --dr-text-secondary: #cccccc;
+    --dr-text-muted: #888888;
+    --dr-accent: #D4AF37;
+    --dr-accent-hover: #cc9933;
+    --dr-accent-glow: rgba(212, 175, 55, 0.3);
+    --dr-success: #4CAF50;
+    --dr-error: #ff6b6b;
+    --dr-radius: 8px;
+    --dr-radius-lg: 12px;
+    --dr-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --dr-shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+[data-background="light"] #order-standard_cart {
+    /* Light Theme - Clean white matching home page */
+    --dr-bg-primary: #ffffff;
+    --dr-bg-secondary: #f5f5f5;
+    --dr-bg-tertiary: #e8e8e8;
+    --dr-bg-input: #ffffff;
+    --dr-bg-elevated: #fafafa;
+    --dr-border: #dddddd;
+    --dr-border-light: #e5e5e5;
+    --dr-text-primary: #1a1a2e;
+    --dr-text-secondary: #555555;
+    --dr-text-muted: #777777;
+    --dr-accent: #D4AF37;
+    --dr-accent-hover: #b8962e;
+    --dr-accent-glow: rgba(212, 175, 55, 0.2);
+    --dr-success: #2e7d32;
+    --dr-error: #c62828;
+    --dr-radius: 8px;
+    --dr-radius-lg: 12px;
+    --dr-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --dr-shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS
+   ============================================ */
+#order-standard_cart,
+#order-standard_cart *,
+#order-standard_cart *:before,
+#order-standard_cart *:after {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+#order-standard_cart {
+    background-color: var(--dr-bg-primary);
+    color: var(--dr-text-primary);
+    padding: 20px;
+    border-radius: var(--dr-radius-lg);
+}
+
+/* ============================================
+   DOMAIN SEARCH / CHECKER
+   ============================================ */
+
+#order-standard_cart .domain-checker-container {
+    border: 1px solid var(--dr-border);
+    border-radius: 0;
+}
+
+#order-standard_cart .input-group-box {
+    background-color: var(--dr-bg-input);
+    padding: 8px;
+}
+
+#order-standard_cart .form-control {
+    background-color: var(--dr-bg-input);
+    color: var(--dr-text-primary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius);
+}
+
+#order-standard_cart .form-control:focus {
+    border-color: var(--dr-accent);
+    box-shadow: 0 0 0 3px var(--dr-accent-glow);
+    outline: none;
+}
+
+#order-standard_cart .form-control::placeholder {
+    color: var(--dr-text-muted);
+}
+
+#order-standard_cart textarea.form-control {
+    background-color: var(--dr-bg-input);
+    color: var(--dr-text-primary);
+    border: 1px solid var(--dr-border);
+}
+
+/* ============================================
+   HEADERS
+   ============================================ */
+#order-standard_cart .header-lined {
+    margin-bottom: 25px;
+}
+
+#order-standard_cart .header-lined h1 {
+    color: var(--dr-text-primary);
+    font-weight: 700;
+}
+
+#order-standard_cart .panel-heading,
+#order-standard_cart .card-header {
+    background-color: var(--dr-bg-secondary);
+    color: var(--dr-text-primary);
+    border-bottom: 1px solid var(--dr-border);
+    padding: 15px 20px;
+    font-weight: 600;
+}
+
+#order-standard_cart h1,
+#order-standard_cart h2,
+#order-standard_cart h3,
+#order-standard_cart h4 {
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart p {
+    color: var(--dr-text-secondary);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+#order-standard_cart .btn-primary,
+#order-standard_cart .btn-add-to-cart {
+    background-color: var(--dr-accent);
+    border: 2px solid var(--dr-accent);
+    color: #000;
+    font-weight: 600;
+    border-radius: var(--dr-radius);
+    cursor: pointer;
+}
+
+#order-standard_cart .btn-primary:hover,
+#order-standard_cart .btn-add-to-cart:hover {
+    background-color: var(--dr-accent-hover);
+    border-color: var(--dr-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--dr-accent-glow);
+}
+
+#order-standard_cart .btn-primary:focus,
+#order-standard_cart .btn-add-to-cart:focus {
+    outline: 2px solid var(--dr-accent);
+    outline-offset: 2px;
+}
+
+#order-standard_cart .btn-warning {
+    background-color: var(--dr-accent);
+    border-color: var(--dr-accent);
+    color: #000;
+}
+
+#order-standard_cart .btn-warning:hover {
+    background-color: var(--dr-accent-hover);
+}
+
+#order-standard_cart .btn-default {
+    background-color: var(--dr-bg-tertiary);
+    border-color: var(--dr-border);
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .btn-default:hover {
+    background-color: var(--dr-bg-secondary);
+    border-color: var(--dr-accent);
+    color: var(--dr-accent);
+}
+
+/* ============================================
+   SEARCH RESULTS
+   ============================================ */
+#order-standard_cart #DomainSearchResults {
+    border: 1px solid var(--dr-border);
+    border-radius: 0;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+#order-standard_cart .primary-domain-header {
+    color: var(--dr-accent);
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
+
+#order-standard_cart .domain-available,
+#order-standard_cart .domain-checker-available {
+    color: var(--dr-success);
+    font-weight: 600;
+}
+
+#order-standard_cart .domain-unavailable,
+#order-standard_cart .domain-checker-unavailable,
+#order-standard_cart .domain-invalid {
+    color: var(--dr-error);
+}
+
+#order-standard_cart .domain-checker-result-headline p {
+    color: var(--dr-text-secondary);
+}
+
+/* ============================================
+   SPOTLIGHT TLDs
+   ============================================ */
+#order-standard_cart .spotlight-tlds {
+    background-color: var(--dr-bg-secondary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius-lg);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+#order-standard_cart .spotlight-tld {
+    background-color: var(--dr-bg-tertiary);
+    color: var(--dr-text-primary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius);
+    padding: 15px;
+    text-align: center;
+}
+
+#order-standard_cart .spotlight-tld .price {
+    color: var(--dr-accent);
+    font-weight: 700;
+}
+
+#order-standard_cart .spotlight-tld .available.price {
+    color: var(--dr-success);
+}
+
+#order-standard_cart .spotlight-tld .spotlight-tld-hot,
+#order-standard_cart .spotlight-tld .spotlight-tld-new,
+#order-standard_cart .spotlight-tld .spotlight-tld-sale {
+    background-color: var(--dr-accent);
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+}
+
+/* ============================================
+   DOMAIN PRICING TABLE
+   ============================================ */
+#order-standard_cart .domain-pricing {
+    border: 1px solid var(--dr-border) !important;
+    border-radius: 0;
+    overflow: hidden;
+    margin: 25px 0;
+    color: var(--dr-text-primary) !important;
+    padding: 20px;
+}
+
+/* Light mode override */
+[data-background="light"] #order-standard_cart .domain-pricing > .bg-white,
+[data-background="light"] #order-standard_cart .domain-pricing .bg-white {
+    background-color: #ffffff !important;
+}
+
+/* Text color inside .bg-white - LIGHT MODE */
+[data-background="light"] #order-standard_cart .domain-pricing .bg-white div,
+[data-background="light"] #order-standard_cart .domain-pricing .bg-white span,
+[data-background="light"] #order-standard_cart .domain-pricing .bg-white .tld-column {
+    color: #000000 !important;
+}
+
+#order-standard_cart .domain-pricing h4,
+#order-standard_cart .domain-pricing .font-size-18 {
+    color: var(--dr-text-primary) !important;
+    margin-bottom: 15px;
+}
+
+/* Pricing header - always black with white text */
+#order-standard_cart .tld-pricing-header {
+    color: #ffffff !important;
+    padding: 15px 20px;
+    font-weight: 600;
+    border-bottom: 2px solid #D4AF37;
+}
+
+/* Light mode */
+[data-background="light"] #order-standard_cart .tld-pricing-header {
+    color: #000000 !important;
+    border-bottom: 2px solid #D4AF37;
+}
+
+#order-standard_cart .tld-pricing-header div,
+#order-standard_cart .tld-pricing-header .tld-column,
+#order-standard_cart .tld-pricing-header .col-md-4,
+#order-standard_cart .tld-pricing-header .col-md-8,
+#order-standard_cart .tld-pricing-header .col-xs-4,
+#order-standard_cart .tld-pricing-header .col-4,
+#order-standard_cart .tld-pricing-header .row > div {
+    color: #ffffff !important;
+}
+
+/* Light mode text */
+[data-background="light"] #order-standard_cart .tld-pricing-header div,
+[data-background="light"] #order-standard_cart .tld-pricing-header .tld-column,
+[data-background="light"] #order-standard_cart .tld-pricing-header .col-md-4,
+[data-background="light"] #order-standard_cart .tld-pricing-header .col-md-8,
+[data-background="light"] #order-standard_cart .tld-pricing-header .col-xs-4,
+[data-background="light"] #order-standard_cart .tld-pricing-header .col-4,
+[data-background="light"] #order-standard_cart .tld-pricing-header .row > div {
+    color: #000000 !important;
+}
+
+#order-standard_cart .tld-column {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+[data-background="light"] #order-standard_cart .tld-column {
+    color: #000000 !important;
+}
+
+/* TLD rows - DARK MODE (default) */
+#order-standard_cart .tld-row {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid #333333;
+    padding: 12px 20px;
+    color: #ffffff !important;
+}
+
+[data-background="light"] #order-standard_cart .tld-row {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #dddddd;
+    color: #333333 !important;
+}
+
+#order-standard_cart .tld-row:hover {
+    background-color: #262626 !important;
+}
+
+[data-background="light"] #order-standard_cart .tld-row:hover {
+    background-color: #f5f5f5 !important;
+}
+
+#order-standard_cart .tld-row strong {
+    color: #ffffff !important;
+}
+
+[data-background="light"] #order-standard_cart .tld-row strong {
+    color: #333333 !important;
+}
+
+#order-standard_cart .tld-row small {
+    color: #888888 !important;
+}
+
+[data-background="light"] #order-standard_cart .tld-row small {
+    color: #666666 !important;
+}
+
+/* No TLDs message */
+#order-standard_cart .tld-row.no-tlds,
+#order-standard_cart .no-tlds {
+    background-color: #262626 !important;
+    color: #888888 !important;
+}
+
+[data-background="light"] #order-standard_cart .tld-row.no-tlds,
+[data-background="light"] #order-standard_cart .no-tlds {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+#order-standard_cart .tld-row.no-tlds > div,
+#order-standard_cart .no-tlds > div,
+#order-standard_cart .tld-row.no-tlds .text-center {
+    color: #888888 !important;
+}
+
+[data-background="light"] #order-standard_cart .tld-row.no-tlds > div,
+[data-background="light"] #order-standard_cart .no-tlds > div,
+[data-background="light"] #order-standard_cart .tld-row.no-tlds .text-center {
+    color: #333333 !important;
+}
+
+/* Text center inside rows */
+#order-standard_cart .tld-row .text-center {
+    color: var(--dr-text-primary) !important;
+}
+
+/* ============================================
+   TLD FILTERS
+   ============================================ */
+#order-standard_cart .tld-filters {
+    margin-bottom: 20px;
+}
+
+#order-standard_cart .tld-filters .badge {
+    background-color: var(--dr-bg-tertiary);
+    color: var(--dr-text-primary);
+    border: 1px solid var(--dr-border);
+    padding: 8px 16px;
+    margin: 4px;
+    border-radius: var(--dr-radius);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#order-standard_cart .tld-filters .badge:hover,
+#order-standard_cart .tld-filters .badge.active {
+    background-color: var(--dr-accent);
+    color: #000;
+    border-color: var(--dr-accent);
+}
+
+/* ============================================
+   FEATURED TLDs
+   ============================================ */
+#order-standard_cart .featured-tlds-container {
+    background-color: var(--dr-bg-secondary);
+    padding: 25px;
+    border-radius: var(--dr-radius-lg);
+    margin: 20px 0;
+}
+
+#order-standard_cart .featured-tld {
+    background-color: var(--dr-bg-tertiary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius-lg);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#order-standard_cart .featured-tld:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--dr-shadow);
+}
+
+#order-standard_cart .featured-tld .price {
+    color: var(--dr-accent);
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+#order-standard_cart .featured-tld .img-container {
+    margin-bottom: 15px;
+}
+
+/* ============================================
+   PROMO BOXES
+   ============================================ */
+#order-standard_cart .domain-promo-box {
+    border: 1px solid var(--dr-border);
+    border-radius: 0;
+    padding: 30px;
+    text-align: center;
+}
+
+#order-standard_cart .domain-promo-box h3 {
+    color: var(--dr-text-primary);
+    margin-top: 15px;
+}
+
+#order-standard_cart .domain-promo-box p {
+    color: var(--dr-text-secondary);
+}
+
+#order-standard_cart .domain-promo-box .text-warning,
+#order-standard_cart .domain-promo-box .text-primary {
+    color: var(--dr-accent) !important;
+}
+
+#order-standard_cart .domain-promo-box i {
+    color: var(--dr-accent);
+}
+
+/* ============================================
+   SUGGESTIONS
+   ============================================ */
+#order-standard_cart .suggested-domains {
+    background-color: var(--dr-bg-secondary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius-lg);
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+#order-standard_cart .domain-suggestion {
+    background-color: var(--dr-bg-secondary);
+    border-bottom: 1px solid var(--dr-border);
+    padding: 15px 20px;
+}
+
+#order-standard_cart .domain-suggestion:last-child {
+    border-bottom: none;
+}
+
+#order-standard_cart .domain-suggestion:hover {
+    background-color: var(--dr-bg-tertiary);
+}
+
+#order-standard_cart .domain-suggestion .domain,
+#order-standard_cart .domain-suggestion .extension {
+    color: var(--dr-text-primary);
+    font-weight: 500;
+}
+
+#order-standard_cart .domain-suggestion .price {
+    color: var(--dr-accent);
+    font-weight: 700;
+}
+
+#order-standard_cart .domain-suggestion .promo span {
+    font-size: 0.75em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: var(--dr-accent);
+    color: #000;
+}
+
+#order-standard_cart .more-suggestions a {
+    color: var(--dr-accent);
+}
+
+#order-standard_cart .no-more {
+    color: var(--dr-text-muted);
+}
+
+/* ============================================
+   MULTISELECT
+   ============================================ */
+#order-standard_cart .multiselect {
+    background-color: var(--dr-bg-input);
+    color: var(--dr-text-primary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius);
+    padding: 10px;
+}
+
+#order-standard_cart .multiselect:focus {
+    border-color: var(--dr-accent);
+    box-shadow: 0 0 0 3px var(--dr-accent-glow);
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+#order-standard_cart .cart-sidebar {
+    background-color: var(--dr-bg-secondary);
+    border-radius: var(--dr-radius-lg);
+    padding: 20px;
+}
+
+#order-standard_cart .sidebar-collapsed {
+    background-color: var(--dr-bg-tertiary);
+    border-radius: var(--dr-radius);
+}
+
+#order-standard_cart .panel-sidebar {
+    background-color: var(--dr-bg-secondary);
+    border: 1px solid var(--dr-border);
+}
+
+#order-standard_cart .panel-sidebar .list-group-item {
+    background-color: var(--dr-bg-secondary);
+    border-color: var(--dr-border);
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .panel-sidebar .list-group-item:hover {
+    background-color: var(--dr-bg-tertiary);
+}
+
+#order-standard_cart .panel-sidebar .list-group-item.active {
+    background-color: var(--dr-accent);
+    color: #000;
+    border-color: var(--dr-accent);
+}
+
+/* ============================================
+   PANELS & CARDS
+   ============================================ */
+#order-standard_cart .panel,
+#order-standard_cart .card {
+    background-color: var(--dr-bg-secondary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius-lg);
+}
+
+#order-standard_cart .panel-body,
+#order-standard_cart .card-body {
+    background-color: var(--dr-bg-secondary);
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .panel-footer,
+#order-standard_cart .card-footer {
+    background-color: var(--dr-bg-tertiary);
+    border-top: 1px solid var(--dr-border);
+}
+
+#order-standard_cart .list-group-item {
+    background-color: var(--dr-bg-secondary);
+    border-color: var(--dr-border);
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .list-group-item:hover {
+    background-color: var(--dr-bg-tertiary);
+}
+
+/* ============================================
+   LOADER
+   ============================================ */
+#order-standard_cart .domain-lookup-loader {
+    color: var(--dr-accent);
+}
+
+#order-standard_cart .fa-spinner,
+#order-standard_cart .fas.fa-spinner {
+    color: var(--dr-accent);
+}
+
+#order-standard_cart .domain-searching {
+    color: var(--dr-text-secondary);
+}
+
+/* ============================================
+   ACCESSIBILITY & LINKS
+   ============================================ */
+#order-standard_cart .btn:focus,
+#order-standard_cart .form-control:focus,
+#order-standard_cart a:focus {
+    outline: 2px solid var(--dr-accent);
+    outline-offset: 2px;
+}
+
+#order-standard_cart a {
+    color: var(--dr-accent);
+}
+
+#order-standard_cart a:hover {
+    color: var(--dr-accent-hover);
+}
+
+/* ============================================
+   SALE GROUP BADGES
+   ============================================ */
+#order-standard_cart .tld-sale-group {
+    font-size: 0.7em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+#order-standard_cart .tld-sale-group-hot {
+    background-color: #ff4444;
+    color: #fff;
+}
+
+#order-standard_cart .tld-sale-group-new {
+    background-color: var(--dr-success);
+    color: #fff;
+}
+
+#order-standard_cart .tld-sale-group-sale {
+    background-color: var(--dr-accent);
+    color: #000;
+}
+
+/* ============================================
+   CAPTCHA
+   ============================================ */
+#order-standard_cart .captcha-container,
+#order-standard_cart .default-captcha {
+    background-color: var(--dr-bg-tertiary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius);
+    padding: 20px;
+}
+
+#order-standard_cart .recaptcha-container {
+    display: inline-block;
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+#order-standard_cart select {
+    background-color: var(--dr-bg-input);
+    color: var(--dr-text-primary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius);
+    padding: 10px;
+}
+
+#order-standard_cart select:focus {
+    border-color: var(--dr-accent);
+    box-shadow: 0 0 0 3px var(--dr-accent-glow);
+    outline: none;
+}
+
+#order-standard_cart label {
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .checkbox label,
+#order-standard_cart .radio label {
+    color: var(--dr-text-secondary);
+}
+
+#order-standard_cart input[type="checkbox"],
+#order-standard_cart input[type="radio"] {
+    accent-color: var(--dr-accent);
+}
+
+/* ============================================
+   IDN LANGUAGE SELECTOR
+   ============================================ */
+#order-standard_cart .idn-language-selector {
+    background-color: var(--dr-bg-tertiary);
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius);
+    padding: 15px;
+}
+
+#order-standard_cart .field-error-msg {
+    color: var(--dr-error);
+}
+
+/* ============================================
+   DOMAIN SUGGESTIONS WARNING
+   ============================================ */
+#order-standard_cart .domain-suggestions-warning {
+    color: var(--dr-text-muted);
+    font-size: 0.9em;
+}
+
+#order-standard_cart .domain-suggestions-warning p {
+    color: var(--dr-text-muted);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+    #order-standard_cart {
+        padding: 10px;
+    }
+
+    #order-standard_cart .btn-primary,
+    #order-standard_cart .btn-add-to-cart {
+        padding: 10px 16px;
+    }
+}
+
+/* ============================================
+   FORM LABELS
+   ============================================ */
+#order-standard_cart label {
+    color: #ffffff !important;
+}
+
+[data-background="light"] #order-standard_cart label {
+    color: #333333 !important;
+}
+
+/* ============================================
+   INPUT GROUP BOX PADDING
+   ============================================ */
+#order-standard_cart .input-group.input-group-lg.input-group-box {
+    padding: 15px !important;
+}
+
+/* ============================================
+   INPUT GROUP BOX PADDING
+   ============================================ */
+#order-standard_cart .input-group.input-group-lg.input-group-box {
+    padding: 15px !important;
+}
+
+/* ============================================
+   VIEW CART PAGE
+   ============================================ */
+
+/* Cart Items Header */
+#order-standard_cart .view-cart-items-header {
+    border: 1px solid var(--dr-border);
+    border-radius: 0;
+    padding: 15px 20px;
+    font-weight: 600;
+    color: var(--dr-text-primary);
+}
+
+/* Cart Items Container */
+#order-standard_cart .view-cart-items {
+    border: 1px solid var(--dr-border);
+    border-top: none;
+    border-radius: 0;
+}
+
+/* Individual Cart Items */
+#order-standard_cart .view-cart-items .item {
+    border-bottom: 1px solid var(--dr-border);
+    padding: 20px;
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .view-cart-items .item:hover {
+    background-color: var(--dr-bg-tertiary);
+}
+
+#order-standard_cart .view-cart-items .item:last-child {
+    border-bottom: none;
+}
+
+#order-standard_cart .item-title {
+    color: var(--dr-text-primary);
+    font-weight: 600;
+}
+
+#order-standard_cart .item-group {
+    color: var(--dr-text-secondary);
+}
+
+#order-standard_cart .item-domain {
+    color: var(--dr-accent);
+}
+
+#order-standard_cart .item-price {
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .item-price .cycle {
+    color: var(--dr-text-muted);
+}
+
+/* Empty Cart Message */
+#order-standard_cart .view-cart-empty {
+    background-color: var(--dr-bg-tertiary);
+    color: var(--dr-text-muted);
+    padding: 40px;
+    text-align: center;
+}
+
+/* Empty Cart Button */
+#order-standard_cart .empty-cart {
+    border: 1px solid var(--dr-border);
+    border-top: none;
+    padding: 15px 20px;
+}
+
+#order-standard_cart .empty-cart .btn-link {
+    color: var(--dr-error);
+}
+
+/* Promo/Gateway Sections */
+#order-standard_cart .view-cart-gateway-checkout {
+    background-color: var(--dr-bg-secondary);
+    border: 1px solid var(--dr-border);
+    border-radius: 0;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Tabs Section */
+#order-standard_cart .view-cart-tabs {
+    margin-top: 20px;
+}
+
+#order-standard_cart .nav-tabs {
+    border-bottom: 1px solid var(--dr-border);
+}
+
+#order-standard_cart .nav-tabs .nav-item {
+    margin-bottom: 0;
+}
+
+#order-standard_cart .nav-tabs .nav-link {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--dr-text-secondary);
+    padding: 15px 20px;
+    border-radius: 0;
+}
+
+#order-standard_cart .nav-tabs .nav-link:hover {
+    color: var(--dr-accent);
+    border-color: transparent;
+}
+
+#order-standard_cart .nav-tabs .nav-link.active {
+    color: var(--dr-accent);
+    border-bottom-color: var(--dr-accent);
+    background-color: transparent;
+}
+
+/* Tab Content */
+#order-standard_cart .tab-content {
+    border: 1px solid var(--dr-border);
+    border-top: none;
+    padding: 20px;
+}
+
+#order-standard_cart .tab-pane {
+    color: var(--dr-text-primary);
+}
+
+/* Promo Code Applied */
+#order-standard_cart .view-cart-promotion-code {
+    background-color: var(--dr-bg-tertiary);
+    border: 1px solid var(--dr-accent);
+    padding: 15px;
+    margin-bottom: 15px;
+    color: var(--dr-accent);
+    font-weight: 600;
+}
+
+/* Order Summary Sidebar */
+#order-standard_cart .order-summary {
+    background-color: var(--dr-bg-secondary);
+    border: 1px solid var(--dr-border);
+    border-radius: 0;
+    padding: 25px;
+    position: relative;
+}
+
+#order-standard_cart .order-summary h2 {
+    color: var(--dr-text-primary);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#order-standard_cart .summary-container {
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .subtotal,
+#order-standard_cart .bordered-totals .clearfix,
+#order-standard_cart .recurring-totals {
+    color: var(--dr-text-primary);
+    padding: 10px 0;
+}
+
+#order-standard_cart .bordered-totals {
+    border-top: 1px solid var(--dr-border);
+    border-bottom: 1px solid var(--dr-border);
+    padding: 10px 0;
+}
+
+#order-standard_cart .total-due-today {
+    background-color: var(--dr-accent);
+    color: #000;
+    padding: 20px;
+    margin: 20px -25px;
+    text-align: center;
+}
+
+#order-standard_cart .total-due-today .amt {
+    font-size: 2em;
+    font-weight: 700;
+    display: block;
+}
+
+#order-standard_cart .recurring-charges .cost {
+    color: var(--dr-accent);
+    font-weight: 600;
+}
+
+/* Checkout Button */
+#order-standard_cart .btn-checkout {
+    background-color: var(--dr-accent);
+    border-color: var(--dr-accent);
+    color: #000;
+    font-weight: 600;
+}
+
+#order-standard_cart .btn-checkout:hover {
+    background-color: var(--dr-accent-hover);
+    border-color: var(--dr-accent-hover);
+}
+
+#order-standard_cart .btn-continue-shopping {
+    color: var(--dr-text-muted);
+}
+
+/* Separator */
+#order-standard_cart .separator {
+    color: var(--dr-text-muted);
+    text-align: center;
+    margin: 15px 0;
+}
+
+/* Loader */
+#order-standard_cart .loader {
+    color: var(--dr-accent);
+}
+
+/* Modal */
+#order-standard_cart .modal-content {
+    background-color: var(--dr-bg-secondary);
+    border: 1px solid var(--dr-border);
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .modal-body {
+    background-color: var(--dr-bg-secondary);
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .modal-footer {
+    border-top: 1px solid var(--dr-border);
+}
+
+#order-standard_cart .modal-title {
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .close {
+    color: var(--dr-text-primary);
+    opacity: 0.7;
+}
+
+#order-standard_cart .close:hover {
+    color: var(--dr-text-primary);
+    opacity: 1;
+}
+
+/* Success Button */
+#order-standard_cart .btn-success {
+    background-color: var(--dr-accent);
+    border-color: var(--dr-accent);
+    color: #000;
+}
+
+#order-standard_cart .btn-success:hover {
+    background-color: var(--dr-accent-hover);
+    border-color: var(--dr-accent-hover);
+}
+
+/* Cart Sidebar */
+#order-standard_cart .cart-sidebar {
+    background-color: var(--dr-bg-secondary);
+    border-radius: 0;
+}
+
+/* Secondary Cart Body */
+#order-standard_cart .secondary-cart-body {
+    background-color: transparent;
+}
+
+/* Dropdown Menu in Cart */
+#order-standard_cart .dropdown-menu {
+    background-color: var(--dr-bg-tertiary);
+    border: 1px solid var(--dr-border);
+}
+
+#order-standard_cart .dropdown-menu li a {
+    color: var(--dr-text-primary);
+}
+
+#order-standard_cart .dropdown-menu li a:hover {
+    background-color: var(--dr-bg-secondary);
+    color: var(--dr-accent);
+}
+
+/* Upgrade Credit Row */
+#order-standard_cart .row-upgrade-credit {
+    background-color: var(--dr-bg-tertiary);
+    padding: 10px 20px;
+    margin: 0 -20px;
+}
+
+#order-standard_cart .upgrade-calc-msg {
+    color: var(--dr-text-muted);
+    font-size: 0.9em;
+}
