@@ -5326,7 +5326,6 @@ a.thumbnail.active {
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
-  background-color: #fff;
   border: 1px solid #ddd;
 }
 .list-group-item:first-child {
@@ -13118,4 +13117,255 @@ body:after {
 [data-background="dark"] .alert.alert-success#totalDueToday strong,
 [data-background="dark"] #order-standard_cart .alert.alert-success#totalDueToday strong {
     color: #D4AF37 !important;
+}
+
+/* SELECT DROPDOWN - Dark theme styling */
+[data-background="dark"] select.form-control,
+[data-background="dark"] #inputCountry,
+[data-background="dark"] select.field {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+    border-color: #555 !important;
+}
+
+[data-background="dark"] select.form-control option,
+[data-background="dark"] #inputCountry option,
+[data-background="dark"] select.field option {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+}
+
+/* Dark theme - override body text color */
+html[data-background="dark"] body {
+    color: #cccccc !important;
+}
+
+[data-background="dark"] body {
+    color: #cccccc !important;
+}
+
+/* Client area form inputs - Dark theme */
+[data-background="dark"] #inputFirstName,
+[data-background="dark"] #inputLastName,
+[data-background="dark"] #inputEmail,
+[data-background="dark"] #inputCompanyName,
+[data-background="dark"] #inputAddress1,
+[data-background="dark"] #inputCity,
+[data-background="dark"] #inputState,
+[data-background="dark"] #inputPostcode,
+[data-background="dark"] #inputCountry,
+[data-background="dark"] #inputPhone,
+[data-background="dark"] .form-control {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+    border-color: #555555 !important;
+}
+
+/* Service section border */
+[data-background="dark"] .service-section {
+    border: 1px solid #666666 !important;
+}
+
+[data-background="light"] .service-section {
+    border: 1px solid #cccccc !important;
+}
+
+/* Client area service sections */
+[data-background="dark"] .service-section.bg-seccolorstyle {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] .service-section.bg-seccolorstyle .title {
+    color: #ffffff !important;
+}
+
+[data-background="light"] .service-section.bg-seccolorstyle {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] .service-section.bg-seccolorstyle .title {
+    color: #000000 !important;
+}
+
+/* Client area section headings */
+[data-background="dark"] .clientarea-limited-chracters .section-heading,
+[data-background="dark"] .clientarea-limited-chracters .section-subheading {
+    color: #ffffff !important;
+}
+
+[data-background="light"] .clientarea-limited-chracters .section-heading,
+[data-background="light"] .clientarea-limited-chracters .section-subheading {
+    color: #333333 !important;
+}
+
+/* Client area section border */
+[data-background="dark"] .clientarea-limited-chracters .service-section {
+    border: 1px solid #888888 !important;
+}
+
+[data-background="light"] .clientarea-limited-chracters .service-section {
+    border: 1px solid #cccccc !important;
+}
+
+/* Domain checker buttons padding */
+.input-group-btn.input-group-append .btn {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+/* Quotes table */
+[data-background="dark"] #tableQuotesList {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableQuotesList thead th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableQuotesList tbody td {
+    background-color: #2a2a2a !important;
+    color: #cccccc !important;
+}
+
+[data-background="light"] #tableQuotesList {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableQuotesList thead th {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableQuotesList tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Invoices table */
+[data-background="dark"] #tableInvoicesList {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableInvoicesList thead th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableInvoicesList tbody td {
+    background-color: #2a2a2a !important;
+    color: #cccccc !important;
+}
+
+[data-background="light"] #tableInvoicesList {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableInvoicesList thead th {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableInvoicesList tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Domain checker buttons mobile */
+@media (max-width: 767px) {
+    .input-group-btn.input-group-append {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    .input-group-btn.input-group-append .btn {
+        white-space: nowrap !important;
+        font-size: 12px !important;
+    }
+}
+
+/* Domain checker buttons right justified */
+@media (max-width: 767px) {
+    .input-group-btn.input-group-append {
+        justify-content: flex-end !important;
+    }
+}
+
+/* Services table */
+[data-background="dark"] #tableServicesList {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableServicesList thead th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableServicesList tbody td {
+    background-color: #2a2a2a !important;
+    color: #cccccc !important;
+}
+
+[data-background="light"] #tableServicesList {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableServicesList thead th {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableServicesList tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Domains table */
+[data-background="dark"] #tableDomainsList {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableDomainsList thead th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableDomainsList tbody td {
+    background-color: #2a2a2a !important;
+    color: #cccccc !important;
+}
+
+[data-background="light"] #tableDomainsList {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableDomainsList thead th {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableDomainsList tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* User profile password input */
+[data-background="dark"] #emailChangePasswordConfirmation {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="light"] #emailChangePasswordConfirmation {
+    background-color: #ffffff !important;
+    color: #333333 !important;
 }

@@ -4614,14 +4614,14 @@ section#main-body .card-header .card-option .minimize-card, section#main-body .c
   border-radius: 2px;
 }
 .dropnav-header-lined button.dropside-content {
-  width: 40px;
-  height: 40px;
   color: #fff;
   padding: 0;
-  font-size: 18px;
+  margin-top: 10px;
+  font-size: 28px;
   border-radius: 50px;
   outline: none;
   border-color: transparent;
+  background: transparent;
   transition: all .3s ease-in-out;
   -moz-transition: all .3s ease-in-out;
   -o-transition: all .3s ease-in-out;
@@ -4631,8 +4631,16 @@ section#main-body .card-header .card-option .minimize-card, section#main-body .c
   opacity: 0.6;
 }
 .drop-down-btn.dropside-content:hover, .dropnav-header-lined.open .drop-down-btn.dropside-content {
-  background: #a1a4d2;
+  background: transparent;
   color: #fff;
+}
+[data-background="light"] .dropnav-header-lined button.dropside-content,
+[data-background="light"] .drop-down-btn.dropside-content {
+  color: #333 !important;
+}
+[data-background="light"] .drop-down-btn.dropside-content:hover,
+[data-background="light"] .dropnav-header-lined.open .drop-down-btn.dropside-content {
+  color: #333 !important;
 }
 .dropnav-header-lined .dropdown-menu .panel-heading {
   padding: 7px 10px;
@@ -8278,16 +8286,16 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
 }
 
 [data-color="pink"] .drop-down-btn.dropside-content {
-  background-color: #cc9933 !important;
+  background-color: transparent !important;
 }
 [data-color="blue"] .drop-down-btn.dropside-content {
-  background-color: #55bde5 !important;
+  background-color: transparent !important;
 }
 [data-color="green"] .drop-down-btn.dropside-content {
-  background-color: #97cb3b !important;
+  background-color: transparent !important;
 }
 [data-color="black"] .drop-down-btn.dropside-content {
-  background-color: #4c555d !important;
+  background-color: transparent !important;
 }
 
 [data-color="pink"] .main-content .tab-content .panel-footer {
@@ -9220,7 +9228,6 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
   color: #808080;
 }
 [data-background="dark"] .intl-tel-input.separate-dial-code .selected-flag {
-  background-color: #808080!important;
 }
 [data-background="dark"] #order-standard_cart .field-container {
     background-color: #101920!important;
@@ -10635,6 +10642,28 @@ select {
   }
   .container-clientarea .header-accout-details {
     display: block;
+  }
+}
+/* Keep 2-column layout in clientarea header under 768px */
+@media only screen and (max-width:768px) {
+  .container-clientarea .clientarea-new-header .row {
+    display: flex !important;
+    flex-wrap: wrap;
+  }
+  .container-clientarea .clientarea-new-header .row > [class*="col-"] {
+    display: block;
+    width: 50% !important;
+    float: left;
+  }
+  .container-clientarea .header-features-icons {
+    float: none !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .container-clientarea .header-features-icons .badge.feat {
+    margin-left: 0 !important;
   }
 }
 @media only screen and (max-height:575px) {

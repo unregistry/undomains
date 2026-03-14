@@ -29,6 +29,8 @@ FOOTER
 -->
 <footer id="footer" class="footer">
   {include file="$template/includes/verifyemail.tpl"}
+  
+  <!-- Newsletter Subscription -->
   <div class="subcribe news">
     <div class="container">
       <div class="row">
@@ -46,53 +48,51 @@ FOOTER
       </div>
     </div>
   </div>
+  
+  <!-- Footer Content - All Centered -->
   <div class="container">
-    <div class="footer-top">
-      <div class="row">
-        <div class="col-sm-12 col-md-12 text-center">
-          <div class="heading">Support</div>
-          <ul class="footer-menu classic">
-            <li class="menu-item"><a href="{$WEB_ROOT}/login">Login</a></li>
-            <li class="menu-item"><a href="{$WEB_ROOT}/knowledgebase">Knowledge Base</a></li>
-            <li class="menu-item"><a href="{$WEB_ROOT}/contact">Contact Us</a></li>
+    <div class="footer-content" style="text-align: center; padding: 40px 0;">
+      
+      <!-- Support Menu Row -->
+      <div class="footer-support" style="margin-bottom: 30px;">
+        <ul class="footer-menu classic" style="list-style: none; padding: 0; margin: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 0;">
+          <li class="menu-item"><a href="{$WEB_ROOT}/login">Login</a></li>
+          <li style="margin: 0 10px;">|</li>
+          <li class="menu-item"><a href="{$WEB_ROOT}/knowledgebase">Knowledge Base</a></li>
+          <li style="margin: 0 10px;">|</li>
+          <li class="menu-item"><a href="{$WEB_ROOT}/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <!-- Social & Logo Row -->
+      <div class="footer-brand" style="margin-bottom: 30px;">
+        <div class="soc-icons" style="margin-bottom: 15px;">
+          <a href="https://x.com/undomainsx" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid currentColor; border-radius: 0; background: transparent;"><i class="fab fa-x-twitter"></i></a>
+        </div>
+        <a style="display: block; margin-bottom: 10px;">
+          <img class="logo-footer img-fluid" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.png" alt="undomains" style="height: 35px; width: auto; display: inline-block;">
+        </a>
+        <div class="footer-powered" style="margin-bottom: 10px;">
+          <ul class="footer-menu" style="list-style: none; padding: 0; margin: 0;">
+            <li class="menu-item by" style="display: inline;">Powered by <a href="https://u.onl" target="_blank">U.</a> | Part of <a href="https://un4.com" target="_blank">UN4</a></li>
           </ul>
         </div>
+        <div class="copyright" style="padding-bottom: 0;">{lang key="copyrightFooterNotice" year=$date_year company=$companyname}</div>
       </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-lg-6">
-          <div class="soc-icons">
-            <a href="https://x.com/undomainsx" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid currentColor; border-radius: 0; background: transparent;"><i class="fab fa-x-twitter"></i></a>
-          </div>
-          <a style="padding-top: 20px; display: block;">
-            <img class="logo-footer img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.png" alt="undomains" style="height: 35px; width: auto;">
-            <img class="logo-footer img-fluid d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-light.png" alt="undomains" style="height: 35px; width: auto;">
-          </a>
-          <div class="copyright" style="padding-bottom: 0;">{lang key="copyrightFooterNotice" year=$date_year company=$companyname}</div>
-        </div>
-        <div class="col-md-6 col-lg-6 footer-powered">
-          <ul class="footer-menu powered-by">
-            <li class="menu-item by ml-0">Powered by <a href="https://u.onl" target="_blank">U.</a> | Part of <a href="https://un4.com" target="_blank">UN4</a>
-            </li>
-          </ul>
-        </div>
+      
+      <!-- Payments Row -->
+      <div class="footer-payments">
+        <ul class="payment-list" style="list-style: none; padding: 0; margin: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+          <li><i class="fab fa-cc-paypal"></i></li>
+          <li><i class="fab fa-cc-visa"></i></li>
+          <li><i class="fab fa-cc-mastercard"></i></li>
+          <li><i class="fab fa-cc-apple-pay"></i></li>
+          <li><i class="fab fa-cc-discover"></i></li>
+          <li><i class="fab fa-cc-amazon-pay"></i></li>
+          <li><i class="fab fa-bitcoin"></i></li>
+        </ul>
       </div>
-      <div class="row" style="margin-top: 20px;">
-        <div class="col-md-12 footer-payments">
-          <ul class="payment-list">
-            <li><i class="fab fa-cc-paypal"></i></li>
-            <li><i class="fab fa-cc-visa"></i></li>
-            <li><i class="fab fa-cc-mastercard"></i></li>
-            <li><i class="fab fa-cc-apple-pay"></i></li>
-            <li><i class="fab fa-cc-discover"></i></li>
-            <li><i class="fab fa-cc-amazon-pay"></i></li>
-            <li><i class="fab fa-bitcoin"></i></li>
-          </ul>
-        </div>
-      </div>
+      
     </div>
   </div>
 </footer>
@@ -138,17 +138,6 @@ FOOTER
 [data-background=dark] .box-container .footer,
 [data-background=dark] .footer {
     background-color: #101010 !important;
-}
-
-/* Center footer logo on mobile (under 768px) */
-@media (max-width: 767px) {
-    .footer-bottom a[style*="padding-top: 20px"] {
-        text-align: center !important;
-        display: block !important;
-    }
-    .footer-bottom a[style*="padding-top: 20px"] img {
-        margin: 0 auto !important;
-    }
 }
 
 .footer .heading,

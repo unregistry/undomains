@@ -6,7 +6,7 @@
 		{if $loggedin}
 		<div class="login-header on">
 			<span class="user-info-avatar">
-				<img src="{$WEB_ROOT}/templates/{$template}/assets/img/gravatar.jpg" class="br-50 gravatar" alt="User-Profile-Image">
+				<img src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-icon.svg" class="br-50 gravatar" alt="User-Profile-Image">
 				<a target="_blank" href="https://gravatar.com/">{$LANG.orderForm.edit}</a>
 			</span>
 			<h6>{$LANG.welcomeback}, {$clientsdetails.firstname}<br>

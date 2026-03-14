@@ -91,7 +91,7 @@
     {foreach $descreplies as $reply}
         <div class="ticket-reply markdown-content{if $reply.admin} staff{/if}">
             <div class="user">
-                <img src="{$WEB_ROOT}/templates/{$template}/assets/img/gravatar.jpg" class="gravatar" alt="User-Profile-Image">
+                <img src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-icon.svg" class="gravatar" alt="User-Profile-Image">
                 <span class="name mergecolor">
                 {$reply.requestor.name}
                     <span class="label requestor-type-{$reply.requestor.type_normalised}">

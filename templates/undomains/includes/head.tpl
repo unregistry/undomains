@@ -48,7 +48,7 @@
 {else}
 <html dir="ltr">
 <link href="{$WEB_ROOT}/templates/{$template}/assets/css/main.min.css" rel="stylesheet">
-<link href="{$WEB_ROOT}/templates/{$template}/css/custom.css?v={$versionHash}" rel="stylesheet">
+<link href="{$WEB_ROOT}/templates/{$template}/css/custom.css?f=2" rel="stylesheet">
 <html>
 {/if}
 

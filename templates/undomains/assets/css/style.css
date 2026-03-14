@@ -2890,7 +2890,7 @@ nav .tech-box svg:hover{
 	background-color: #ffffff;
 	position: relative;
 	padding: 50px;
-	margin-top: 50px;
+	margin: 50px 20px 0 20px;
 	border-radius: 0;
 	box-shadow: 0 5px 15px 0 rgba(110, 110, 110, .1);
 	-webkit-transition: 0.3s;

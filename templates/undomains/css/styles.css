@@ -4225,3 +4225,298 @@ div[menuitemname='Active Products/Services'] .btn-view-more.disabled {
 [data-background="dark"] #order-standard_cart .alert.alert-success#totalDueToday strong {
     color: #D4AF37 !important;
 }
+
+/* SELECT DROPDOWN - Dark theme styling */
+[data-background="dark"] select.form-control,
+[data-background="dark"] #inputCountry,
+[data-background="dark"] select.field {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+    border-color: #555 !important;
+}
+
+[data-background="dark"] select.form-control option,
+[data-background="dark"] #inputCountry option,
+[data-background="dark"] select.field option {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+}
+
+/* Form inputs - Dark theme for filled/autofilled inputs */
+[data-background="dark"] input.form-control,
+[data-background="dark"] input[type="text"],
+[data-background="dark"] input[type="email"],
+[data-background="dark"] input[type="password"],
+[data-background="dark"] input[type="tel"] {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+    border-color: #555 !important;
+}
+
+[data-background="dark"] input.form-control:-webkit-autofill,
+[data-background="dark"] input[type="text"]:-webkit-autofill,
+[data-background="dark"] input[type="email"]:-webkit-autofill,
+[data-background="dark"] input[type="password"]:-webkit-autofill,
+[data-background="dark"] input[type="tel"]:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #2a2a2a inset !important;
+    -webkit-text-fill-color: #fff !important;
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+    caret-color: #fff !important;
+}
+
+/* Email Preferences - Dark theme text */
+[data-background="dark"] .form-group h3,
+[data-background="dark"] .checkbox label,
+[data-background="dark"] .controls.checkbox label {
+    color: #cccccc !important;
+}
+
+/* Override body/button/input/select/textarea color in dark theme */
+html[data-background="dark"] body,
+html[data-background="dark"] button,
+html[data-background="dark"] input,
+html[data-background="dark"] select,
+html[data-background="dark"] textarea {
+    color: #cccccc !important;
+}
+
+/* Client area form inputs - Dark theme */
+[data-background="dark"] #inputFirstName,
+[data-background="dark"] #inputLastName,
+[data-background="dark"] #inputEmail,
+[data-background="dark"] #inputCompanyName,
+[data-background="dark"] #inputAddress1,
+[data-background="dark"] #inputAddress2,
+[data-background="dark"] #inputCity,
+[data-background="dark"] #inputState,
+[data-background="dark"] #inputPostcode,
+[data-background="dark"] #inputCountry,
+[data-background="dark"] #inputPhone,
+[data-background="dark"] .form-control {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+    border-color: #555555 !important;
+}
+
+/* Service section border - Dark/Light theme */
+[data-background="dark"] .service-section {
+    border: 1px solid #666666 !important;
+}
+
+[data-background="light"] .service-section {
+    border: 1px solid #cccccc !important;
+}
+
+/* Client area service sections - Dark/Light theme */
+[data-background="dark"] .service-section.bg-seccolorstyle {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] .service-section.bg-seccolorstyle .title {
+    color: #ffffff !important;
+}
+
+[data-background="light"] .service-section.bg-seccolorstyle {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] .service-section.bg-seccolorstyle .title {
+    color: #000000 !important;
+}
+
+/* Client area section headings */
+[data-background="dark"] .clientarea-limited-chracters .section-heading,
+[data-background="dark"] .clientarea-limited-chracters .section-subheading {
+    color: #ffffff !important;
+}
+
+[data-background="light"] .clientarea-limited-chracters .section-heading,
+[data-background="light"] .clientarea-limited-chracters .section-subheading {
+    color: #333333 !important;
+}
+
+/* Client area section border */
+[data-background="dark"] .clientarea-limited-chracters .service-section {
+    border: 1px solid #888888 !important;
+}
+
+[data-background="light"] .clientarea-limited-chracters .service-section {
+    border: 1px solid #cccccc !important;
+}
+
+/* Domain checker buttons padding */
+.input-group-btn.input-group-append .btn {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+/* Quotes table dark/light theme */
+[data-background="dark"] #tableQuotesList {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableQuotesList thead th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableQuotesList tbody td {
+    background-color: #2a2a2a !important;
+    color: #cccccc !important;
+}
+
+[data-background="light"] #tableQuotesList {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableQuotesList thead th {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableQuotesList tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Invoices table dark/light theme */
+[data-background="dark"] #tableInvoicesList {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableInvoicesList thead th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableInvoicesList tbody td {
+    background-color: #2a2a2a !important;
+    color: #cccccc !important;
+}
+
+[data-background="light"] #tableInvoicesList {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableInvoicesList thead th {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableInvoicesList tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Domain checker buttons - stay in pill on mobile */
+@media (max-width: 767px) {
+    .input-group-btn.input-group-append {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    .input-group-btn.input-group-append .btn {
+        white-space: nowrap !important;
+        font-size: 12px !important;
+    }
+    
+    .input-group {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+    }
+}
+
+/* Domain checker buttons - right justified on mobile */
+@media (max-width: 767px) {
+    .input-group-btn.input-group-append {
+        justify-content: flex-end !important;
+        margin-left: auto !important;
+    }
+}
+
+/* Services table dark/light theme */
+[data-background="dark"] #tableServicesList {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableServicesList thead th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableServicesList tbody td {
+    background-color: #2a2a2a !important;
+    color: #cccccc !important;
+}
+
+[data-background="light"] #tableServicesList {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableServicesList thead th {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableServicesList tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Domains table dark/light theme */
+[data-background="dark"] #tableDomainsList {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableDomainsList thead th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-background="dark"] #tableDomainsList tbody td {
+    background-color: #2a2a2a !important;
+    color: #cccccc !important;
+}
+
+[data-background="light"] #tableDomainsList {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableDomainsList thead th {
+    background-color: #f5f5f5 !important;
+    color: #333333 !important;
+}
+
+[data-background="light"] #tableDomainsList tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* User profile password input dark/light theme */
+[data-background="dark"] #emailChangePasswordConfirmation {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-background="light"] #emailChangePasswordConfirmation {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* User profile password - force styling */
+[data-background="dark"] input#emailChangePasswordConfirmation,
+[data-background="dark"] input[name="existing_password"] {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}

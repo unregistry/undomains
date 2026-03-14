@@ -130,7 +130,7 @@
               </div>
             </div>
             <div>
-              <a href="{$WEB_ROOT}/login"><div class="btn btn-default-yellow-fill mt-3">CLIENT AREA</div></a>
+              <a href="{$WEB_ROOT}/login.php"><div class="btn btn-default-yellow-fill mt-3">CLIENT AREA</div></a>
             </div>
           </div>
         </nav>

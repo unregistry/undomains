@@ -6,12 +6,12 @@
             <div class="col-md-8 col-sm-8">
                 <div class="aitems-center">
                     <div class="col profile-photo">
-                        <img class="gravatar br-50" src="{$WEB_ROOT}/templates/{$template}/assets/img/gravatar.jpg" alt="Avatar" title="Avatar for {$loggedinuser.firstname}"/>
+                        <img class="gravatar br-50" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-icon.svg" alt="Avatar" title="Avatar for {$loggedinuser.firstname}"/>
                         <a target="_blank" href="https://gravatar.com/">{$LANG.orderForm.edit}</a>
                     </div>
                     <h5 class="header-accout-details">
                     <span class="username mergecolor">{$clientsdetails.firstname} {$clientsdetails.lastname} !</span>
-                    <span class="adress mergecolor">{$clientsdetails.address1}, {$clientsdetails.city} <b class="mergecolor">{$clientsdetails.country}</b></span></h5>
+                    <span class="adress mergecolor">{if $clientsdetails.address1}{$clientsdetails.address1}, {/if}{$clientsdetails.city} <b class="mergecolor">{$clientsdetails.country}</b></span></h5>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -79,7 +79,7 @@
     </div>
 {/if}
 
-<section class="services overview-services p-80 bg-yellow br-12 clientarea-limited-chracters">
+<section class="services overview-services p-80 br-12 clientarea-limited-chracters">
   <div class="container">
     <div class="service-wrap">
       <div class="row">
