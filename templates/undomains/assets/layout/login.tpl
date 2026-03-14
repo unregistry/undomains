@@ -1,6 +1,6 @@
 <div class="dropdown user-login {if !$loggedin}not-login{/if}">
 	<a href="#" class="iconews" data-toggle="dropdown">
-		<i class="ico-lock f-18 w-icon"></i>
+		<i class="ico-user f-18 w-icon"></i>
 	</a>
 	<div class="dropdown-menu dropdown-menu-right profile-notification bg-seccolorstyle {if $loggedin} logined-user-drop-down{/if}">
 		{if $loggedin}

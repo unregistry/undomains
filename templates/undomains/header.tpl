@@ -37,9 +37,17 @@
         // Also apply to body immediately
         (function() {
             var bg = document.cookie.match(/(?:^|;)\s*background=([^;]*)/);
-            if (bg) {
-                document.body.setAttribute('data-background', bg[1]);
+            if (!bg || !bg[1]) {
+                // Fallback to localStorage if cookie not found (same logic as head script)
+                try {
+                    var stored = localStorage.getItem('undomains_theme');
+                    if (stored) {
+                        bg = [null, stored];
+                    }
+                } catch(e) {}
             }
+            var theme = (bg && bg[1]) ? bg[1] : 'dark';
+            document.body.setAttribute('data-background', theme);
         })();
     </script>
         <div class="box-container limit-width">

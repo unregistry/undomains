@@ -25,7 +25,7 @@
               <i class="fas fa-moon theme-icon-dark"></i>
           </button>
           {include file="$template/assets/layout/notifications.tpl"}
-          <a href="{$WEB_ROOT}/cart.php?a=view" class="iconews"><i class="ico-shopping-cart f-18 w-icon"></i></a>
+          <a href="{$WEB_ROOT}/cart" class="iconews"><i class="ico-shopping-cart f-18 w-icon"></i></a>
           {if $adminMasqueradingAsClient || $adminLoggedIn}
           {include file="$template/assets/layout/adminlogin.tpl"}
           {/if}
@@ -45,7 +45,7 @@
         <div class="col-md-2">
           <a href="{$WEB_ROOT}/">
             <img class="logo-menu logo-dark img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-dark.png" alt="{$companyname}" style="height: 40px; width: auto;">
-            <img class="logo-menu logo-light img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-light.png" alt="{$companyname}" style="height: 40px; width: auto; display: none;">
+            <img class="logo-menu logo-light img-fluid d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-light.png" alt="{$companyname}" style="height: 40px; width: auto;">
           </a>
         </div>
         <nav id="menu" class="col-md-10">
@@ -92,9 +92,9 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-xs-6 col-md-6">
-        <a href="{$WEB_ROOT}/" class=" d-flex">
+        <a href="{$WEB_ROOT}/">
           <img class="logo-menu logo-dark img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-dark.png" alt="{$companyname}" style="height: 35px; width: auto;">
-          <img class="logo-menu logo-light img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-light.png" alt="{$companyname}" style="height: 35px; width: auto; display: none;">
+          <img class="logo-menu logo-light img-fluid d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-light.png" alt="{$companyname}" style="height: 35px; width: auto;">
         </a>
       </div>
       <div class="col-xs-6 col-md-6">
@@ -180,19 +180,20 @@
     display: none !important;
 }
 
-/* Logo Switching - Default to dark logo (dark mode is default) */
-.logo-dark {
+/* Logo Switching - Same logic as footer */
+/* Default (dark mode): show dark logo, hide light logo */
+.logo-menu.logo-dark {
     display: block !important;
 }
-.logo-light {
+.logo-menu.logo-light {
     display: none !important;
 }
 
-/* Light mode - show light logo */
-[data-background="light"] .logo-dark {
+/* Light mode: hide dark logo, show light logo */
+[data-background="light"] .logo-menu.logo-dark {
     display: none !important;
 }
-[data-background="light"] .logo-light {
+[data-background="light"] .logo-menu.logo-light {
     display: block !important;
 }
 
@@ -256,13 +257,18 @@
 
 <script>
 (function() {
-    // Get saved theme and apply IMMEDIATELY - before anything else
-    let currentTheme = localStorage.getItem('undomains_theme') || 'dark';
+    // Get saved theme from localStorage or cookie, default to dark
+    let currentTheme = localStorage.getItem('undomains_theme');
+    if (!currentTheme) {
+        // Try cookie fallback
+        var bg = document.cookie.match(/(?:^|;)\s*background=([^;]*)/);
+        currentTheme = (bg && bg[1]) ? bg[1] : 'dark';
+    }
 
     function applyTheme(theme) {
         // Update HTML element (for CSS selectors)
         document.documentElement.setAttribute('data-background', theme);
-        // Always apply to body first (body always exists)
+        // Always apply to body (for backward compatibility with scripts.js)
         document.body.setAttribute('data-background', theme);
         // Also apply to box-container if it exists
         const boxContainer = document.querySelector('.box-container');
@@ -286,7 +292,7 @@
             currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
             applyTheme(currentTheme);
             localStorage.setItem('undomains_theme', currentTheme);
-            // Also save to cookie for header.tpl to read on page load
+            // Also save to cookie for scripts.js and header.tpl compatibility
             document.cookie = 'background=' + currentTheme + ';path=/;max-age=' + (365 * 24 * 60 * 60);
         });
     }

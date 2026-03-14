@@ -3497,7 +3497,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #23527c;
+  color: #cc9933;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -5203,7 +5203,7 @@ a.thumbnail.active {
   height: 20px;
   margin-bottom: 20px;
   overflow: hidden;
-  background-color: #f5f5f5;
+  border: 1px solid #ccc;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -8057,6 +8057,20 @@ body {
 
 .primary-bg-color {
     background-color: #fff;
+}
+
+/* Dark theme - dark background for primary-bg-color (matches page background) */
+[data-background="dark"] .primary-bg-color,
+[data-background="dark"] #order-standard_cart .primary-bg-color {
+    background-color: #101010 !important;
+    color: #fff !important;
+}
+
+/* Light theme - light background */
+[data-background="light"] .primary-bg-color,
+[data-background="light"] #order-standard_cart .primary-bg-color {
+    background-color: #f5f5f5 !important;
+    color: #333 !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -11406,7 +11420,7 @@ div.md-editor.active {
 .marketing-email-optin {
     margin: 0 0 20px 0;
     padding: 10px 20px 20px;
-    background-color: #f8f8f8;
+    border: 1px solid #ccc;
     border-radius: 3px;
 }
 
@@ -13091,4 +13105,17 @@ body:after {
     width: 300px;
     z-index: 9998;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Alert success dark theme styling for checkout total */
+[data-background="dark"] .alert.alert-success#totalDueToday,
+[data-background="dark"] #order-standard_cart .alert.alert-success#totalDueToday {
+    background-color: #2a2a2a !important;
+    border-color: #D4AF37 !important;
+    color: #fff !important;
+}
+
+[data-background="dark"] .alert.alert-success#totalDueToday strong,
+[data-background="dark"] #order-standard_cart .alert.alert-success#totalDueToday strong {
+    color: #D4AF37 !important;
 }

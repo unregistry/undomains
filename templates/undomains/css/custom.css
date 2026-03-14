@@ -36,6 +36,21 @@
 /* Reduce spacing between header icons */
 .infonews-nav a.iconews {
     margin-left: 10px !important;
+    margin-right: 10px;
+}
+
+.infonews-nav .theme-toggle-btn {
+    margin-right: 10px;
+}
+
+/* User login icon color */
+.dropdown.user-login .iconews,
+.dropdown.user-login a.iconews,
+[data-background="dark"] .dropdown.user-login .iconews,
+[data-background="dark"] .dropdown.user-login a.iconews,
+[data-background="light"] .dropdown.user-login .iconews,
+[data-background="light"] .dropdown.user-login a.iconews {
+    color: #cc9933 !important;
 }
 
 /* ============================================
@@ -215,14 +230,6 @@
 }
 [data-background="light"] .menu-wrap {
 }
-[data-background="light"] .iconews,
-[data-background="light"] .ico-bell,
-[data-background="light"] .ico-shopping-cart,
-[data-background="light"] .ico-lock,
-[data-background="light"] .ico-log-in,
-[data-background="light"] .w-icon {
-    color: #333 !important;
-}
 [data-background="light"] .iconews:hover {
     color: #D4AF37 !important;
 }
@@ -256,6 +263,16 @@
 [data-background="light"] .menu-toggle.active span:before,
 [data-background="light"] .menu-toggle.active span:after {
     background-color: #000 !important;
+}
+
+/* Light Theme - Header Logos (Desktop and Mobile) */
+[data-background="light"] .box-container #header .menu-wrap .logo-menu.logo-dark,
+[data-background="light"] .box-container #menu-mobile .logo-menu.logo-dark {
+    display: none !important;
+}
+[data-background="light"] .box-container #header .menu-wrap .logo-menu.logo-light,
+[data-background="light"] .box-container #menu-mobile .logo-menu.logo-light {
+    display: block !important;
 }
 
 /* Light Theme - Hero Title & Description */
@@ -1502,7 +1519,103 @@ textarea:focus,
 }
 
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
+
+/* Desktop footer right alignment */
+@media (min-width: 769px) {
+    .text-right-desktop {
+        text-align: right;
+    }
+    .footer-menu-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
 @media (max-width: 768px) {
+    /* Footer - stack columns and center all content */
+    footer .row,
+    .footer .row {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    footer [class*="col-"],
+    .footer [class*="col-"] {
+        text-align: center !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        margin-bottom: 20px;
+    }
+
+    footer .heading,
+    footer .copyright,
+    footer .footer-menu,
+    footer .footer-menu li,
+    footer .payment-list,
+    footer .payment-list li,
+    .footer .heading,
+    .footer .copyright,
+    .footer .footer-menu,
+    .footer .footer-menu li,
+    .footer .payment-list,
+    .footer .payment-list li {
+        text-align: center !important;
+    }
+
+    footer .footer-menu,
+    .footer .footer-menu {
+        float: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    .footer-powered,
+    .footer-payments {
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .footer-menu.powered-by {
+        float: none !important;
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    .footer-menu.powered-by .menu-item {
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    footer .footer-bottom .footer-menu,
+    .footer .footer-bottom .footer-menu {
+        text-align: center !important;
+        display: block !important;
+    }
+
+    footer .footer-bottom .footer-menu .menu-item,
+    footer .footer-bottom .footer-menu .menu-item.by,
+    .footer .footer-bottom .footer-menu .menu-item,
+    .footer .footer-bottom .footer-menu .menu-item.by {
+        text-align: center !important;
+        margin-left: 0 !important;
+    }
+
+    footer .payment-list,
+    .footer .payment-list {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+
     #order-standard_cart {
         padding: 10px;
     }
@@ -1516,4 +1629,189 @@ textarea:focus,
     #order-standard_cart .btn-add-to-cart {
         padding: 10px 16px;
     }
+}
+
+/* ===== CART ACTION BUTTONS - NO PADDING ===== */
+#order-standard_cart .btn.btn-link.btn-xs,
+.btn.btn-link.btn-xs,
+.btn-remove-from-cart,
+a.btn.btn-link.btn-xs,
+button.btn.btn-link.btn-xs {
+    padding: 0 !important;
+}
+
+/* Empty Cart button - black in light theme */
+[data-background="light"] #btnEmptyCart,
+[data-background="light"] #btnEmptyCart i,
+[data-background="light"] #btnEmptyCart span {
+    color: #000 !important;
+}
+
+/* Login dropdown margin */
+.dropdown.user-login {
+    margin-right: 15px;
+}
+
+/* Ghost style login button */
+.dropdown.user-login .iconews {
+    background-color: transparent;
+    border: 1px solid #888;
+    color: #888;
+    border-radius: 50px;
+    padding: 8px 12px;
+}
+
+.dropdown.user-login .iconews:hover {
+    background-color: transparent;
+    border-color: #D4AF37;
+    color: #D4AF37;
+}
+
+/* Light theme - darker border/text */
+[data-background="light"] .dropdown.user-login .iconews {
+    border-color: #555;
+    color: #555;
+}
+
+[data-background="light"] .dropdown.user-login .iconews:hover {
+    border-color: #D4AF37;
+    color: #D4AF37;
+}
+
+/* ============================================
+   LOGO SWITCHING - COMPREHENSIVE FIX
+   ============================================ */
+
+/* Dark mode (default) - show dark logo, hide light logo */
+.logo-menu.logo-dark,
+img.logo-menu.logo-dark {
+    display: block !important;
+}
+
+.logo-menu.logo-light,
+img.logo-menu.logo-light {
+    display: none !important;
+}
+
+/* Light mode - hide dark logo, show light logo */
+[data-background="light"] .logo-menu.logo-dark,
+[data-background="light"] img.logo-menu.logo-dark,
+html[data-background="light"] .logo-menu.logo-dark,
+html[data-background="light"] img.logo-menu.logo-dark {
+    display: none !important;
+}
+
+[data-background="light"] .logo-menu.logo-light,
+[data-background="light"] img.logo-menu.logo-light,
+html[data-background="light"] .logo-menu.logo-light,
+html[data-background="light"] img.logo-menu.logo-light {
+    display: block !important;
+}
+
+/* Specific selectors for desktop header */
+[data-background="light"] #header .menu-wrap .logo-menu.logo-dark,
+[data-background="light"] .header .menu-wrap .logo-menu.logo-dark {
+    display: none !important;
+}
+
+[data-background="light"] #header .menu-wrap .logo-menu.logo-light,
+[data-background="light"] .header .menu-wrap .logo-menu.logo-light {
+    display: block !important;
+}
+
+/* Specific selectors for mobile menu */
+[data-background="light"] #menu-mobile .logo-menu.logo-dark,
+[data-background="light"] .menu-wrap.mobile .logo-menu.logo-dark {
+    display: none !important;
+}
+
+[data-background="light"] #menu-mobile .logo-menu.logo-light,
+[data-background="light"] .menu-wrap.mobile .logo-menu.logo-light {
+    display: block !important;
+}
+
+/* Box-container scoped selectors */
+[data-background="light"] .box-container .logo-menu.logo-dark {
+    display: none !important;
+}
+
+[data-background="light"] .box-container .logo-menu.logo-light {
+    display: block !important;
+}
+
+
+/* ============================================
+   LOGO DEBUG - Force visibility test
+   ============================================ */
+
+/* Make sure light logo is in DOM and visible in light mode */
+[data-background="light"] .logo-menu.logo-light {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Force hide dark logo in light mode */
+[data-background="light"] .logo-menu.logo-dark {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Default state - show dark, hide light */
+.logo-menu.logo-dark {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.logo-menu.logo-light {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* ============================================
+   PRIMARY BG COLOR - Dark theme fix
+   ============================================ */
+
+/* Dark theme - dark background for primary-bg-color */
+[data-background="dark"] .primary-bg-color,
+[data-background="dark"] #order-standard_cart .primary-bg-color {
+    background-color: #101010 !important;
+    color: #fff !important;
+}
+
+/* Light theme - keep default or light background */
+[data-background="light"] .primary-bg-color,
+[data-background="light"] #order-standard_cart .primary-bg-color {
+    background-color: #f5f5f5 !important;
+    color: #333 !important;
+}
+
+/* ============================================
+   ALERT SUCCESS - Dark theme styling for checkout total
+   ============================================ */
+
+/* Dark theme - dark background with gold accents */
+[data-background="dark"] .alert.alert-success#totalDueToday,
+[data-background="dark"] #order-standard_cart .alert.alert-success#totalDueToday {
+    background-color: #2a2a2a !important;
+    border-color: #D4AF37 !important;
+    color: #fff !important;
+}
+
+[data-background="dark"] .alert.alert-success#totalDueToday strong,
+[data-background="dark"] #order-standard_cart .alert.alert-success#totalDueToday strong {
+    color: #D4AF37 !important;
+}
+
+/* Light theme - keep default or styled */
+[data-background="light"] .alert.alert-success#totalDueToday,
+[data-background="light"] #order-standard_cart .alert.alert-success#totalDueToday {
+    background-color: #f5f5f5 !important;
+    border-color: #D4AF37 !important;
+    color: #333 !important;
+}
+
+[data-background="light"] .alert.alert-success#totalDueToday strong,
+[data-background="light"] #order-standard_cart .alert.alert-success#totalDueToday strong {
+    color: #000 !important;
 }

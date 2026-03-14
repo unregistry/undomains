@@ -29,7 +29,7 @@ jQuery("#inputNewPassword1").keyup(registerFormPasswordStrengthFeedback);
             <div class="login-wrapper">
                 <div class="login-form-container sec-main sec-bg1 tabs bg-seccolorstyle noshadow">
                     {if $registrationDisabled}
-                    {include file="$template/includes/alert.tpl" type="error" msg=$LANG.registerCreateAccount|cat:' <strong><a href="'|cat:"$WEB_ROOT"|cat:'/cart.php" class="alert-link">'|cat:$LANG.registerCreateAccountOrder|cat:'</a></strong>'}
+                    {include file="$template/includes/alert.tpl" type="error" msg=$LANG.registerCreateAccount|cat:' <strong><a href="'|cat:"$WEB_ROOT"|cat:'/cart" class="alert-link">'|cat:$LANG.registerCreateAccountOrder|cat:'</a></strong>'}
                     {/if}
                     {if $errormessage}
                     {include file="$template/includes/alert.tpl" type="error" errorshtml=$errormessage}

@@ -19,6 +19,12 @@
     # Contact Clean URL
     RewriteRule ^contact$ contact.php [NC,L]
 
+    # Cart/View Clean URL
+    RewriteRule ^cart$ cart.php?a=view [NC,L]
+
+    # Checkout Clean URL
+    RewriteRule ^checkout$ cart.php?a=checkout&e=false [NC,L]
+
     # Domain Search Clean URL
     RewriteRule ^search/(.+)$ cart.php?a=add&domain=register&query=$1 [NC,L]
 

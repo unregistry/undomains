@@ -1,4 +1,4 @@
-<div class="dropdown" style="padding-right: 15px;">
+<div class="dropdown">
     <a href="" class="iconews"  data-toggle="dropdown"><i class="ico-log-in f-18 w-icon"></i></a>
     <div class="dropdown-menu dropdown-menu-right notification">
         <div class="notify-header">

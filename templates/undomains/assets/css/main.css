@@ -8834,8 +8834,8 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
   color: #212122!important;
 }
 [data-background="light"] #order-standard_cart .prepend-icon .field{
-  background-color: #fff !important;
   color: #414412;
+  border: 1px solid #ccc!important;
 }
 [data-background="light"] #order-standard_cart .sub-heading span{
   color: #212122 !important;
@@ -8911,8 +8911,7 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
 }
 /*Order Form*/
 [data-background="light"] #order-standard_cart .form-control {
-  background-color: #fff !important;
-  border:  none!important;
+  border: 1px solid #ccc!important;
 }
 [data-background="dark"] #order-standard_cart #DomainSearchResults .form-control {
   background-color: #fff!important;
@@ -9128,8 +9127,8 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
   color: #fff!important;
 }
 [data-background="dark"] #order-standard_cart .prepend-icon .field{
-  background-color: #15212a !important;
   color: #aaa!important;
+  border: 1px solid #555!important;
 }
 [data-background="dark"] #order-standard_cart .sub-heading span{
   color: #fff !important;
@@ -9205,8 +9204,7 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
 }
 /*Order Form*/
 [data-background="dark"] #order-standard_cart .form-control {
-  background-color: #15212a !important;
-  border:  none!important;
+  border: 1px solid #555!important;
 }
 [data-background="dark"] #order-standard_cart #DomainSearchResults .form-control {
   background-color: #101920!important;

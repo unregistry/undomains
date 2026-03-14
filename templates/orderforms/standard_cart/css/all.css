@@ -525,6 +525,13 @@
     margin: 0 0 0 10px;
 }
 
+#order-standard_cart #btnAlreadyRegistered:hover,
+#order-standard_cart #btnNewUserSignup:hover {
+    background-color: #cc9933 !important;
+    border-color: #cc9933 !important;
+    color: #fff !important;
+}
+
 #order-standard_cart .checkout-error-feedback {
     margin: 15px 0;
 }
@@ -709,9 +716,6 @@
     border-right: 0;
     font-size: 0.8em;
 }
-#order-standard_cart .view-cart-items .item:nth-child(even) {
-    background-color: #eee;
-}
 #order-standard_cart .view-cart-items .item span:not(.caret):not(.renewal-price) {
     display: block;
 }
@@ -721,8 +725,8 @@
 #order-standard_cart .view-cart-items .item-group {
     font-size: 1.2em;
 }
-#order-standard_cart .view-cart-items .item-domain {
-    color: #056;
+#order-standard_cart .view-cart-items .item-domain{
+    font-size: 1.5em;
 }
 #order-standard_cart .view-cart-items .item-price {
     text-align: right;
@@ -761,9 +765,7 @@
 #order-standard_cart .empty-cart .btn {
     margin: 0;
     padding: 4px 10px;
-    background-color: #058;
     border: 0;
-    color: #fff;
     border-radius: 0 0 4px 4px;
 }
 

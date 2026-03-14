@@ -528,6 +528,13 @@
     margin: 0 0 0 10px;
 }
 
+#order-standard_cart #btnAlreadyRegistered:hover,
+#order-standard_cart #btnNewUserSignup:hover {
+    background-color: #cc9933 !important;
+    border-color: #cc9933 !important;
+    color: #fff !important;
+}
+
 #order-standard_cart .checkout-error-feedback {
     margin: 15px 0;
 }

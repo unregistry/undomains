@@ -268,7 +268,7 @@
                                 <label for="inputPostcode" class="field-icon">
                                     <i class="fas fa-certificate"></i>
                                 </label>
-                                <input type="text" name="postcode" id="inputPostcode" class="field form-control" placeholder="{$LANG.orderForm.postcode}" value="{$clientsdetails.postcode}">
+                                <input type="text" name="postcode" id="inputPostcode" class="field form-control" placeholder="{$LANG.orderForm.postcode}" value="" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" onblur="if(!this.value)this.setAttribute('readonly','readonly');">
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -492,7 +492,7 @@
                                     <label for="inputNewPassword1" class="field-icon">
                                         <i class="fas fa-lock"></i>
                                     </label>
-                                    <input type="password" name="password" id="inputNewPassword1" data-error-threshold="{$pwStrengthErrorThreshold}" data-warning-threshold="{$pwStrengthWarningThreshold}" class="field form-control" placeholder="{$LANG.clientareapassword}"{if $remote_auth_prelinked} value="{$password}"{/if}>
+                                    <input type="password" name="password" id="inputNewPassword1" data-error-threshold="{$pwStrengthErrorThreshold}" data-warning-threshold="{$pwStrengthWarningThreshold}" class="field form-control" placeholder="{$LANG.clientareapassword}" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');"{if $remote_auth_prelinked} value="{$password}"{/if}>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -500,7 +500,7 @@
                                     <label for="inputNewPassword2" class="field-icon">
                                         <i class="fas fa-lock"></i>
                                     </label>
-                                    <input type="password" name="password2" id="inputNewPassword2" class="field form-control" placeholder="{$LANG.clientareaconfirmpassword}"{if $remote_auth_prelinked} value="{$password}"{/if}>
+                                    <input type="password" name="password2" id="inputNewPassword2" class="field form-control" placeholder="{$LANG.clientareaconfirmpassword}" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');"{if $remote_auth_prelinked} value="{$password}"{/if}>
                                 </div>
                             </div>
                             <div class="col-sm-6">

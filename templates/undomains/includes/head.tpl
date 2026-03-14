@@ -6,7 +6,7 @@
 <link href="{assetPath file='all.min.css'}?v={$versionHash}" rel="stylesheet">
 <link href="{$WEB_ROOT}/templates/{$template}/assets/css/flickity.min.css" rel="stylesheet">
 <link href="{$WEB_ROOT}/templates/{$template}/assets/css/aos.min.css" rel="stylesheet">
-<link href="{$WEB_ROOT}/templates/{$template}/assets/css/style.min.css?v=2" rel="stylesheet">
+<link href="{$WEB_ROOT}/templates/{$template}/assets/css/style.min.css?v=3" rel="stylesheet">
 <link href="{$WEB_ROOT}/templates/{$template}/assets/css/main.min.css" rel="stylesheet">
 
 <!-- Icons Styling -->

@@ -2455,7 +2455,7 @@ jQuery(document).ready(function() {
         }
     });
     setRecommendationColors();
-    if (document.URL.includes('cart.php?a=checkout') || document.URL.includes('cart.php?a=view')) {
+    if (document.URL.includes('/checkout') || document.URL.includes('cart.php?a=checkout') || document.URL.includes('cart.php?a=view')) {
         if (jQuery('#recommendationsModal .product-recommendation:not(.clonable)').length > 0) {
             jQuery('#recommendationsModal').modal('toggle');
         }

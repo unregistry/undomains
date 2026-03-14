@@ -132,11 +132,6 @@
                                                 {/if}
                                                 {if $product.proratadate}<br />({$LANG.orderprorata} {$product.proratadate}){/if}
                                             </div>
-                                            <div class="col-sm-1 hidden-xs d-none d-sm-block">
-                                                <button type="button" class="btn btn-link btn-xs btn-remove-from-cart" onclick="removeItem('p','{$num}')">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                     {foreach $product.addons as $addonnum => $addon}
@@ -209,11 +204,6 @@
                                                 {if $addon.setup}{$addon.setup->toPrefixed()} {$LANG.ordersetupfee}{/if}
                                                 {if $addon.isProrated}<br />({$LANG.orderprorata} {$addon.prorataDate}){/if}
                                             </div>
-                                            <div class="col-sm-1 hidden-xs d-none d-sm-block">
-                                                <button type="button" class="btn btn-link btn-xs btn-remove-from-cart" onclick="removeItem('a','{$num}')">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                 {/foreach}
@@ -224,14 +214,12 @@
                                             <div class="col-sm-7">
                                                 <span class="item-title">
                                                     {if $domain.type eq "register"}{$LANG.orderdomainregistration}{else}{$LANG.orderdomaintransfer}{/if}
-                                                    <a href="{$WEB_ROOT}/cart.php?a=confdomains" class="btn btn-link btn-xs">
+                                                    <a href="{$WEB_ROOT}/cart.php?a=confdomains" class="btn-link btn-xs">
                                                         <i class="fas fa-pencil-alt"></i>
-                                                        {$LANG.orderForm.edit}
                                                     </a>
                                                     <span class="visible-xs-inline d-inline d-sm-none">
-                                                        <button type="button" class="btn btn-link btn-xs btn-remove-from-cart" onclick="removeItem('d','{$num}')">
+                                                        <button type="button" class="btn-link btn-xs btn-remove-from-cart" onclick="removeItem('d','{$num}')">
                                                             <i class="fas fa-times"></i>
-                                                            {$LANG.orderForm.remove}
                                                         </button>
                                                     </span>
                                                 </span>
@@ -272,11 +260,6 @@
                                                         {lang key='domainrenewalprice'} <span class="renewal-price cycle">{if isset($domain.renewprice)}{$domain.renewprice->toPrefixed()}{$domain.shortRenewalYearsLanguage}{/if}</span>
                                                     </span>
                                                 {/if}
-                                            </div>
-                                            <div class="col-sm-1 hidden-xs d-none d-sm-block">
-                                                <button type="button" class="btn btn-link btn-xs btn-remove-from-cart" onclick="removeItem('d','{$num}')">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -458,11 +441,6 @@
 
                         <div class="view-cart-tabs">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="nav-item active">
-                                    <a href="#applyPromo" class="nav-link active" aria-controls="applyPromo" role="tab" data-toggle="tab"{if $template == 'twenty-one'} aria-selected="true"{else} aria-expanded="true"{/if}>
-                                        {$LANG.orderForm.applyPromoCode}
-                                    </a>
-                                </li>
                                 {if $taxenabled && !$loggedin}
                                     <li role="presentation" class="nav-item">
                                         <a href="#calcTaxes" class="nav-link" aria-controls="calcTaxes" role="tab" data-toggle="tab"{if $template == 'twenty-one'} aria-selected="false"{else} aria-expanded="false"{/if}>
@@ -602,13 +580,13 @@
                                     {/foreach}
                                 </div>
 
-                                <div class="text-right">
-                                    <a href="{$WEB_ROOT}/cart.php?a=checkout&e=false" class="btn btn-success btn-lg btn-checkout{if $cartitems == 0} disabled{/if}" id="checkout">
-                                        {$LANG.orderForm.checkout}
-                                        <i class="fas fa-arrow-right"></i>
-                                    </a><br />
+                                <div class="cart-buttons-row" style="display: flex; justify-content: space-between; align-items: center;">
                                     <a href="{$WEB_ROOT}/cart.php" class="btn btn-link btn-continue-shopping" id="continueShopping">
                                         {$LANG.orderForm.continueShopping}
+                                    </a>
+                                    <a href="{$WEB_ROOT}/checkout" class="btn btn-success btn-lg btn-checkout{if $cartitems == 0} disabled{/if}" id="checkout">
+                                        {$LANG.orderForm.checkout}
+                                        <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
 

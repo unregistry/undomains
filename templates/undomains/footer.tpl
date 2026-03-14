@@ -49,16 +49,9 @@ FOOTER
   <div class="container">
     <div class="footer-top">
       <div class="row">
-        <div class="col-sm-6 col-md-6">
-          <div class="soc-icons">
-            <a href="https://x.com/undomainsx" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid currentColor; border-radius: 0; background: transparent;"><i class="fab fa-x-twitter"></i></a>
-          </div>
-          <a style="padding-top: 20px; display: block;"><img class="logo-footer img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.png" alt="undomains" style="height: 35px; width: auto;"></a>
-          <div class="copyright" style="padding-bottom: 0;">{lang key="copyrightFooterNotice" year=$date_year company=$companyname}</div>
-        </div>
-        <div class="col-sm-6 col-md-6 text-right">
+        <div class="col-sm-12 col-md-12 text-center">
           <div class="heading">Support</div>
-          <ul class="footer-menu classic" style="display: flex; flex-direction: column; align-items: flex-end;">
+          <ul class="footer-menu classic">
             <li class="menu-item"><a href="{$WEB_ROOT}/login">Login</a></li>
             <li class="menu-item"><a href="{$WEB_ROOT}/knowledgebase">Knowledge Base</a></li>
             <li class="menu-item"><a href="{$WEB_ROOT}/contact">Contact Us</a></li>
@@ -71,14 +64,25 @@ FOOTER
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-6">
-          <ul class="footer-menu">
+          <div class="soc-icons">
+            <a href="https://x.com/undomainsx" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid currentColor; border-radius: 0; background: transparent;"><i class="fab fa-x-twitter"></i></a>
+          </div>
+          <a style="padding-top: 20px; display: block;">
+            <img class="logo-footer img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.png" alt="undomains" style="height: 35px; width: auto;">
+            <img class="logo-footer img-fluid d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-light.png" alt="undomains" style="height: 35px; width: auto;">
+          </a>
+          <div class="copyright" style="padding-bottom: 0;">{lang key="copyrightFooterNotice" year=$date_year company=$companyname}</div>
+        </div>
+        <div class="col-md-6 col-lg-6 footer-powered">
+          <ul class="footer-menu powered-by">
             <li class="menu-item by ml-0">Powered by <a href="https://u.onl" target="_blank">U.</a> | Part of <a href="https://un4.com" target="_blank">UN4</a>
             </li>
           </ul>
         </div>
-        <div class="col-md-6 col-lg-6">
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-12 footer-payments">
           <ul class="payment-list">
-            <li><p>Payments We Accept</p></li>
             <li><i class="fab fa-cc-paypal"></i></li>
             <li><i class="fab fa-cc-visa"></i></li>
             <li><i class="fab fa-cc-mastercard"></i></li>
@@ -134,6 +138,17 @@ FOOTER
 [data-background=dark] .box-container .footer,
 [data-background=dark] .footer {
     background-color: #101010 !important;
+}
+
+/* Center footer logo on mobile (under 768px) */
+@media (max-width: 767px) {
+    .footer-bottom a[style*="padding-top: 20px"] {
+        text-align: center !important;
+        display: block !important;
+    }
+    .footer-bottom a[style*="padding-top: 20px"] img {
+        margin: 0 auto !important;
+    }
 }
 
 .footer .heading,
