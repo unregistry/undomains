@@ -58,19 +58,22 @@ FOOTER
         <ul class="footer-menu classic" style="list-style: none; padding: 0; margin: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 0;">
           <li class="menu-item"><a href="{$WEB_ROOT}/login">Login</a></li>
           <li style="margin: 0 10px;">|</li>
-          <li class="menu-item"><a href="{$WEB_ROOT}/knowledgebase">Knowledge Base</a></li>
+          <li class="menu-item"><a href="{$WEB_ROOT}/knowledgebase">Knowledgebase</a></li>
           <li style="margin: 0 10px;">|</li>
-          <li class="menu-item"><a href="{$WEB_ROOT}/contact">Contact Us</a></li>
+          <li class="menu-item"><a href="{$WEB_ROOT}/contact">Contact</a></li>
         </ul>
       </div>
       
       <!-- Social & Logo Row -->
       <div class="footer-brand" style="margin-bottom: 30px;">
-        <div class="soc-icons" style="margin-bottom: 15px;">
+        <div class="soc-icons" style="margin-bottom: 15px; display: inline-flex; gap: 10px;">
           <a href="https://x.com/undomainsx" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid currentColor; border-radius: 0; background: transparent;"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://www.linkedin.com/company/unregistrar/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid currentColor; border-radius: 0; background: transparent;"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/unregistrar" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid currentColor; border-radius: 0; background: transparent;"><i class="fab fa-facebook-f"></i></a>
         </div>
         <a style="display: block; margin-bottom: 10px;">
-          <img class="logo-footer img-fluid" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo.png" alt="undomains" style="height: 35px; width: auto; display: inline-block;">
+          <img class="logo-footer logo-dark img-fluid d-block" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-dark.png" alt="undomains" style="height: 35px; width: auto; display: inline-block; margin: 0 auto;">
+          <img class="logo-footer logo-light img-fluid d-none" src="{$WEB_ROOT}/templates/{$template}/assets/img/undomains-logo-light.png" alt="undomains" style="height: 35px; width: auto; display: inline-block; margin: 0 auto;">
         </a>
         <div class="footer-powered" style="margin-bottom: 10px;">
           <ul class="footer-menu" style="list-style: none; padding: 0; margin: 0;">
@@ -154,6 +157,7 @@ FOOTER
     border-radius: 50px;
     padding: 8px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
 }
 
 .pill-input {

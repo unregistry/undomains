@@ -594,7 +594,7 @@ input:-webkit-autofill {
 }
 
 .sec-bg4 {
-	background-color: #222222;
+	background-color: rgba(34,34,34,0.5);
 }
 
 .sec-bg6 {

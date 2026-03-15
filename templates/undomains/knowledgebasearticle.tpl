@@ -25,7 +25,7 @@
 </ul>
 <div class="clearfix"></div>
 <div class="kb-rate-article hidden-print bg-seccolorstyle bg-white noshadow">
-    <form action="{routePath('knowledgebase-article-view', {$kbarticle.id}, {$kbarticle.urlfriendlytitle})}" method="post" class="row">
+    <form action="/knowledgebase/{$kbarticle.id}/{str_replace([' ',',','&','?','='], ['-','','','',''], $kbarticle.title)}.html" method="post" class="row">
         <div class="col-md-8">
             <input type="hidden" name="useful" value="vote">
             <h4 class="c-black mergecolor">{if $kbarticle.voted}{$LANG.knowledgebaserating}{else}{$LANG.knowledgebasehelpful}{/if} </h4>
@@ -49,7 +49,7 @@
             {if $kbcats}
             {foreach from=$kbcats name=kbcats item=kbcat}
             <div class="col-sm-12">
-                <a class="mergecolor" href="{routePath('knowledgebase-category-view', {$kbcat.id}, {$kbcat.urlfriendlyname})}">
+                <a class="mergecolor" href="/knowledgebase/{$kbcat.id}/{str_replace(' ','-',$kbcat.name)}">
                     <i class="ico-file"></i>
                     {$kbcat.name} <span>{$kbcat.numarticles} {$LANG.knowledgebasearticles}</Span>
                 </a>
@@ -60,7 +60,7 @@
             {if $kbarticles || !$kbcats}
             <div class="kbarticles bg-seccolorstyle bg-white noshadow mt-5 p-0">
                 {foreach from=$kbarticles item=kbarticle}
-                <a class="mergecolor br-12" href="{routePath('knowledgebase-article-view', {$kbarticle.id}, {$kbarticle.urlfriendlytitle})}">
+                <a class="mergecolor br-12" href="/knowledgebase/{$kbarticle.id}/{str_replace([' ',',','&','?','='], ['-','','','',''], $kbarticle.title)}.html">
 
                     <span class="glyphicon glyphicon-file"></span>
                     <div class="d-block">

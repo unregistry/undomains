@@ -18,7 +18,7 @@
         <div class="know-bgbox-container">
             {foreach from=$kbcats name=kbcats item=kbcat}
                 <div class="col-sm-12 mb-3">
-                    <a class="mergecolor" href="/knowledgebase/{$kbcat.id}/{str_replace(' ','-',$kbcat.name)}">
+                    <a class="mergecolor" href="{routePath('knowledgebase-category-view', {$kbcat.id}, {$kbcat.urlfriendlyname})}">
                         <i class="ico-file"></i>
                         {$kbcat.name} <span>({$kbcat.numarticles} articles)</span>
                     </a>

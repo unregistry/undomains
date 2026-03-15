@@ -163,7 +163,6 @@
 
 /* Light Theme - Domain Search */
 [data-background="light"] .domain-search-wrapper {
-    background: #fff;
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
 }
 [data-background="light"] .domain-input {
@@ -1769,6 +1768,47 @@ html[data-background="light"] img.logo-menu.logo-light {
 }
 
 /* ============================================
+   FOOTER LOGO - Theme switching
+   ============================================ */
+
+/* Default state - show dark logo, hide light logo in footer */
+.logo-footer.logo-dark,
+img.logo-footer.logo-dark {
+    display: block !important;
+}
+
+.logo-footer.logo-light,
+img.logo-footer.logo-light {
+    display: none !important;
+}
+
+/* Light mode - hide dark logo, show light logo in footer */
+[data-background="light"] .logo-footer.logo-dark,
+[data-background="light"] img.logo-footer.logo-dark,
+html[data-background="light"] .logo-footer.logo-dark,
+html[data-background="light"] img.logo-footer.logo-dark {
+    display: none !important;
+}
+
+[data-background="light"] .logo-footer.logo-light,
+[data-background="light"] img.logo-footer.logo-light,
+html[data-background="light"] .logo-footer.logo-light,
+html[data-background="light"] img.logo-footer.logo-light {
+    display: block !important;
+}
+
+/* ============================================
+   FOOTER SOCIAL ICONS - Light theme border
+   ============================================ */
+
+/* Light theme - dark grey border for social icons */
+[data-background="light"] .footer .soc-icons a,
+html[data-background="light"] .footer .soc-icons a {
+    border-color: #444 !important;
+    color: #444 !important;
+}
+
+/* ============================================
    PRIMARY BG COLOR - Dark theme fix
    ============================================ */
 
@@ -1816,4 +1856,103 @@ html[data-background="light"] img.logo-menu.logo-light {
     color: #000 !important;
 }
 
+}
+
+/* ============================================
+   NEWSLETTER SUBSCRIPTION - Always visible
+   ============================================ */
+
+/* Ensure newsletter section is always visible */
+.subcribe.news {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Newsletter form - responsive on all screen sizes */
+@media (max-width: 767px) {
+    .subcribe.news .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .subcribe.news .col-md-6 {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        float: none !important;
+    }
+    
+    .subcribe.news .subscribe-pill-wrapper {
+        flex-direction: column !important;
+        border-radius: 20px !important;
+        padding: 10px !important;
+    }
+    
+    .subcribe.news .pill-input {
+        width: 100% !important;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    .subcribe.news .pill-button {
+        width: 100% !important;
+    }
+}
+
+/* ============================================
+   NEWSLETTER DARK/LIGHT THEME STYLING
+   ============================================ */
+
+/* Light theme - keep default white styling */
+[data-background="light"] .subcribe.news .subscribe-pill-wrapper {
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border: 1px solid #444;
+}
+
+[data-background="light"] .subcribe.news .pill-input {
+    background: #fff;
+    color: #333;
+}
+
+[data-background="light"] .subcribe.news .pill-input::placeholder {
+    color: #666;
+}
+
+[data-background="light"] .subcribe.news p {
+    color: #fff;
+}
+
+/* Dark theme - dark background with gold accents */
+[data-background="dark"] .subcribe.news .subscribe-pill-wrapper {
+    background: #2a2a2a;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    border: 1px solid #444;
+}
+
+[data-background="dark"] .subcribe.news .pill-input {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+[data-background="dark"] .subcribe.news .pill-input::placeholder {
+    color: #888;
+}
+
+[data-background="dark"] .subcribe.news .pill-button {
+    background: linear-gradient(135deg, #D4AF37 0%, #b8962e 100%);
+}
+
+[data-background="dark"] .subcribe.news p {
+    color: #e0e0e0;
+}
+
+/* ============================================
+   SECTION SUBHEADING - White in both themes
+   ============================================ */
+
+[data-background="dark"] .section-subheading,
+[data-background="light"] .section-subheading,
+.section-subheading {
+    color: #ffffff !important;
 }

@@ -40,7 +40,7 @@
                                 </script>
 
                                 <div class="domain-pricing" data-aos="fade-up" data-aos-duration="1400">
-                                    <span>Starting from <strong>$9.99/yr</strong></span>
+                                    <span>.com as low as <strong>$11.00</strong></span>
                                 </div>
                             </div>
                             <div class="col-lg-5 d-none d-lg-block">
@@ -159,7 +159,6 @@
 .domain-search-wrapper {
     display: flex;
     gap: 10px;
-    background: #fff;
     border: 1px solid #fff;
     border-radius: 50px;
     padding: 8px;
@@ -223,7 +222,7 @@
 }
 
 .domain-pricing strong {
-    color: #4CAF50;
+    color: #CC9933;
     font-size: 18px;
 }
 

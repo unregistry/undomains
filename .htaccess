@@ -19,6 +19,13 @@
     # Contact Clean URL
     RewriteRule ^contact$ contact.php [NC,L]
 
+    # Knowledgebase Articles with .html extension
+    RewriteRule ^knowledgebase/([0-9]+)/([^/]+)\.html$ index.php?rp=/knowledgebase/$1/$2.html [NC,L]
+    # Knowledgebase Categories (no .html)
+    RewriteRule ^knowledgebase/([0-9]+)/([^/]+)/?$ index.php?rp=/knowledgebase/$1/$2 [NC,L]
+    # Main knowledgebase page
+    RewriteRule ^knowledgebase/?$ index.php?rp=/knowledgebase [NC,L]
+
     # Cart/View Clean URL
     RewriteRule ^cart$ cart.php?a=view [NC,L]
 

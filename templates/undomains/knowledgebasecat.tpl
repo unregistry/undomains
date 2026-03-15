@@ -17,7 +17,7 @@
             {if $kbcats}
             {foreach from=$kbcats name=kbcats item=kbcat}
             <div class="col-sm-12">
-                <a class="mergecolor" href="{routePath('knowledgebase-category-view', {$kbcat.id}, {$kbcat.urlfriendlyname})}">
+                <a class="mergecolor" href="/knowledgebase/{$kbcat.id}/{str_replace(' ','-',$kbcat.name)}">
                     <i class="ico-file"></i>
                     {$kbcat.name} <span>{$kbcat.numarticles} {$LANG.knowledgebasearticles}</Span>
                 </a>
@@ -33,7 +33,7 @@
     <div class="kbarticles bg-seccolorstyle bg-white noshadow mt-5">
     {if $kbarticles || !$kbcats}
         {foreach from=$kbarticles item=kbarticle}
-        <a class="mergecolor br-12" href="{routePath('knowledgebase-article-view', {$kbarticle.id}, {$kbarticle.urlfriendlytitle})}">
+        <a class="mergecolor br-12" href="/knowledgebase/{$kbarticle.id}/{str_replace([' ',',','&','?','='], ['-','','','',''], $kbarticle.title)}.html">
             <span class="glyphicon glyphicon-file"></span>
             <div class="d-block">
                 <h4 class="mergecolor"> {$kbarticle.title}</h4>
