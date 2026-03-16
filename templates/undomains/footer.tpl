@@ -185,6 +185,17 @@ FOOTER
     transform: scale(1.02);
     box-shadow: 0 5px 20px rgba(204, 153, 51, 0.4);
 }
+
+/* Footer powered by links - U. and UN4 */
+.menu-item.by a {
+    font-weight: bold !important;
+    color: #cc9933 !important;
+    transition: font-size 0.2s ease;
+}
+
+.menu-item.by a:hover {
+    font-size: 1.1em;
+}
 </style>
 
 <!-- Toast Notification -->
