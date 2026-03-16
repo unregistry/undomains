@@ -171,7 +171,7 @@ FOOTER
 
 .pill-button {
     background: linear-gradient(135deg, #e6c87a 0%, #cc9933 100%);
-    color: #fff;
+    color: #000;
     border: none;
     padding: 12px 30px;
     border-radius: 40px;
