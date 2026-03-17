@@ -1,0 +1,735 @@
+/**
+ * Undomains Admin Theme - Black & Gold (#cc9933)
+ * Custom styling for WHMCS admin panel
+ */
+
+/* ============================================
+   NAVIGATION BAR - Black Background with Gold
+   ============================================ */
+
+.navigation {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%) !important;
+    border-bottom: 3px solid #cc9933 !important;
+    box-shadow: 0 2px 15px rgba(204, 153, 51, 0.4) !important;
+}
+
+/* Logo styling */
+.navigation .logo {
+    background: transparent !important;
+    padding: 5px 15px !important;
+}
+
+.navigation .logo img {
+    max-height: 40px;
+}
+
+/* Navigation Links - White Text */
+.navigation .navbar-collapse > ul > li > a {
+    color: #fff !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.navigation .navbar-collapse > ul > li > a:hover {
+    color: #cc9933 !important;
+    background: rgba(204, 153, 51, 0.15) !important;
+}
+
+.navigation .navbar-collapse > ul > li > a > i {
+    color: #cc9933 !important;
+}
+
+/* Dropdown Menus - Black with Gold Accents */
+.navigation .has-dropdown ul {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%) !important;
+    border: 1px solid #cc9933 !important;
+    border-top: 2px solid #cc9933 !important;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Dropdown icons - white color */
+.navigation .has-dropdown .ico-container i {
+    color: #fff !important;
+}
+
+.navigation .has-dropdown ul li a:hover .ico-container i {
+    color: #cc9933 !important;
+}
+
+.navigation .has-dropdown ul li a {
+    color: #e0e0e0 !important;
+    border-bottom: 1px solid rgba(204, 153, 51, 0.1) !important;
+}
+
+.navigation .has-dropdown ul li a:hover {
+    background: rgba(204, 153, 51, 0.2) !important;
+    color: #cc9933 !important;
+}
+
+.navigation .has-dropdown ul li a:hover i {
+    color: #cc9933 !important;
+}
+
+/* Right Navigation Icons */
+.navigation .right-nav li a {
+    color: #fff !important;
+}
+
+.navigation .right-nav li a:hover {
+    color: #cc9933 !important;
+    background: rgba(204, 153, 51, 0.15) !important;
+}
+
+/* Sidebar Toggle */
+.navigation .left-nav li a {
+    color: #fff !important;
+}
+
+.navigation .left-nav li a:hover {
+    color: #cc9933 !important;
+}
+
+/* Search Box */
+.intellisearch {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%) !important;
+    border-bottom: 2px solid #cc9933 !important;
+}
+
+.intellisearch input {
+    background: #2a2a2a !important;
+    color: #cc9933 !important;
+}
+
+.intellisearch input::placeholder {
+    color: #888 !important;
+}
+
+/* Sub-menus */
+.navigation .has-dropdown .sub-menu ul {
+    background: #1a1a1a !important;
+    border-left: 2px solid #cc9933 !important;
+}
+
+/* Dropdown Carets */
+.navigation .caret {
+    border-top-color: #cc9933 !important;
+}
+
+/* Labels/Badges */
+.navigation .label-success {
+    background-color: #cc9933 !important;
+    color: #000 !important;
+}
+
+/* Scrollbar styling for dropdowns */
+.navigation .has-dropdown ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.navigation .has-dropdown ul::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+.navigation .has-dropdown ul::-webkit-scrollbar-thumb {
+    background: #cc9933;
+    border-radius: 4px;
+}
+
+/* Menu Dividers */
+.navigation .divider {
+    background-color: rgba(204, 153, 51, 0.3) !important;
+}
+
+/* Hover Animation */
+.navigation .has-dropdown > a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #cc9933;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navigation .has-dropdown:hover > a::after {
+    width: 80%;
+}
+
+/* Profile Icon Styling */
+.navigation .profile-icon {
+    border: 2px solid #cc9933 !important;
+    box-shadow: 0 0 5px rgba(204, 153, 51, 0.4);
+}
+
+/* ============================================
+   FOOTER - Black & Gold Theme (Sticky Bottom)
+   ============================================ */
+
+.footerbar {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%) !important;
+    border-top: 3px solid #cc9933 !important;
+    color: #cc9933 !important;
+    padding: 20px 30px !important;
+    box-shadow: 0 -2px 15px rgba(204, 153, 51, 0.3) !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+}
+
+/* Add padding to content area so footer doesn't overlap */
+#contentarea {
+    padding-bottom: 80px !important;
+}
+
+.footerbar .copyright {
+    color: #cc9933 !important;
+    font-weight: 500;
+}
+
+.footerbar .copyright a {
+    color: #cc9933 !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footerbar .copyright a:hover {
+    color: #fff !important;
+    text-shadow: 0 0 8px rgba(204, 153, 51, 0.6);
+}
+
+.footerbar .links a {
+    color: #cc9933 !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.footerbar .links a:hover {
+    color: #fff !important;
+    background: rgba(204, 153, 51, 0.15);
+    text-shadow: 0 0 8px rgba(204, 153, 51, 0.6);
+}
+
+.footerbar .links {
+    color: #cc9933 !important;
+}
+
+.footerbar .links .divider {
+    margin: 0 8px;
+    opacity: 0.6;
+}
+
+.footerbar i {
+    margin-right: 5px;
+    color: #cc9933;
+}
+
+/* Mobile footer adjustments */
+@media (max-width: 768px) {
+    .footerbar .copyright,
+    .footerbar .links {
+        text-align: center !important;
+        margin-bottom: 10px;
+    }
+}
+
+/* Mobile layout fixes */
+@media (max-width: 950px) {
+    /* Ensure content area is visible and takes full width */
+    #contentarea {
+        margin-left: 0 !important;
+        width: 100% !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* Ensure sidebar doesn't cover content when closed */
+    .sidebar {
+        position: fixed;
+        left: -240px;
+        top: 0;
+        bottom: 0;
+        width: 240px;
+        z-index: 1001;
+        transition: left 0.3s ease;
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
+    
+    /* Show sidebar opener button */
+    .sidebar-opener {
+        display: block !important;
+    }
+}
+
+/* ============================================
+   SIDEBAR - Black & Gold Theme
+   ============================================ */
+
+.sidebar {
+    background: linear-gradient(180deg, #0a0a0a 0%, #151515 100%) !important;
+    border-right: 1px solid #cc9933 !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    padding-bottom: 80px !important;
+}
+
+.sidebar .sidebar-collapse {
+    background: transparent !important;
+}
+
+/* Sidebar menu items */
+.sidebar .menu .list-group-item {
+    background: transparent !important;
+    color: #fff !important;
+    border-left: 3px solid transparent !important;
+    transition: all 0.3s ease;
+}
+
+.sidebar .menu .list-group-item:hover {
+    background: rgba(204, 153, 51, 0.1) !important;
+    color: #cc9933 !important;
+    border-left-color: #cc9933 !important;
+}
+
+.sidebar .menu .list-group-item.active {
+    background: rgba(204, 153, 51, 0.2) !important;
+    color: #cc9933 !important;
+    border-left-color: #cc9933 !important;
+}
+
+.sidebar .menu .list-group-item i {
+    color: #cc9933 !important;
+}
+
+/* Sidebar menu links */
+.sidebar .menu li a,
+.sidebar ul li a {
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+
+.sidebar .menu li a:hover,
+.sidebar ul li a:hover {
+    color: #cc9933 !important;
+    text-decoration: none;
+}
+
+/* Sidebar headers - Gold color */
+.sidebar-header {
+    color: #cc9933 !important;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(204, 153, 51, 0.3);
+}
+
+.sidebar-header i {
+    color: #cc9933 !important;
+    margin-right: 8px;
+}
+
+/* Sidebar content text - White */
+.sidebar .content-padded,
+.sidebar .content-padded.small {
+    color: #fff !important;
+}
+
+/* Sidebar collapse/expand button */
+.sidebar-collapse-expand {
+    background: #cc9933 !important;
+    color: #000 !important;
+}
+
+.sidebar-collapse-expand:hover {
+    background: #b3862b !important;
+}
+
+/* Sidebar opener */
+.sidebar-opener {
+    background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
+    color: #000 !important;
+    font-weight: 600;
+}
+
+.sidebar-opener:hover {
+    background: linear-gradient(135deg, #d4a84c 0%, #cc9933 100%) !important;
+}
+
+/* ============================================
+   MAIN CONTENT AREA
+   ============================================ */
+
+#contentarea {
+    background: #f5f5f5;
+}
+
+#contentarea h1 {
+    color: #1a1a1a;
+    border-bottom: 2px solid #cc9933;
+    padding-bottom: 10px;
+}
+
+/* Page header styling */
+.page-header h1 {
+    color: #1a1a1a !important;
+    border-bottom: 3px solid #cc9933 !important;
+}
+
+/* ============================================
+   PANELS - Enhanced with Gold Accents
+   ============================================ */
+
+.panel {
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.panel-heading {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    color: #cc9933 !important;
+    border-bottom: 2px solid #cc9933 !important;
+}
+
+.panel-heading .panel-title {
+    color: #cc9933 !important;
+    font-weight: 600;
+}
+
+.panel-primary {
+    border-color: #cc9933;
+}
+
+.panel-primary > .panel-heading {
+    background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
+    color: #000 !important;
+}
+
+.panel-success > .panel-heading {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    color: #cc9933 !important;
+    border-bottom: 2px solid #28a745 !important;
+}
+
+.panel-info > .panel-heading {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    color: #cc9933 !important;
+    border-bottom: 2px solid #17a2b8 !important;
+}
+
+.panel-warning > .panel-heading {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    color: #cc9933 !important;
+    border-bottom: 2px solid #ffc107 !important;
+}
+
+/* ============================================
+   BUTTONS - Gold Accent Styles
+   ============================================ */
+
+.btn-primary {
+    background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
+    border-color: #b3862b !important;
+    color: #000 !important;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #d4a84c 0%, #cc9933 100%) !important;
+    border-color: #cc9933 !important;
+    box-shadow: 0 2px 10px rgba(204, 153, 51, 0.4);
+}
+
+.btn-default {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+    border-color: #cc9933 !important;
+    color: #cc9933 !important;
+}
+
+.btn-default:hover {
+    background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 10px rgba(204, 153, 51, 0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
+    border-color: #b3862b !important;
+    color: #000 !important;
+}
+
+/* ============================================
+   TABLES - Enhanced Styling
+   ============================================ */
+
+.table thead th {
+    background-color: #cc9933 !important;
+    color: #000 !important;
+    border-bottom: 2px solid #000 !important;
+    font-weight: 600;
+}
+
+/* Table header links - black with high specificity */
+#contentarea .table thead th a,
+#contentarea .table thead th a:link,
+#contentarea .table thead th a:visited,
+#contentarea .table thead th a:hover,
+#contentarea .table thead th a:active,
+.table thead th a,
+.table thead th a:link,
+.table thead th a:visited,
+.table thead th a:hover,
+.table thead th a:active {
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(204, 153, 51, 0.05);
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: rgba(204, 153, 51, 0.1) !important;
+}
+
+/* ============================================
+   FORMS - Gold Accent Inputs
+   ============================================ */
+
+.form-control:focus {
+    border-color: #cc9933 !important;
+    box-shadow: 0 0 0 0.2rem rgba(204, 153, 51, 0.25) !important;
+}
+
+.input-group-addon {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    color: #cc9933 !important;
+    border-color: #cc9933 !important;
+}
+
+/* ============================================
+   ALERTS & NOTIFICATIONS
+   ============================================ */
+
+.alert-success {
+    background: linear-gradient(135deg, rgba(204, 153, 51, 0.15) 0%, rgba(204, 153, 51, 0.05) 100%) !important;
+    border-color: #cc9933 !important;
+    color: #1a1a1a !important;
+}
+
+.alert-success i {
+    color: #cc9933 !important;
+}
+
+/* ============================================
+   LABELS & BADGES
+   ============================================ */
+
+.label-primary {
+    background-color: #cc9933 !important;
+    color: #000 !important;
+}
+
+/* ============================================
+   TABS - Gold Accent
+   ============================================ */
+
+.nav-tabs {
+    border-bottom: 2px solid #cc9933 !important;
+}
+
+.nav-tabs > li > a {
+    color: #555 !important;
+    border: none !important;
+    border-bottom: 3px solid transparent !important;
+}
+
+.nav-tabs > li > a:hover {
+    background: rgba(204, 153, 51, 0.1) !important;
+    color: #cc9933 !important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #cc9933 !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 3px solid #cc9933 !important;
+    font-weight: 600;
+}
+
+/* ============================================
+   PAGINATION - Gold Theme
+   ============================================ */
+
+.pagination > li > a,
+.pagination > li > span {
+    color: #cc9933 !important;
+    border-color: #cc9933 !important;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover {
+    background: rgba(204, 153, 51, 0.15) !important;
+}
+
+.pagination > .active > a,
+.pagination > .active > span {
+    background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
+    border-color: #b3862b !important;
+    color: #000 !important;
+}
+
+/* ============================================
+   DROPDOWN MENUS - Global
+   ============================================ */
+
+.dropdown-menu {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%) !important;
+    border: 1px solid #cc9933 !important;
+}
+
+.dropdown-menu > li > a {
+    color: #e0e0e0 !important;
+}
+
+.dropdown-menu > li > a:hover {
+    background: rgba(204, 153, 51, 0.2) !important;
+    color: #cc9933 !important;
+}
+
+.dropdown-menu .divider {
+    background-color: rgba(204, 153, 51, 0.3) !important;
+}
+
+/* ============================================
+   MODALS - Dark Theme
+   ============================================ */
+
+.modal-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    border-bottom: 2px solid #cc9933 !important;
+}
+
+.modal-header .modal-title {
+    color: #cc9933 !important;
+}
+
+.modal-header .close {
+    color: #cc9933 !important;
+    opacity: 0.8;
+}
+
+.modal-header .close:hover {
+    color: #fff !important;
+    opacity: 1;
+}
+
+.modal-footer {
+    background: #1a1a1a !important;
+    border-top: 1px solid #cc9933 !important;
+}
+
+/* ============================================
+   WIDGETS & CARDS
+   ============================================ */
+
+.widget {
+    border: 1px solid #cc9933 !important;
+    box-shadow: 0 2px 10px rgba(204, 153, 51, 0.1);
+}
+
+.widget-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    color: #cc9933 !important;
+    border-bottom: 2px solid #cc9933 !important;
+}
+
+/* ============================================
+   SCROLLBARS - Global
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cc9933;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d4a84c;
+}
+
+/* ============================================
+   ADMIN HOME DASHBOARD
+   ============================================ */
+
+.home-widgets .widget-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    color: #cc9933 !important;
+}
+
+.home-stat {
+    border-left: 4px solid #cc9933 !important;
+}
+
+.home-stat:hover {
+    background: rgba(204, 153, 51, 0.05);
+}
+
+/* ============================================
+   LOGIN PAGE - Black & Gold
+   ============================================ */
+
+body.login {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%) !important;
+}
+
+.login-container {
+    background: rgba(26, 26, 26, 0.95) !important;
+    border: 2px solid #cc9933 !important;
+    box-shadow: 0 0 30px rgba(204, 153, 51, 0.3) !important;
+}
+
+.login-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+    border-bottom: 2px solid #cc9933 !important;
+}
+
+/* ============================================
+   UNREGISTRY MANAGER SPECIFIC STYLES
+   ============================================ */
+
+.unregistry-manager .page-header h1 {
+    color: #1a1a1a;
+    border-bottom: 3px solid #cc9933;
+    padding-bottom: 10px;
+}
+
+.unregistry-manager code {
+    background: #1a1a1a;
+    color: #cc9933;
+    border: 1px solid #cc9933;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.unregistry-manager .panel-primary .panel-heading {
+    background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
+    color: #000 !important;
+}
