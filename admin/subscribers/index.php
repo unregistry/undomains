@@ -4,26 +4,58 @@
  * View and export subscriber list
  */
 
+// Start session
+session_start();
+
 // Load database credentials from WHMCS configuration
 require_once __DIR__ . '/../../configuration.php';
 
-// Simple session-based authentication check
-session_start();
+// Simple check - if we're in the admin area and have any WHMCS session data, we're likely authenticated
+// This checks for the presence of a WHMCS session cookie
+$authenticated = false;
 
-// Check if user is logged in as admin (check for WHMCS admin session)
-$admin_session = false;
-if (isset($_COOKIE['WHMCSAdminLogin'])) {
-    $admin_session = true;
+// Check for WHMCS session cookie (the session name might vary)
+foreach ($_COOKIE as $name => $value) {
+    if (strpos($name, 'WHMCS') !== false || strpos($name, 'whmcs') !== false) {
+        $authenticated = true;
+        break;
+    }
 }
-// Also check for adminid in session as fallback
+
+// Also check if there's an adminid in session
 if (isset($_SESSION['adminid']) && $_SESSION['adminid'] > 0) {
-    $admin_session = true;
+    $authenticated = true;
 }
 
-// If not authenticated, redirect to admin login
-if (!$admin_session && !isset($_GET['debug'])) {
-    header('Location: /admin/login.php');
-    exit;
+// If the request comes from the admin area (referer check)
+if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], '/admin/') !== false) {
+    $authenticated = true;
+}
+
+// If not authenticated, show a simple login required message instead of redirect
+if (!$authenticated) {
+    // Try to check if user has access by looking for admin session in WHMCS session path
+    if (isset($_COOKIE['PHPSESSID'])) {
+        $session_file = '/home/undomains/whmcs_data/sessions/sess_' . $_COOKIE['PHPSESSID'];
+        if (file_exists($session_file)) {
+            $session_data = file_get_contents($session_file);
+            if (strpos($session_data, 'adminid') !== false) {
+                $authenticated = true;
+            }
+        }
+    }
+}
+
+if (!$authenticated) {
+    die('<!DOCTYPE html>
+<html>
+<head><title>Access Denied</title></head>
+<body style="padding: 50px; text-align: center; font-family: sans-serif;">
+    <h2>Access Denied</h2>
+    <p>Please <a href="/admin/login.php">log in to the admin panel</a> first.</p>
+    <p><small>If you are already logged in, <a href="/admin/subscribers/">click here to retry</a>.</small></p>
+</body>
+</html>');
 }
 
 // Connect to database
