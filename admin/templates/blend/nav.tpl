@@ -1,5 +1,5 @@
 <a href="index.php" class="logo" title="{$_ADMINLANG.home.title}">
-    <img src="templates/{$template}/images/undomains-dark-logo.png" style="max-height: 40px;">
+    <img src="templates/{$template}/images/undomains-dark-logo.png" style="max-height: 40px; padding-top: 5px;">
 </a>
 
 <ul class="left-nav">
