@@ -13,19 +13,19 @@
             <div class="form-group">
 
                 <div class="row mb-50 px-5">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="inputName" class="control-label mb-0 mergecolor">{$LANG.supportticketsclientname}</label>
                         <input type="text" name="name" value="{$name}" class="form-control" id="inputName" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="inputEmail" class="control-label mb-0 mergecolor">{$LANG.supportticketsclientemail}</label>
                         <input type="email" name="email" value="{$email}" class="form-control" id="inputEmail" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="inputSubject" class="control-label mb-0 mergecolor">{$LANG.supportticketsticketsubject}</label>
                         <input type="subject" name="subject" value="{$subject}" class="form-control" id="inputSubject" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="inputMessage" class="control-label mb-0 mergecolor">{$LANG.contactmessage}</label>
                         <textarea name="message" rows="4" class="form-control br-12" id="inputMessage">{$message}</textarea>
                     </div>
