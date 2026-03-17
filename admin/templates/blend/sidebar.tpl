@@ -420,6 +420,7 @@
         <li><a href="systemphpinfo.php">{lang key='utilities.phpinfo'}</a></li>
         <li><a href="{routePath('admin-utilities-system-phpcompat')}">{lang key='utilities.phpcompat'}</a></li>
     {/if}
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
 </ul>
 
 {elseif $sidebar eq "logs"}
