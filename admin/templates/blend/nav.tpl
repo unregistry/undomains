@@ -1,5 +1,5 @@
 <a href="index.php" class="logo" title="{$_ADMINLANG.home.title}">
-    <img src="templates/{$template}/images/undomains-dark-logo.png" style="max-height: 40px;">
+    <img src="templates/{$template}/images/logo.png">
 </a>
 
 <ul class="left-nav">
@@ -386,21 +386,6 @@
                         </ul>
                     </li>
                 {/if}
-                <li><a id="Menu-Utilities-Newsletter_Subscribers" href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
-            </ul>
-        </li>
-        <li class="has-dropdown">
-            <a id="Menu-Domains" href="#" onclick="return false;">
-                <i class="fas fa-globe"></i>
-                Unregistry
-                <span class="caret"></span>
-            </a>
-            <ul>
-                <li><a id="Menu-Unregistry-Dashboard" href="addonmodules.php?module=unregistry_manager"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a id="Menu-Unregistry-CustomDomains" href="addonmodules.php?module=unregistry_manager&action=custom_domains"><i class="fas fa-plus-circle"></i> Add Custom Domains</a></li>
-                <li><a id="Menu-Unregistry-TLDs" href="addonmodules.php?module=unregistry_manager&action=tlds"><i class="fas fa-globe"></i> Manage TLDs</a></li>
-                <li><a id="Menu-Unregistry-DomainLists" href="addonmodules.php?module=unregistry_manager&action=domain_lists"><i class="fas fa-list"></i> Domain Lists</a></li>
-                <li><a id="Menu-Unregistry-OrderQueue" href="addonmodules.php?module=unregistry_manager&action=order_queue"><i class="fas fa-tasks"></i> Order Queue</a></li>
             </ul>
         </li>
         <li class="has-dropdown">

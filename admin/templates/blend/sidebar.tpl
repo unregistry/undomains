@@ -20,7 +20,7 @@
     {$_ADMINLANG.global.systeminfo}
 </div>
 <div class="content-padded small">
-    Powered by: Undomains<br />License Type: Enterprise<br />Renews: {$licenseinfo.expires}<br />{$_ADMINLANG.global.version}: {$licenseinfo.currentversion}{if $licenseinfo.updateavailable}<br /><span class="textred"><b>{$_ADMINLANG.license.updateavailable}</b></span>{/if}
+    {$_ADMINLANG.license.regto}: {$licenseinfo.registeredname}<br />{$_ADMINLANG.license.type}: {$licenseinfo.productname}<br />{$_ADMINLANG.license.expires}: {$licenseinfo.expires}<br />{$_ADMINLANG.global.version}: {$licenseinfo.currentversion}{if $licenseinfo.updateavailable}<br /><span class="textred"><b>{$_ADMINLANG.license.updateavailable}</b></span>{/if}
 </div>
 
 {elseif $sidebar eq "clients"}
@@ -420,7 +420,6 @@
         <li><a href="systemphpinfo.php">{lang key='utilities.phpinfo'}</a></li>
         <li><a href="{routePath('admin-utilities-system-phpcompat')}">{lang key='utilities.phpcompat'}</a></li>
     {/if}
-    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
 </ul>
 
 {elseif $sidebar eq "logs"}
