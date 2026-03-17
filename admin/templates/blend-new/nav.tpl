@@ -605,6 +605,7 @@
                         </ul>
                     </li>
                 {/if}
+                <li><a id="Menu-Utilities-Newsletter_Subscribers" href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
             </ul>
         </li>
         <li class="has-dropdown" data-dropdown>
