@@ -1,7 +1,7 @@
 <?php
 /**
  * Newsletter Subscribers Admin Page
- * View and export subscriber list
+ * View and export subscriber list - Styled for WHMCS Admin
  */
 
 // Start session
@@ -11,10 +11,9 @@ session_start();
 require_once __DIR__ . '/../../configuration.php';
 
 // Simple check - if we're in the admin area and have any WHMCS session data, we're likely authenticated
-// This checks for the presence of a WHMCS session cookie
 $authenticated = false;
 
-// Check for WHMCS session cookie (the session name might vary)
+// Check for WHMCS session cookie
 foreach ($_COOKIE as $name => $value) {
     if (strpos($name, 'WHMCS') !== false || strpos($name, 'whmcs') !== false) {
         $authenticated = true;
@@ -22,40 +21,24 @@ foreach ($_COOKIE as $name => $value) {
     }
 }
 
-// Also check if there's an adminid in session
 if (isset($_SESSION['adminid']) && $_SESSION['adminid'] > 0) {
     $authenticated = true;
 }
 
-// If the request comes from the admin area (referer check)
-if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], '/admin/') !== false) {
-    $authenticated = true;
-}
-
-// If not authenticated, show a simple login required message instead of redirect
-if (!$authenticated) {
-    // Try to check if user has access by looking for admin session in WHMCS session path
-    if (isset($_COOKIE['PHPSESSID'])) {
-        $session_file = '/home/undomains/whmcs_data/sessions/sess_' . $_COOKIE['PHPSESSID'];
-        if (file_exists($session_file)) {
-            $session_data = file_get_contents($session_file);
-            if (strpos($session_data, 'adminid') !== false) {
-                $authenticated = true;
-            }
+// Check admin session in WHMCS session path
+if (isset($_COOKIE['PHPSESSID'])) {
+    $session_file = '/home/undomains/whmcs_data/sessions/sess_' . $_COOKIE['PHPSESSID'];
+    if (file_exists($session_file)) {
+        $session_data = file_get_contents($session_file);
+        if (strpos($session_data, 'adminid') !== false) {
+            $authenticated = true;
         }
     }
 }
 
 if (!$authenticated) {
-    die('<!DOCTYPE html>
-<html>
-<head><title>Access Denied</title></head>
-<body style="padding: 50px; text-align: center; font-family: sans-serif;">
-    <h2>Access Denied</h2>
-    <p>Please <a href="/admin/login.php">log in to the admin panel</a> first.</p>
-    <p><small>If you are already logged in, <a href="/admin/subscribers/">click here to retry</a>.</small></p>
-</body>
-</html>');
+    header('Location: /admin/login.php');
+    exit;
 }
 
 // Connect to database
@@ -89,76 +72,211 @@ $active = $active_result->fetch_assoc()['active'];
 
 // Get recent subscribers
 $recent = $mysqli->query("SELECT * FROM mod_newsletter_subscribers ORDER BY subscribed_at DESC LIMIT 50");
+
+// Get admin user info for gravatar
+$admin_email = '';
+if (isset($_SESSION['adminemail'])) {
+    $admin_email = $_SESSION['adminemail'];
+}
+$gravatar_hash = md5(strtolower(trim($admin_email)));
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Newsletter Subscribers</title>
-    <link rel="stylesheet" href="/admin/templates/blend/css/all.min.css">
-    <style>
-        body { padding: 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .stats { margin-bottom: 20px; }
-        .stats .stat-box { display: inline-block; padding: 15px 25px; background: #f5f5f5; border-radius: 5px; margin-right: 15px; }
-        .stats .stat-box strong { display: block; font-size: 24px; color: #333; }
-        .stats .stat-box span { color: #666; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #1a4d80; color: #fff; }
-        .label { padding: 4px 8px; border-radius: 3px; font-size: 12px; }
-        .label-success { background: #5cb85c; color: white; }
-        .label-default { background: #777; color: white; }
-        .btn { display: inline-block; padding: 8px 16px; background: #337ab7; color: white; text-decoration: none; border-radius: 4px; }
-        .btn:hover { background: #286090; }
-        h1 { margin-bottom: 20px; }
-        .back-link { margin-bottom: 20px; }
-        .back-link a { color: #337ab7; text-decoration: none; }
-    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="same-origin">
+
+    <title>Undomains - Newsletter Subscribers</title>
+
+    <link rel="icon" type="image/png" href="/admin/templates/blend/images/favicon.png" />
+
+    <link href="/assets/fonts/css/open-sans-family.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/templates/blend/css/all.min.css" rel="stylesheet" />
+    <link href="/admin/templates/blend/css/theme.min.css" rel="stylesheet" />
+    <link href="/admin/templates/blend/css/undomains-theme.css" rel="stylesheet" />
+    <link href="/assets/fonts/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="/assets/fonts/css/fontawesome-solid.min.css" rel="stylesheet" />
+    
+    <script type="text/javascript" src="/admin/templates/blend/js/vendor.min.js"></script>
+    <script type="text/javascript" src="/admin/templates/blend/js/scripts.min.js"></script>
 </head>
 <body>
-    <div class="back-link">
-        <a href="/admin/index.php">&larr; Back to Admin</a>
-    </div>
-    
-    <h1>Newsletter Subscribers</h1>
-    
-    <div class="stats">
-        <div class="stat-box">
-            <strong><?php echo $total; ?></strong>
-            <span>Total Subscribers</span>
+
+    <div class="navigation">
+        <a href="/admin/index.php" class="logo" title="Home">
+            <img src="/admin/templates/blend/images/undomains-dark-logo.png" style="max-height: 40px; padding-top: 5px;">
+        </a>
+
+        <ul class="left-nav">
+            <li class="bt visible-sidebar">
+                <a href="#" class="nav-toggle" id="btnNavbarToggle" aria-label="Navigation">
+                    <i aria-hidden="true" class="fas fa-bars always"></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="navbar-collapse">
+            <ul>
+                <li class="has-dropdown">
+                    <a id="Menu-Utilities" href="#" onclick="return false;">
+                        <i class="fas fa-file-alt"></i>
+                        Utilities
+                        <span class="caret"></span>
+                    </a>
+                    <ul>
+                        <li><a id="Menu-Utilities-Newsletter_Subscribers" href="/admin/subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="right-nav">
+                <li class="bt account has-dropdown">
+                    <a id="Menu-Account" href="#" onclick="return false;">
+                        <img src="https://www.gravatar.com/avatar/<?php echo $gravatar_hash; ?>?s=25&d=mp" class="profile-icon" alt="Account" />
+                        <span class="visible-sidebar">Account</span>
+                    </a>
+                    <ul class="slim drop-left">
+                        <li><a href="/admin/myaccount.php">My Account</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/admin/logout.php">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        <div class="stat-box">
-            <strong><?php echo $active; ?></strong>
-            <span>Active</span>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <a href="#" class="sidebar-collapse-expand" id="sidebarCollapseExpand">
+            <i class="fa fa-chevron-down"></i>
+        </a>
+        <div class="sidebar-collapse">
+            <div class="sidebar-header">
+                <i class="fas fa-cubes"></i>
+                Utilities
+            </div>
+            <ul class="menu">
+                <li><a href="/admin/subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+            </ul>
         </div>
     </div>
-    
-    <p>
-        <a href="?export=csv" class="btn"><i class="fas fa-download"></i> Export to CSV</a>
-    </p>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Subscribed Date</th>
-                <th>Status</th>
-                <th>IP Address</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = $recent->fetch_assoc()): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($row['email']); ?></td>
-                <td><?php echo $row['subscribed_at']; ?></td>
-                <td>
-                    <span class="label label-<?php echo $row['status'] === 'active' ? 'success' : 'default'; ?>">
-                        <?php echo ucfirst($row['status']); ?>
-                    </span>
-                </td>
-                <td><?php echo htmlspecialchars($row['ip_address']); ?></td>
-            </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
+    <a href="#" class="sidebar-opener" id="sidebarOpener">Open Sidebar</a>
+
+    <div class="contentarea" id="contentarea">
+        <div style="float:left;width:100%;">
+            <h1><i class="fas fa-envelope"></i> Newsletter Subscribers</h1>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="health-status-block status-badge-blue clearfix">
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="detail">
+                            <span class="count"><?php echo $total; ?></span>
+                            <span class="desc">Total Subscribers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="health-status-block status-badge-green clearfix">
+                        <div class="icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="detail">
+                            <span class="count"><?php echo $active; ?></span>
+                            <span class="desc">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fas fa-list"></i> Subscriber List
+                        <div class="pull-right">
+                            <a href="?export=csv" class="btn btn-success btn-sm">
+                                <i class="fas fa-download"></i> Export to CSV
+                            </a>
+                        </div>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="datatable table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Subscribed Date</th>
+                                <th>Status</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $recent->fetch_assoc()): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($row['email']); ?></td>
+                                <td><?php echo $row['subscribed_at']; ?></td>
+                                <td>
+                                    <span class="label label-<?php echo $row['status'] === 'active' ? 'success' : 'default'; ?>">
+                                        <?php echo ucfirst($row['status']); ?>
+                                    </span>
+                                </td>
+                                <td><?php echo htmlspecialchars($row['ip_address']); ?></td>
+                            </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="footerbar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 copyright">
+                    <i class="fas fa-copyright"></i> Copyright <?php echo date('Y'); ?> 
+                    <a href="https://undomains.com/" target="_blank">Undomains</a>.
+                    Part of <a href="https://un4.com/" target="_blank">UN4</a>
+                </div>
+                <div class="col-md-6 links text-right">
+                    <a href="https://undomains.com/" target="_blank" title="Visit Undomains"><i class="fas fa-globe"></i> Website</a>
+                    <span class="divider">|</span>
+                    <a href="https://go.whmcs.com/1893/docs" target="_blank"><i class="fas fa-book"></i> Documentation</a>
+                    <span class="divider">|</span>
+                    <a href="https://www.whmcs.com/report-a-bug" target="_blank"><i class="fas fa-bug"></i> Report Bug</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Sidebar toggle
+            $('#sidebarCollapseExpand').click(function(e) {
+                e.preventDefault();
+                $(this).toggleClass('expanded');
+                $('.sidebar-collapse').slideToggle();
+            });
+
+            $('#sidebarOpener').click(function(e) {
+                e.preventDefault();
+                $(this).fadeOut();
+                $('#contentarea').removeClass('sidebar-minimized');
+                $('#sidebar').delay(400).fadeIn('fast');
+            });
+
+            $('#sidebarClose').click(function(e) {
+                e.preventDefault();
+                $('#sidebar').fadeOut('fast', function(){
+                    $('#contentarea').addClass('sidebar-minimized');
+                    $('#sidebarOpener').fadeIn();
+                });
+            });
+        });
+    </script>
 </body>
 </html>
