@@ -421,6 +421,7 @@
         <li><a href="{routePath('admin-utilities-system-phpcompat')}">{lang key='utilities.phpcompat'}</a></li>
     {/if}
     <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
 </ul>
 
 {elseif $sidebar eq "logs"}
