@@ -28,8 +28,8 @@
     Custom Tools
 </div>
 <ul class="menu">
-    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
-    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
 </ul>
 
 {elseif $sidebar eq "clients"}
@@ -39,8 +39,8 @@
     {$_ADMINLANG.clients.title}
 </div>
 <ul class="menu">
-    <li><a href="clients.php">{$_ADMINLANG.clients.viewsearch}</a></li>
-    <li><a href="clientsadd.php">{$_ADMINLANG.clients.addnew}</a></li>
+    <li><a href="clients.php"><i class="fas fa-users"></i> {$_ADMINLANG.clients.viewsearch}</a></li>
+    <li><a href="clientsadd.php"><i class="fas fa-user-plus"></i> {$_ADMINLANG.clients.addnew}</a></li>
 </ul>
 
 <div class="sidebar-header">
@@ -48,14 +48,14 @@
     {$_ADMINLANG.services.title}
 </div>
 <ul class="menu">
-    <li><a href="{routePath('admin-services-index')}">{$_ADMINLANG.services.listall}</a></li>
+    <li><a href="{routePath('admin-services-index')}"><i class="fas fa-list"></i> {$_ADMINLANG.services.listall}</a></li>
     <li><a href="{routePath('admin-services-shared')}">- {$_ADMINLANG.services.listhosting}</a></li>
     <li><a href="{routePath('admin-services-reseller')}">- {$_ADMINLANG.services.listreseller}</a></li>
     <li><a href="{routePath('admin-services-server')}">- {$_ADMINLANG.services.listservers}</a></li>
     <li><a href="{routePath('admin-services-other')}">- {$_ADMINLANG.services.listother}</a></li>
-    <li><a href="{routePath('admin-addons-index')}">{$_ADMINLANG.services.listaddons}</a></li>
-    <li><a href="{routePath('admin-domains-index')}">{$_ADMINLANG.services.listdomains}</a></li>
-    <li><a href="cancelrequests.php">{$_ADMINLANG.clients.cancelrequests}</a></li>
+    <li><a href="{routePath('admin-addons-index')}"><i class="fas fa-puzzle-piece"></i> {$_ADMINLANG.services.listaddons}</a></li>
+    <li><a href="{routePath('admin-domains-index')}"><i class="fas fa-globe"></i> {$_ADMINLANG.services.listdomains}</a></li>
+    <li><a href="cancelrequests.php"><i class="fas fa-times-circle"></i> {$_ADMINLANG.clients.cancelrequests}</a></li>
 </ul>
 
 <div class="sidebar-header">
@@ -63,7 +63,7 @@
     {$_ADMINLANG.affiliates.title}
 </div>
 <ul class="menu">
-    <li><a href="affiliates.php">{$_ADMINLANG.affiliates.manage}</a></li>
+    <li><a href="affiliates.php"><i class="fas fa-handshake"></i> {$_ADMINLANG.affiliates.manage}</a></li>
 </ul>
 
 {elseif $sidebar eq "orders"}
@@ -73,12 +73,12 @@
     {$_ADMINLANG.orders.title}
 </div>
 <ul class="menu">
-    <li><a href="orders.php">{$_ADMINLANG.orders.listall}</a></li>
+    <li><a href="orders.php"><i class="fas fa-list"></i> {$_ADMINLANG.orders.listall}</a></li>
     <li><a href="orders.php?status=Pending">- {$_ADMINLANG.orders.listpending}</a></li>
     <li><a href="orders.php?status=Active">- {$_ADMINLANG.orders.listactive}</a></li>
     <li><a href="orders.php?status=Fraud">- {$_ADMINLANG.orders.listfraud}</a></li>
     <li><a href="orders.php?status=Cancelled">- {$_ADMINLANG.orders.listcancelled}</a></li>
-    <li><a href="ordersadd.php">{$_ADMINLANG.orders.addnew}</a></li>
+    <li><a href="ordersadd.php"><i class="fas fa-plus-circle"></i> {$_ADMINLANG.orders.addnew}</a></li>
 </ul>
 
 {elseif $sidebar eq "billing"}
@@ -88,10 +88,10 @@
     {$_ADMINLANG.billing.title}
 </div>
 <ul class="menu">
-    <li><a href="transactions.php">{$_ADMINLANG.billing.transactionslist}</a></li>
-    <li><a href="gatewaylog.php">{$_ADMINLANG.billing.gatewaylog}</a></li>
-    <li><a href="offlineccprocessing.php">{$_ADMINLANG.billing.offlinecc}</a></li>
-    <li><a href="{routePath('admin-billing-disputes-index')}">{$_ADMINLANG.disputes.title}</a></li>
+    <li><a href="transactions.php"><i class="fas fa-exchange-alt"></i> {$_ADMINLANG.billing.transactionslist}</a></li>
+    <li><a href="gatewaylog.php"><i class="fas fa-history"></i> {$_ADMINLANG.billing.gatewaylog}</a></li>
+    <li><a href="offlineccprocessing.php"><i class="fas fa-credit-card"></i> {$_ADMINLANG.billing.offlinecc}</a></li>
+    <li><a href="{routePath('admin-billing-disputes-index')}"><i class="fas fa-exclamation-triangle"></i> {$_ADMINLANG.disputes.title}</a></li>
 </ul>
 
 <div class="sidebar-header">
@@ -99,7 +99,7 @@
     {$_ADMINLANG.invoices.title}
 </div>
 <ul class="menu">
-    <li><a href="invoices.php">{$_ADMINLANG.invoices.listall}</a></li>
+    <li><a href="invoices.php"><i class="fas fa-list"></i> {$_ADMINLANG.invoices.listall}</a></li>
     <li><a href="invoices.php?status=Paid">- {$_ADMINLANG.status.paid}</a></li>
     <li><a href="invoices.php?status=Draft">- {$_ADMINLANG.status.draft}</a></li>
     <li><a href="invoices.php?status=Unpaid">- {$_ADMINLANG.status.unpaid}</a></li>
@@ -115,10 +115,10 @@
     {$_ADMINLANG.billableitems.title}
 </div>
 <ul class="menu">
-    <li><a href="billableitems.php">{$_ADMINLANG.billableitems.listall}</a></li>
+    <li><a href="billableitems.php"><i class="fas fa-list"></i> {$_ADMINLANG.billableitems.listall}</a></li>
     <li><a href="billableitems.php?status=Uninvoiced">- {$_ADMINLANG.billableitems.uninvoiced}</a></li>
     <li><a href="billableitems.php?status=Recurring">- {$_ADMINLANG.billableitems.recurring}</a></li>
-    <li><a href="billableitems.php?action=manage">{$_ADMINLANG.billableitems.addnew}</a></li>
+    <li><a href="billableitems.php?action=manage"><i class="fas fa-plus-circle"></i> {$_ADMINLANG.billableitems.addnew}</a></li>
 </ul>
 
 <div class="sidebar-header">
@@ -126,10 +126,10 @@
     {$_ADMINLANG.quotes.title}
 </div>
 <ul class="menu">
-    <li><a href="quotes.php">{$_ADMINLANG.quotes.listall}</a></li>
+    <li><a href="quotes.php"><i class="fas fa-list"></i> {$_ADMINLANG.quotes.listall}</a></li>
     <li><a href="quotes.php?validity=Valid">- {$_ADMINLANG.status.valid}</a></li>
     <li><a href="quotes.php?validity=Expired">- {$_ADMINLANG.status.expired}</a></li>
-    <li><a href="quotes.php?action=manage">{$_ADMINLANG.quotes.createnew}</a></li>
+    <li><a href="quotes.php?action=manage"><i class="fas fa-plus-circle"></i> {$_ADMINLANG.quotes.createnew}</a></li>
 </ul>
 
 <div class="sidebar-header">
@@ -137,8 +137,8 @@
     Custom Tools
 </div>
 <ul class="menu">
-    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
-    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
 </ul>
 
 {elseif $sidebar eq "support"}
@@ -298,12 +298,12 @@
     {$_ADMINLANG.support.title}
 </div>
 <ul class="menu">
-    <li><a href="supportannouncements.php">{$_ADMINLANG.support.announcements}</a></li>
-    <li><a href="supportdownloads.php">{$_ADMINLANG.support.downloads}</a></li>
-    <li><a href="supportkb.php">{$_ADMINLANG.support.knowledgebase}</a></li>
-    <li><a href="supporttickets.php">{$_ADMINLANG.support.supporttickets}</a></li>
-    <li><a href="supporttickets.php?action=open">{$_ADMINLANG.support.opennewticket}</a></li>
-    <li><a href="supportticketpredefinedreplies.php">{$_ADMINLANG.support.predefreplies}</a></li>
+    <li><a href="supportannouncements.php"><i class="fas fa-bullhorn"></i> {$_ADMINLANG.support.announcements}</a></li>
+    <li><a href="supportdownloads.php"><i class="fas fa-download"></i> {$_ADMINLANG.support.downloads}</a></li>
+    <li><a href="supportkb.php"><i class="fas fa-book"></i> {$_ADMINLANG.support.knowledgebase}</a></li>
+    <li><a href="supporttickets.php"><i class="fas fa-ticket-alt"></i> {$_ADMINLANG.support.supporttickets}</a></li>
+    <li><a href="supporttickets.php?action=open"><i class="fas fa-plus-circle"></i> {$_ADMINLANG.support.opennewticket}</a></li>
+    <li><a href="supportticketpredefinedreplies.php"><i class="fas fa-reply-all"></i> {$_ADMINLANG.support.predefreplies}</a></li>
 </ul>
 
 {/if}
@@ -369,8 +369,8 @@
     Custom Tools
 </div>
 <ul class="menu">
-    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
-    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
 </ul>
 
 {elseif $sidebar eq "reports"}
@@ -395,60 +395,60 @@
 </div>
 <ul class="menu">
     {if in_array('Update WHMCS', $admin_perms)}
-        <li><a href="update.php">{lang key='update.title'}</a></li>
+        <li><a href="update.php"><i class="fas fa-sync"></i> {lang key='update.title'}</a></li>
     {/if}
     {if in_array('WHMCSConnect', $admin_perms)}
-        <li><a href="whmcsconnect.php">{lang key='whmcsConnect.whmcsConnectName'}</a></li>
+        <li><a href="whmcsconnect.php"><i class="fas fa-plug"></i> {lang key='whmcsConnect.whmcsConnectName'}</a></li>
     {/if}
     {if in_array('Automation Status', $admin_perms)}
-        <li><a href="automationstatus.php">{lang key='utilities.automationStatus'}</a></li>
+        <li><a href="automationstatus.php"><i class="fas fa-cogs"></i> {lang key='utilities.automationStatus'}</a></li>
     {/if}
     {if in_array('View Module Queue', $admin_perms)}
-        <li><a href="modulequeue.php">{lang key='utilities.moduleQueue'}</a></li>
+        <li><a href="modulequeue.php"><i class="fas fa-tasks"></i> {lang key='utilities.moduleQueue'}</a></li>
     {/if}
     {if in_array('Configure Domain Pricing', $admin_perms)}
-        <li><a href="{routePath('admin-utilities-tools-tld-import-step-one')}">{lang key='utilities.tldImport'}</a></li>
+        <li><a href="{routePath('admin-utilities-tools-tld-import-step-one')}"><i class="fas fa-globe"></i> {lang key='utilities.tldImport'}</a></li>
     {/if}
     {if in_array('Mass Mail', $admin_perms)}
         <li>
             <a href="{routePath('admin-utilities-tools-email-campaigns')}">
-                {lang key='utilities.emailCampaigns.title'}
+                <i class="fas fa-envelope-open-text"></i> {lang key='utilities.emailCampaigns.title'}
             </a>
         </li>
     {/if}
     {if in_array('Email Marketer', $admin_perms)}
-        <li><a href="utilitiesemailmarketer.php">{lang key='utilities.emailmarketer'}</a></li>
+        <li><a href="utilitiesemailmarketer.php"><i class="fas fa-bullhorn"></i> {lang key='utilities.emailmarketer'}</a></li>
     {/if}
     {if in_array('Link Tracking', $admin_perms)}
-        <li><a href="utilitieslinktracking.php">{lang key='utilities.linktracking'}</a></li>
+        <li><a href="utilitieslinktracking.php"><i class="fas fa-link"></i> {lang key='utilities.linktracking'}</a></li>
     {/if}
     {if in_array('Calendar', $admin_perms)}
-        <li><a href="calendar.php">{lang key='utilities.calendar'}</a></li>
+        <li><a href="calendar.php"><i class="fas fa-calendar-alt"></i> {lang key='utilities.calendar'}</a></li>
     {/if}
     {if in_array('To-Do List', $admin_perms)}
-        <li><a href="todolist.php">{lang key='utilities.todolist'}</a></li>
+        <li><a href="todolist.php"><i class="fas fa-check-square"></i> {lang key='utilities.todolist'}</a></li>
     {/if}
     {if in_array('WHOIS Lookups', $admin_perms)}
-        <li><a href="whois.php">{lang key='utilities.whois'}</a></li>
+        <li><a href="whois.php"><i class="fas fa-search"></i> {lang key='utilities.whois'}</a></li>
     {/if}
     {if in_array('Domain Resolver Checker', $admin_perms)}
-        <li><a href="utilitiesresolvercheck.php">{lang key='utilities.domainresolver'}</a></li>
+        <li><a href="utilitiesresolvercheck.php"><i class="fas fa-server"></i> {lang key='utilities.domainresolver'}</a></li>
     {/if}
     {if in_array('View Integration Code', $admin_perms)}
-        <li><a href="systemintegrationcode.php">{lang key='utilities.integrationcode'}</a></li>
+        <li><a href="systemintegrationcode.php"><i class="fas fa-code"></i> {lang key='utilities.integrationcode'}</a></li>
     {/if}
     {if in_array('Database Status', $admin_perms)}
-        <li><a href="systemdatabase.php">{lang key='utilities.dbstatus'}</a></li>
+        <li><a href="systemdatabase.php"><i class="fas fa-database"></i> {lang key='utilities.dbstatus'}</a></li>
     {/if}
     {if in_array('System Cleanup Operations', $admin_perms)}
-        <li><a href="systemcleanup.php">{lang key='utilities.syscleanup'}</a></li>
+        <li><a href="systemcleanup.php"><i class="fas fa-broom"></i> {lang key='utilities.syscleanup'}</a></li>
     {/if}
     {if in_array('View PHP Info', $admin_perms)}
-        <li><a href="systemphpinfo.php">{lang key='utilities.phpinfo'}</a></li>
-        <li><a href="{routePath('admin-utilities-system-phpcompat')}">{lang key='utilities.phpcompat'}</a></li>
+        <li><a href="systemphpinfo.php"><i class="fab fa-php"></i> {lang key='utilities.phpinfo'}</a></li>
+        <li><a href="{routePath('admin-utilities-system-phpcompat')}"><i class="fas fa-code-branch"></i> {lang key='utilities.phpcompat'}</a></li>
     {/if}
-    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
-    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
 </ul>
 
 {elseif $sidebar eq "logs"}
@@ -464,12 +464,12 @@
     {$_ADMINLANG.utilities.logs}
 </div>
 <ul class="menu">
-    <li><a href="systemactivitylog.php">{$_ADMINLANG.utilities.activitylog}</a></li>
-    <li><a href="systemadminlog.php">{$_ADMINLANG.utilities.adminlog}</a></li>
-    <li><a href="{routePath('admin-logs-module-log')}">{$_ADMINLANG.utilities.modulelog}</a></li>
-    <li><a href="systememaillog.php">{$_ADMINLANG.utilities.emaillog}</a></li>
-    <li><a href="{routePath('admin-logs-mail-import-log')}">{$_ADMINLANG.utilities.ticketmaillog}</a></li>
-    <li><a href="systemwhoislog.php">{$_ADMINLANG.utilities.whoislog}</a></li>
+    <li><a href="systemactivitylog.php"><i class="fas fa-list-alt"></i> {$_ADMINLANG.utilities.activitylog}</a></li>
+    <li><a href="systemadminlog.php"><i class="fas fa-user-shield"></i> {$_ADMINLANG.utilities.adminlog}</a></li>
+    <li><a href="{routePath('admin-logs-module-log')}"><i class="fas fa-cube"></i> {$_ADMINLANG.utilities.modulelog}</a></li>
+    <li><a href="systememaillog.php"><i class="fas fa-envelope"></i> {$_ADMINLANG.utilities.emaillog}</a></li>
+    <li><a href="{routePath('admin-logs-mail-import-log')}"><i class="fas fa-inbox"></i> {$_ADMINLANG.utilities.ticketmaillog}</a></li>
+    <li><a href="systemwhoislog.php"><i class="fas fa-globe"></i> {$_ADMINLANG.utilities.whoislog}</a></li>
 </ul>
 
 {elseif $sidebar eq "addonmodules"}
@@ -573,8 +573,8 @@
     Custom Tools
 </div>
 <ul class="menu">
-    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
-    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
 </ul>
 
 {/if}
