@@ -314,6 +314,7 @@
 .sidebar .menu li a,
 .sidebar ul li a {
     color: #fff !important;
+    text-decoration: none !important;
     transition: all 0.3s ease;
 }
 
