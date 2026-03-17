@@ -20,7 +20,7 @@
     {$_ADMINLANG.global.systeminfo}
 </div>
 <div class="content-padded small">
-    {$_ADMINLANG.license.regto}: {$licenseinfo.registeredname}<br />{$_ADMINLANG.license.type}: {$licenseinfo.productname}<br />{$_ADMINLANG.license.expires}: {$licenseinfo.expires}<br />{$_ADMINLANG.global.version}: {$licenseinfo.currentversion}{if $licenseinfo.updateavailable}<br /><span class="textred"><b>{$_ADMINLANG.license.updateavailable}</b></span>{/if}
+    Powered by: Undomains<br />License Type: Enterprise<br />Renews: {$licenseinfo.expires}<br />{$_ADMINLANG.global.version}: {$licenseinfo.currentversion}{if $licenseinfo.updateavailable}<br /><span class="textred"><b>{$_ADMINLANG.license.updateavailable}</b></span>{/if}
 </div>
 
 {elseif $sidebar eq "clients"}
