@@ -732,3 +732,22 @@ body.login {
     background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
     color: #000 !important;
 }
+
+/* ============================================
+   HEALTH STATUS BLOCKS - Black icons and text
+   ============================================ */
+
+.health-status-block .icon a,
+.health-status-block .detail a,
+.health-status-block .icon i,
+.health-status-block .count,
+.health-status-block .desc {
+    color: #000 !important;
+}
+
+.health-status-block a:hover,
+.health-status-block a:hover i,
+.health-status-block a:hover .count,
+.health-status-block a:hover .desc {
+    color: #000 !important;
+}
