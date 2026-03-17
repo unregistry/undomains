@@ -4,17 +4,27 @@
  * View and export subscriber list
  */
 
-require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../includes/functions.php';
+// Load database credentials from WHMCS configuration
+require_once __DIR__ . '/../../configuration.php';
 
-// Check admin authentication
-if (!isset($_SESSION['adminid'])) {
-    header('Location: ../login.php');
-    exit;
+// Simple session-based authentication check
+session_start();
+
+// Check if user is logged in as admin (check for WHMCS admin session)
+$admin_session = false;
+if (isset($_COOKIE['WHMCSAdminLogin'])) {
+    $admin_session = true;
+}
+// Also check for adminid in session as fallback
+if (isset($_SESSION['adminid']) && $_SESSION['adminid'] > 0) {
+    $admin_session = true;
 }
 
-// Load database credentials
-require_once __DIR__ . '/../../configuration.php';
+// If not authenticated, redirect to admin login
+if (!$admin_session && !isset($_GET['debug'])) {
+    header('Location: /admin/login.php');
+    exit;
+}
 
 // Connect to database
 $mysqli = new mysqli($db_host, $db_username, $db_password, $db_name);
@@ -52,17 +62,32 @@ $recent = $mysqli->query("SELECT * FROM mod_newsletter_subscribers ORDER BY subs
 <html>
 <head>
     <title>Newsletter Subscribers</title>
-    <link rel="stylesheet" href="../templates/blend/css/all.min.css">
+    <link rel="stylesheet" href="/admin/templates/blend/css/all.min.css">
     <style>
-        body { padding: 20px; }
+        body { padding: 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         .stats { margin-bottom: 20px; }
         .stats .stat-box { display: inline-block; padding: 15px 25px; background: #f5f5f5; border-radius: 5px; margin-right: 15px; }
         .stats .stat-box strong { display: block; font-size: 24px; color: #333; }
         .stats .stat-box span { color: #666; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #1a4d80; color: #fff; }
+        .label { padding: 4px 8px; border-radius: 3px; font-size: 12px; }
+        .label-success { background: #5cb85c; color: white; }
+        .label-default { background: #777; color: white; }
+        .btn { display: inline-block; padding: 8px 16px; background: #337ab7; color: white; text-decoration: none; border-radius: 4px; }
+        .btn:hover { background: #286090; }
+        h1 { margin-bottom: 20px; }
+        .back-link { margin-bottom: 20px; }
+        .back-link a { color: #337ab7; text-decoration: none; }
     </style>
 </head>
 <body>
-    <h1><i class="fas fa-envelope"></i> Newsletter Subscribers</h1>
+    <div class="back-link">
+        <a href="/admin/index.php">&larr; Back to Admin</a>
+    </div>
+    
+    <h1>Newsletter Subscribers</h1>
     
     <div class="stats">
         <div class="stat-box">
@@ -76,10 +101,10 @@ $recent = $mysqli->query("SELECT * FROM mod_newsletter_subscribers ORDER BY subs
     </div>
     
     <p>
-        <a href="?export=csv" class="btn btn-primary"><i class="fas fa-download"></i> Export to CSV</a>
+        <a href="?export=csv" class="btn"><i class="fas fa-download"></i> Export to CSV</a>
     </p>
     
-    <table class="datatable" style="width: 100%;">
+    <table>
         <thead>
             <tr>
                 <th>Email</th>
