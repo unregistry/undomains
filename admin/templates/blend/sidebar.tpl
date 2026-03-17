@@ -23,6 +23,15 @@
     Powered by: Undomains<br />License Type: Enterprise<br />Renews: {$licenseinfo.expires}<br />{$_ADMINLANG.global.version}: {$licenseinfo.currentversion}{if $licenseinfo.updateavailable}<br /><span class="textred"><b>{$_ADMINLANG.license.updateavailable}</b></span>{/if}
 </div>
 
+<div class="sidebar-header">
+    <i class="fas fa-tools"></i>
+    Custom Tools
+</div>
+<ul class="menu">
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
+</ul>
+
 {elseif $sidebar eq "clients"}
 
 <div class="sidebar-header">
@@ -121,6 +130,15 @@
     <li><a href="quotes.php?validity=Valid">- {$_ADMINLANG.status.valid}</a></li>
     <li><a href="quotes.php?validity=Expired">- {$_ADMINLANG.status.expired}</a></li>
     <li><a href="quotes.php?action=manage">{$_ADMINLANG.quotes.createnew}</a></li>
+</ul>
+
+<div class="sidebar-header">
+    <i class="fas fa-tools"></i>
+    Custom Tools
+</div>
+<ul class="menu">
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
 </ul>
 
 {elseif $sidebar eq "support"}
@@ -346,6 +364,15 @@
 
 {/if}
 
+<div class="sidebar-header">
+    <i class="fas fa-tools"></i>
+    Custom Tools
+</div>
+<ul class="menu">
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
+</ul>
+
 {elseif $sidebar eq "reports"}
 
 <div class="sidebar-header">
@@ -539,6 +566,15 @@
     <li><a href="configbannedips.php">{$_ADMINLANG.setup.bannedips}</a></li>
     <li><a href="configbannedemails.php">{$_ADMINLANG.setup.bannedemails}</a></li>
     <li><a href="configbackups.php">{$_ADMINLANG.setup.backups}</a></li>
+</ul>
+
+<div class="sidebar-header">
+    <i class="fas fa-tools"></i>
+    Custom Tools
+</div>
+<ul class="menu">
+    <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+    <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contact Form Submissions</a></li>
 </ul>
 
 {/if}
