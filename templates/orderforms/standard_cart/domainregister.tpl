@@ -592,6 +592,18 @@ jQuery(document).ready(function() {
             }
         }
     }
+    
+    // Force advanced sections to stay visible if they have visible class
+    // This prevents other scripts from hiding it
+    setInterval(function() {
+        var advancedSections = document.getElementById('advancedSections');
+        if (advancedSections && advancedSections.classList.contains('visible')) {
+            if (advancedSections.style.display !== 'block') {
+                console.log('Forcing advanced sections to display:block');
+                advancedSections.style.display = 'block';
+            }
+        }
+    }, 100);
 });
 </script>
 
