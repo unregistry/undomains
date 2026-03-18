@@ -6671,9 +6671,6 @@ body.body-without-header .header, body.body-without-header .header-hight-fixed {
   height: 100%;
 }
 .input-group.input-group-lg.kb-search {
-  background-image: url(../../assets/img/sliders/servers.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
   padding: 90px 0 !important;
   border-radius: 12px;
 }
