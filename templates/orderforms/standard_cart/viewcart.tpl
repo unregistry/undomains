@@ -74,7 +74,7 @@
                                             {$LANG.orderForm.qty}
                                         </div>
                                     {/if}
-                                    <div class="col-sm-4 col-xs-5 col-5 text-right">
+                                    <div class="col-sm-5 col-xs-5 col-5 text-right">
                                         {$LANG.orderForm.priceCycle}
                                     </div>
                                 </div>
