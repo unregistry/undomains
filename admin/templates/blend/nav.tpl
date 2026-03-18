@@ -1,5 +1,5 @@
 <ul class="left-nav">
-    <li class="bt nav-menu-toggle">
+    <li class="bt visible-sidebar">
         <a href="#" class="nav-toggle" id="btnNavbarToggle" aria-label="{lang key='global.navigation'}">
             <i aria-hidden="true" class="fas fa-bars always"></i>
         </a>
