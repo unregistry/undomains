@@ -273,19 +273,30 @@ add_hook('ClientAreaDomainDetails', 1, function($vars) {
  * Hook: Add pre-sale indicator to domain checker page
  */
 add_hook('ClientAreaPageDomainChecker', 1, function($vars) {
-    // Get custom TLD pricing info with mode
+    // Get custom TLD pricing info with mode (exclude disabled TLDs)
     $customTldPricing = Capsule::table('mod_unregistry_presale_tlds')
         ->join('mod_unregistry_presale_pricing',
                'mod_unregistry_presale_tlds.id',
                '=',
                'mod_unregistry_presale_pricing.tld_id')
         ->where('mod_unregistry_presale_tlds.enabled', 1)
+        ->where(function($query) {
+            $query->where('mod_unregistry_presale_tlds.tld_mode', '!=', 'disabled')
+                  ->orWhereNull('mod_unregistry_presale_tlds.tld_mode');
+        })
         ->get();
 
     $vars['customTlds'] = [];
+    $vars['unregistryTlds'] = []; // For display section
     foreach ($customTldPricing as $pricing) {
         $mode = $pricing->tld_mode ?? ($pricing->presale_mode ? 'presale' : 'live');
-        $vars['customTlds'][] = [
+        
+        // Skip disabled TLDs
+        if ($mode === 'disabled') {
+            continue;
+        }
+        
+        $tldData = [
             'tld' => $pricing->tld,
             'register' => $pricing->register_price,
             'transfer' => $pricing->transfer_price,
@@ -300,7 +311,25 @@ add_hook('ClientAreaPageDomainChecker', 1, function($vars) {
                 'disabled' => 'Disabled',
                 default => ucfirst($mode),
             },
+            'modeClass' => match($mode) {
+                'live' => 'success',
+                'presale' => 'info',
+                'reservation' => 'warning',
+                'coming_soon' => 'primary',
+                'disabled' => 'default',
+                default => 'info',
+            },
+            'description' => match($mode) {
+                'live' => 'Available for immediate registration',
+                'presale' => 'Pre-order now for early access',
+                'reservation' => 'Reserve your domain now',
+                'coming_soon' => 'Coming soon - check back later',
+                default => 'Domain availability varies',
+            },
         ];
+        
+        $vars['customTlds'][] = $tldData;
+        $vars['unregistryTlds'][] = $tldData;
     }
 
     return $vars;

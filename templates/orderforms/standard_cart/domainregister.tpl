@@ -247,6 +247,33 @@
                     </div>
                 {/if}
 
+                {* Unregistry Custom TLDs Section *}
+                {if isset($unregistryTlds) && count($unregistryTlds) > 0}
+                    <div class="unregistry-tlds-section margin-top-20 margin-bottom-20">
+                        <h4 class="font-size-18">Premium TLDs</h4>
+                        <p class="text-muted">Special domain extensions with unique availability status</p>
+                        <div class="row">
+                            {foreach $unregistryTlds as $tld}
+                                <div class="col-md-4 col-sm-6 margin-bottom-10">
+                                    <div class="unregistry-tld-card panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="clearfix">
+                                                <h5 class="pull-left margin-0"><strong>{$tld.tld}</strong></h5>
+                                                <span class="label label-{$tld.modeClass} pull-right">{$tld.modeDisplay}</span>
+                                            </div>
+                                            <p class="text-muted margin-top-5 margin-bottom-5" style="font-size: 12px;">{$tld.description}</p>
+                                            <div class="text-center">
+                                                <span class="text-success">{if is_object($tld.register)}{$tld.register->toPrefixed()}{else}${$tld.register}{/if}</span>
+                                                <span class="text-muted" style="font-size: 11px;">/year</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/foreach}
+                        </div>
+                    </div>
+                {/if}
+
                 <h4 class="font-size-18">{lang key='pricing.browseExtByCategory'}</h4>
 
                 <div class="tld-filters">
@@ -510,5 +537,53 @@ jQuery(document).ready(function() {
 .label-disabled {
     background-color: #777;
     color: #fff;
+}
+
+/* Unregistry TLD Cards */
+.unregistry-tlds-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+}
+
+.unregistry-tld-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.unregistry-tld-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.unregistry-tld-card .panel-body {
+    padding: 15px;
+}
+
+.unregistry-tld-card h5 {
+    color: #333;
+    font-size: 16px;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .unregistry-tlds-section {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .unregistry-tld-card {
+    background: #262626;
+    border-color: #444;
+}
+
+[data-theme="dark"] .unregistry-tld-card h5 {
+    color: #fff;
+}
+
+[data-theme="dark"] .unregistry-tld-card .text-muted {
+    color: #aaa;
 }
 </style>
