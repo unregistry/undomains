@@ -888,21 +888,21 @@
         flex-wrap: nowrap;
     }
     #order-standard_cart .item .col-sm-7 {
-        width: 60%;
-        flex: 0 0 60%;
-        max-width: 60%;
+        width: 58%;
+        flex: 0 0 58%;
+        max-width: 58%;
     }
-    #order-standard_cart .item .col-sm-4 {
-        width: 40%;
-        flex: 0 0 40%;
-        max-width: 40%;
+    #order-standard_cart .item .col-sm-5 {
+        width: 42%;
+        flex: 0 0 42%;
+        max-width: 42%;
     }
 }
 
 /* Stack columns at 440px and below */
 @media (max-width: 440px) {
     #order-standard_cart .item .col-sm-7,
-    #order-standard_cart .item .col-sm-4 {
+    #order-standard_cart .item .col-sm-5 {
         width: 100%;
         flex: 0 0 100%;
         max-width: 100%;
