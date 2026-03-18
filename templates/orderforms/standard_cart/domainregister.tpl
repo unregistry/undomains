@@ -703,7 +703,7 @@ jQuery(document).ready(function() {
 }
 
 .advanced-section.visible {
-    display: block;
+    display: block !important;
 }
 
 /* Dark theme support */
