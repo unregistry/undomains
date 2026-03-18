@@ -8,9 +8,14 @@
         </div>
         <div class="cart-body">
             <div class="header-lined">
-                <h1 class="font-size-36">
-                    {$LANG.registerdomain}
-                </h1>
+                <div class="domain-search-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <h1 class="font-size-36" style="margin: 0;">
+                        {$LANG.registerdomain}
+                    </h1>
+                    <button type="button" id="viewToggleBtn" class="view-toggle-btn" onclick="toggleDomainView()">
+                        <i class="fas fa-cog"></i> <span id="viewToggleText">Show Advanced</span>
+                    </button>
+                </div>
             </div>
             {include file="orderforms/standard_cart/sidebar-categories-collapsed.tpl"}
 
@@ -246,13 +251,6 @@
                         </div>
                     </div>
                 {/if}
-
-                {* View Toggle Button *}
-                <div class="view-toggle-container">
-                    <button type="button" id="viewToggleBtn" class="view-toggle-btn" onclick="toggleDomainView()">
-                        <i class="fas fa-cog"></i> <span id="viewToggleText">Show Advanced</span>
-                    </button>
-                </div>
 
                 {* Unregistry Custom TLDs Section *}
                 {if isset($unregistryTlds) && count($unregistryTlds) > 0}
