@@ -1199,3 +1199,20 @@
 .panel {
     background-color: transparent !important;
 }
+
+/* ============================================
+   EMPTY CART BUTTON - Theme aware colors
+   ============================================ */
+/* Dark theme (default) - white icon and text */
+#order-standard_cart #btnEmptyCart,
+#order-standard_cart #btnEmptyCart i,
+#order-standard_cart #btnEmptyCart span {
+    color: #ffffff !important;
+}
+
+/* Light theme - black icon and text */
+[data-background="light"] #order-standard_cart #btnEmptyCart,
+[data-background="light"] #order-standard_cart #btnEmptyCart i,
+[data-background="light"] #order-standard_cart #btnEmptyCart span {
+    color: #000000 !important;
+}
