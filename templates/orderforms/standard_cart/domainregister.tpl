@@ -528,35 +528,43 @@ function toggleDomainView() {
     var toggleBtn = document.getElementById('viewToggleBtn');
     var toggleText = document.getElementById('viewToggleText');
     
+    if (!advancedSections) return;
+    
     if (advancedSections.classList.contains('visible')) {
         // Switch to Basic view
         advancedSections.classList.remove('visible');
-        toggleText.textContent = 'Show Advanced';
-        toggleBtn.classList.remove('active');
+        if (toggleText) toggleText.textContent = 'Show Advanced';
+        if (toggleBtn) toggleBtn.classList.remove('active');
         // Store preference
-        localStorage.setItem('domainSearchView', 'basic');
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('domainSearchView', 'basic');
+        }
     } else {
         // Switch to Advanced view
         advancedSections.classList.add('visible');
-        toggleText.textContent = 'Show Basic';
-        toggleBtn.classList.add('active');
+        if (toggleText) toggleText.textContent = 'Show Basic';
+        if (toggleBtn) toggleBtn.classList.add('active');
         // Store preference
-        localStorage.setItem('domainSearchView', 'advanced');
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('domainSearchView', 'advanced');
+        }
     }
 }
 
-// Restore view preference on page load
-document.addEventListener('DOMContentLoaded', function() {
-    var savedView = localStorage.getItem('domainSearchView');
-    if (savedView === 'advanced') {
-        var advancedSections = document.getElementById('advancedSections');
-        var toggleBtn = document.getElementById('viewToggleBtn');
-        var toggleText = document.getElementById('viewToggleText');
-        
-        if (advancedSections) {
-            advancedSections.classList.add('visible');
-            toggleText.textContent = 'Show Basic';
-            toggleBtn.classList.add('active');
+// Restore view preference on page load - wrap in jQuery ready to ensure DOM is loaded
+jQuery(document).ready(function() {
+    if (typeof localStorage !== 'undefined') {
+        var savedView = localStorage.getItem('domainSearchView');
+        if (savedView === 'advanced') {
+            var advancedSections = document.getElementById('advancedSections');
+            var toggleBtn = document.getElementById('viewToggleBtn');
+            var toggleText = document.getElementById('viewToggleText');
+            
+            if (advancedSections) {
+                advancedSections.classList.add('visible');
+                if (toggleText) toggleText.textContent = 'Show Basic';
+                if (toggleBtn) toggleBtn.classList.add('active');
+            }
         }
     }
 });
