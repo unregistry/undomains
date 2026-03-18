@@ -524,11 +524,19 @@ jQuery(document).ready(function() {
 
 // View Toggle Function
 function toggleDomainView() {
+    console.log('toggleDomainView called');
     var advancedSections = document.getElementById('advancedSections');
     var toggleBtn = document.getElementById('viewToggleBtn');
     var toggleText = document.getElementById('viewToggleText');
     
-    if (!advancedSections) return;
+    console.log('advancedSections:', advancedSections);
+    console.log('toggleBtn:', toggleBtn);
+    console.log('toggleText:', toggleText);
+    
+    if (!advancedSections) {
+        console.log('advancedSections not found, returning');
+        return;
+    }
     
     if (advancedSections.classList.contains('visible')) {
         // Switch to Basic view
@@ -553,8 +561,12 @@ function toggleDomainView() {
 
 // Restore view preference on page load - wrap in jQuery ready to ensure DOM is loaded
 jQuery(document).ready(function() {
+    console.log('DOM ready - checking view preference');
+    console.log('advancedSections on ready:', document.getElementById('advancedSections'));
+    
     if (typeof localStorage !== 'undefined') {
         var savedView = localStorage.getItem('domainSearchView');
+        console.log('savedView:', savedView);
         if (savedView === 'advanced') {
             var advancedSections = document.getElementById('advancedSections');
             var toggleBtn = document.getElementById('viewToggleBtn');
@@ -564,6 +576,7 @@ jQuery(document).ready(function() {
                 advancedSections.classList.add('visible');
                 if (toggleText) toggleText.textContent = 'Show Basic';
                 if (toggleBtn) toggleBtn.classList.add('active');
+                console.log('Advanced view restored');
             }
         }
     }
