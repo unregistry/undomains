@@ -73,7 +73,6 @@
 #order-standard_cart {
     background-color: var(--dr-bg-primary);
     color: var(--dr-text-primary);
-    padding: 20px;
     border-radius: var(--dr-radius-lg);
 }
 
@@ -767,10 +766,6 @@
    RESPONSIVE ADJUSTMENTS
    ============================================ */
 @media (max-width: 768px) {
-    #order-standard_cart {
-        padding: 10px;
-    }
-
     #order-standard_cart .btn-primary,
     #order-standard_cart .btn-add-to-cart {
         padding: 10px 16px;
