@@ -128,11 +128,11 @@
 
 #order-standard_cart .panel-heading,
 #order-standard_cart .card-header {
-    background-color: var(--dr-bg-secondary);
     color: var(--dr-text-primary);
     border-bottom: 1px solid var(--dr-border);
     padding: 15px 20px;
     font-weight: 600;
+    border-radius: 0 !important;
 }
 
 #order-standard_cart h1,
@@ -578,22 +578,25 @@
     border-radius: var(--dr-radius);
 }
 
-#order-standard_cart .panel-sidebar {
-    background-color: var(--dr-bg-secondary);
+#order-standard_cart .panel-sidebar,
+#order-standard_cart .card-sidebar {
     border: 1px solid var(--dr-border);
+    border-radius: 0 !important;
 }
 
-#order-standard_cart .panel-sidebar .list-group-item {
-    background-color: var(--dr-bg-secondary);
+#order-standard_cart .panel-sidebar .list-group-item,
+#order-standard_cart .card-sidebar .list-group-item {
     border-color: var(--dr-border);
     color: var(--dr-text-primary);
 }
 
-#order-standard_cart .panel-sidebar .list-group-item:hover {
+#order-standard_cart .panel-sidebar .list-group-item:hover,
+#order-standard_cart .card-sidebar .list-group-item:hover {
     background-color: var(--dr-bg-tertiary);
 }
 
-#order-standard_cart .panel-sidebar .list-group-item.active {
+#order-standard_cart .panel-sidebar .list-group-item.active,
+#order-standard_cart .card-sidebar .list-group-item.active {
     background-color: var(--dr-accent);
     color: #000;
     border-color: var(--dr-accent);
@@ -611,14 +614,14 @@
 
 #order-standard_cart .panel-body,
 #order-standard_cart .card-body {
-    background-color: var(--dr-bg-secondary);
     color: var(--dr-text-primary);
+    border-radius: 0 !important;
 }
 
 #order-standard_cart .panel-footer,
 #order-standard_cart .card-footer {
-    background-color: var(--dr-bg-tertiary);
     border-top: 1px solid var(--dr-border);
+    border-radius: 0 !important;
 }
 
 #order-standard_cart .list-group-item {
