@@ -368,6 +368,7 @@ h3 {
 }
 .navigation ul.left-nav {
   float: left;
+  margin-left: 0;
 }
 .navigation ul li {
   float: none;
