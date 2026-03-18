@@ -61,7 +61,19 @@
      * Update the toggle button appearance
      */
     function updateToggleButton(theme) {
-        // Update navbar theme icon (in left-nav)
+        // Update footer theme icon
+        const footerIcon = document.getElementById('footer-theme-icon');
+        if (footerIcon) {
+            if (theme === THEMES.DARK) {
+                footerIcon.className = 'fas fa-sun';
+                footerIcon.parentElement.setAttribute('title', 'Switch to Light Mode');
+            } else {
+                footerIcon.className = 'fas fa-moon';
+                footerIcon.parentElement.setAttribute('title', 'Switch to Dark Mode');
+            }
+        }
+        
+        // Update navbar theme icon (in left-nav) - if exists
         const navIcon = document.getElementById('nav-theme-icon');
         if (navIcon) {
             if (theme === THEMES.DARK) {

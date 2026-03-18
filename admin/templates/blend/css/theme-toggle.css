@@ -800,25 +800,21 @@ body {
 
 
 /* ============================================
-   NAVBAR THEME TOGGLE
+   FOOTER THEME TOGGLE
    ============================================ */
 
-/* Theme toggle in left-nav */
-.navigation .left-nav li.theme-toggle-nav a {
+/* Theme toggle in footer */
+.footerbar .links a[onclick*="UndoTheme.toggle"] {
+    color: var(--text-footer) !important;
+    text-decoration: none !important;
+}
+
+.footerbar .links a[onclick*="UndoTheme.toggle"]:hover {
     color: #fff !important;
-    padding: 15px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: rgba(204, 153, 51, 0.15);
 }
 
-.navigation .left-nav li.theme-toggle-nav a:hover {
-    color: var(--gold-primary) !important;
-    background: rgba(204, 153, 51, 0.15) !important;
-}
-
-.navigation .left-nav li.theme-toggle-nav a i {
-    font-size: 18px;
+.footerbar .links a[onclick*="UndoTheme.toggle"] i {
     color: var(--gold-primary) !important;
 }
 

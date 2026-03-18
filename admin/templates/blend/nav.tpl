@@ -8,12 +8,6 @@
             <i aria-hidden="true" class="fas fa-bars always"></i>
         </a>
     </li>
-    <li class="bt theme-toggle-nav">
-        <a href="#" onclick="UndoTheme.toggle(); return false;" title="Toggle Dark/Light Theme">
-            <i class="fas fa-moon" id="nav-theme-icon"></i>
-            <span class="visible-sidebar">Theme</span>
-        </a>
-    </li>
 </ul>
 
 <div class="navbar-collapse">
