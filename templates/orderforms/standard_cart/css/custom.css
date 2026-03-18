@@ -624,7 +624,6 @@
 }
 
 #order-standard_cart .list-group-item {
-    background-color: var(--dr-bg-secondary);
     border-color: var(--dr-border);
     color: var(--dr-text-primary);
 }
