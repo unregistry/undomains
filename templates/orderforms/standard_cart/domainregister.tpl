@@ -542,8 +542,9 @@ function toggleDomainView() {
     
     if (advancedSections.classList.contains('visible')) {
         // Switch to Basic view
-        console.log('Removing visible class');
+        console.log('Switching to Basic view');
         advancedSections.classList.remove('visible');
+        advancedSections.style.display = 'none';
         if (toggleText) toggleText.textContent = 'Show Advanced';
         if (toggleBtn) toggleBtn.classList.remove('active');
         // Store preference
@@ -552,8 +553,9 @@ function toggleDomainView() {
         }
     } else {
         // Switch to Advanced view
-        console.log('Adding visible class');
+        console.log('Switching to Advanced view');
         advancedSections.classList.add('visible');
+        advancedSections.style.display = 'block';
         if (toggleText) toggleText.textContent = 'Show Basic';
         if (toggleBtn) toggleBtn.classList.add('active');
         // Store preference
@@ -563,6 +565,7 @@ function toggleDomainView() {
     }
     
     console.log('After toggle, classList:', advancedSections.className);
+    console.log('After toggle, style.display:', advancedSections.style.display);
 }
 
 // Restore view preference on page load - wrap in jQuery ready to ensure DOM is loaded
@@ -580,6 +583,7 @@ jQuery(document).ready(function() {
             
             if (advancedSections) {
                 advancedSections.classList.add('visible');
+                advancedSections.style.display = 'block';
                 if (toggleText) toggleText.textContent = 'Show Basic';
                 if (toggleBtn) toggleBtn.classList.add('active');
                 console.log('Advanced view restored');
@@ -703,6 +707,11 @@ jQuery(document).ready(function() {
 }
 
 .advanced-section.visible {
+    display: block !important;
+}
+
+/* Fallback inline style handling */
+#advancedSections[style*="display: block"] {
     display: block !important;
 }
 
