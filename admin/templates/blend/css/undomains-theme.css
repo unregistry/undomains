@@ -318,7 +318,6 @@
    ============================================ */
 
 .sidebar {
-    background: linear-gradient(180deg, #0a0a0a 0%, #151515 100%) !important;
     border-right: 1px solid #cc9933 !important;
     min-height: 100vh !important;
     height: auto !important;
