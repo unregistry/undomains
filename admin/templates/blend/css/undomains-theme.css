@@ -353,11 +353,17 @@
 }
 
 /* Sidebar menu links */
+/* Sidebar menu links - Black in light theme, White in dark theme */
 .sidebar .menu li a,
 .sidebar ul li a {
     color: #000 !important;
     text-decoration: none !important;
     transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .sidebar .menu li a,
+[data-theme="dark"] .sidebar ul li a {
+    color: #fff !important;
 }
 
 .sidebar .menu li a:hover,
@@ -378,10 +384,15 @@
     margin-right: 8px;
 }
 
-/* Sidebar content text - Black for light theme */
+/* Sidebar content text - Black for light theme, White for dark theme */
 .sidebar .content-padded,
 .sidebar .content-padded.small {
     color: #000 !important;
+}
+
+[data-theme="dark"] .sidebar .content-padded,
+[data-theme="dark"] .sidebar .content-padded.small {
+    color: #fff !important;
 }
 
 /* Sidebar collapse/expand button */
