@@ -974,7 +974,6 @@
 
 /* Order Summary Sidebar */
 #order-standard_cart .order-summary {
-    border: 1px solid var(--dr-border);
     border-radius: 0;
     padding: 25px;
     position: relative;
