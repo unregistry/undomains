@@ -566,6 +566,10 @@ function toggleDomainView() {
     
     console.log('After toggle, classList:', advancedSections.className);
     console.log('After toggle, style.display:', advancedSections.style.display);
+    console.log('After toggle, computed display:', window.getComputedStyle(advancedSections).display);
+    
+    // Force reflow
+    void advancedSections.offsetHeight;
 }
 
 // Restore view preference on page load - wrap in jQuery ready to ensure DOM is loaded
@@ -710,8 +714,18 @@ jQuery(document).ready(function() {
     display: block !important;
 }
 
-/* Fallback inline style handling */
-#advancedSections[style*="display: block"] {
+/* Force advanced sections to show when visible class is present */
+#advancedSections.advanced-section.visible {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Override any parent hiding */
+.domain-pricing #advancedSections.visible,
+#order-standard_cart #advancedSections.visible {
     display: block !important;
 }
 

@@ -1956,3 +1956,17 @@ html[data-background="light"] .footer .soc-icons a {
 .section-subheading {
     color: #ffffff !important;
 }
+
+/* Domain Search Advanced View Toggle */
+#advancedSections.advanced-section.visible {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.domain-pricing #advancedSections.visible,
+#order-standard_cart #advancedSections.visible {
+    display: block !important;
+}
