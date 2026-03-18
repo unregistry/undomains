@@ -4281,23 +4281,7 @@ html[data-background="dark"] textarea {
     color: #cccccc !important;
 }
 
-/* Client area form inputs - Dark theme */
-[data-background="dark"] #inputFirstName,
-[data-background="dark"] #inputLastName,
-[data-background="dark"] #inputEmail,
-[data-background="dark"] #inputCompanyName,
-[data-background="dark"] #inputAddress1,
-[data-background="dark"] #inputAddress2,
-[data-background="dark"] #inputCity,
-[data-background="dark"] #inputState,
-[data-background="dark"] #inputPostcode,
-[data-background="dark"] #inputCountry,
-[data-background="dark"] #inputPhone,
-[data-background="dark"] .form-control {
-    background-color: #2a2a2a !important;
-    color: #ffffff !important;
-    border-color: #555555 !important;
-}
+
 
 /* Service section border - Dark/Light theme */
 [data-background="dark"] .service-section {
