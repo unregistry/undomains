@@ -124,7 +124,7 @@
                                                     {/if}
                                                 </div>
                                             {/if}
-                                            <div class="col-sm-4 item-price">
+                                            <div class="col-sm-5 item-price">
                                                 <span>{$product.pricing.totalTodayExcludingTaxSetup}</span>
                                                 <span class="cycle">{$product.billingcyclefriendly}</span>
                                                 {if $product.pricing.productonlysetup}
@@ -155,7 +155,7 @@
                                                         {/if}
                                                     </div>
                                                 {/if}
-                                                <div class="col-sm-4 item-price">
+                                                <div class="col-sm-5 item-price">
                                                     <span>{$addon.totaltoday}</span>
                                                     <span class="cycle">{$addon.billingcyclefriendly}</span>
                                                     {if $addon.setup}{$addon.setup->toPrefixed()} {$LANG.ordersetupfee}{/if}
@@ -198,7 +198,7 @@
                                                     {/if}
                                                 </div>
                                             {/if}
-                                            <div class="col-sm-4 item-price">
+                                            <div class="col-sm-5 item-price">
                                                 <span>{$addon.totaltoday}</span>
                                                 <span class="cycle">{$addon.billingcyclefriendly}</span>
                                                 {if $addon.setup}{$addon.setup->toPrefixed()} {$LANG.ordersetupfee}{/if}
@@ -232,7 +232,7 @@
                                                 {if $domain.emailforwarding}&nbsp;&raquo; {$LANG.domainemailforwarding}<br />{/if}
                                                 {if $domain.idprotection}&nbsp;&raquo; {$LANG.domainidprotection}<br />{/if}
                                             </div>
-                                            <div class="col-sm-4 item-price">
+                                            <div class="col-sm-5 item-price">
                                                 {if count($domain.pricing) == 1 || $domain.type == 'transfer'}
                                                     <span name="{$domain.domain}Price">{$domain.price}</span>
                                                     <span class="cycle">{$domain.regperiod} {$domain.yearsLanguage}</span>
@@ -279,7 +279,7 @@
                                                     {$service.domainName}
                                                 </span>
                                             </div>
-                                            <div class="col-sm-4 item-price">
+                                            <div class="col-sm-5 item-price">
                                                 <span>{$service.recurringBeforeTax}</span>
                                                 <span class="cycle">{$service.billingCycle}</span>
                                             </div>
@@ -307,7 +307,7 @@
                                                     {$service.domainName}
                                                 </span>
                                             </div>
-                                            <div class="col-sm-4 item-price">
+                                            <div class="col-sm-5 item-price">
                                                 <span>{$service.recurringBeforeTax}</span>
                                                 <span class="cycle">{$service.billingCycle}</span>
                                             </div>
@@ -335,7 +335,7 @@
                                                 {if $domain.emailforwarding}&nbsp;&raquo; {$LANG.domainemailforwarding}<br />{/if}
                                                 {if $domain.idprotection}&nbsp;&raquo; {$LANG.domainidprotection}<br />{/if}
                                             </div>
-                                            <div class="col-sm-4 item-price">
+                                            <div class="col-sm-5 item-price">
                                                 <span>{$domain.price}</span>
                                                 <span class="cycle">{$domain.regperiod} {$LANG.orderyears}</span>
                                             </div>
@@ -379,7 +379,7 @@
                                                     {/if}
                                                 </div>
                                             {/if}
-                                            <div class="col-sm-4 item-price">
+                                            <div class="col-sm-5 item-price">
                                                 <span>{$upgrade->newRecurringAmount}</span>
                                                 <span class="cycle">{$upgrade->localisedNewCycle}</span>
                                             </div>
@@ -400,7 +400,7 @@
                                                         {lang key="upgradeCreditDescription" daysRemaining=$upgrade->daysRemaining totalDays=$upgrade->totalDaysInCycle}
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4 item-price">
+                                                <div class="col-sm-5 item-price">
                                                     <span>-{$upgrade->creditAmount}</span>
                                                 </div>
                                             </div>
