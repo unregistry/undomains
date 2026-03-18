@@ -349,8 +349,8 @@ h3 {
   padding: 10px 0;
   width: 245px;
   height: 100%;
-  background-color: #1b4d7f;
-  border-top: 1px solid #2f5b88;
+  background-color: #111111;
+  border-top: 1px solid #444444;
   z-index: 2000;
   overflow: auto;
 }
@@ -1021,7 +1021,8 @@ h3 {
   .sidebar .sidebar-collapse-expand {
     display: block;
   }
-  .sidebar-opener {
+  .sidebar-opener,
+  .sidebar-opener.minimized {
     display: none !important;
   }
   .contentarea {
@@ -3517,4 +3518,290 @@ h2.ticket-subject {
 
 .modal-backdrop {
   z-index: 1040 !important;
+}
+/* ============================================
+   SIDEBAR ALWAYS VISIBLE ON DESKTOP
+   ============================================ */
+@media only screen and (min-width: 950px) {
+    .sidebar,
+    .sidebar.minimized {
+        display: block !important;
+        float: left;
+        margin: 0;
+        padding: 0;
+        width: 195px;
+    }
+    
+    .sidebar .sidebar-collapse {
+        display: block !important;
+    }
+}
+
+/* ============================================
+
+/* ============================================
+   ============================================ */
+@media only screen and (max-width: 949px) {
+        position: fixed !important;
+        bottom: 10px !important;
+        right: 20px !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        z-index: 9999 !important;
+        border-radius: 50% !important;
+        width: 50px !important;
+        height: 50px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        font-size: 10px !important;
+        text-align: center;
+        line-height: 1.2;
+        overflow: hidden;
+    }
+}
+
+/* ============================================
+
+/* ============================================
+
+/* ============================================
+
+/* ============================================
+
+/* ============================================
+   MOBILE SIDEBAR OPENER - MENU ICON
+   ============================================ */
+@media only screen and (max-width: 949px) {
+        font-size: 0 !important;
+        text-decoration: none !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+    
+        content: "☰";
+        font-size: 24px;
+        line-height: 50px;
+        color: #cc9933 !important;
+        text-decoration: none !important;
+    }
+    
+        text-decoration: none !important;
+        color: #ffffff !important;
+    }
+}
+
+/* ============================================
+   MOBILE SIDEBAR OPENER - VERTICAL ELLIPSIS (LEFT)
+   ============================================ */
+@media only screen and (max-width: 949px) {
+    .sidebar-opener,
+    .sidebar-opener.minimized {
+        display: block !important;
+        position: fixed !important;
+        bottom: 10px !important;
+        left: 20px !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        z-index: 9999 !important;
+        border-radius: 50% !important;
+        width: 50px !important;
+        height: 50px !important;
+        padding: 0 !important;
+        font-size: 0 !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+    
+    .sidebar-opener::before,
+    .sidebar-opener.minimized::before {
+        content: "⋮";
+        font-size: 28px;
+        line-height: 50px;
+        color: #cc9933 !important;
+        text-decoration: none !important;
+    }
+    
+    .sidebar-opener:hover,
+    .sidebar-opener:focus,
+    .sidebar-opener:hover::before,
+    .sidebar-opener:focus::before {
+        text-decoration: none !important;
+        color: #ffffff !important;
+
+/* ============================================
+   ============================================ */
+@media only screen and (max-width: 949px) {
+    .sidebar-opener,
+    .sidebar-opener.minimized {
+        display: inline-block !important;
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        z-index: auto !important;
+        border-radius: 0 !important;
+        width: auto !important;
+        height: auto !important;
+        padding: 0 10px 0 0 !important;
+        font-size: 0 !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        vertical-align: middle !important;
+        float: left !important;
+    }
+    
+    .sidebar-opener::before,
+    .sidebar-opener.minimized::before {
+        content: "⋮";
+        font-size: 24px;
+        line-height: 1;
+        color: #cc9933 !important;
+        text-decoration: none !important;
+    }
+    
+    .sidebar-opener:hover,
+    .sidebar-opener:focus,
+    .sidebar-opener:hover::before,
+    .sidebar-opener:focus::before {
+        text-decoration: none !important;
+        color: #ffffff !important;
+    }
+}
+
+/* ============================================
+   ============================================ */
+@media only screen and (max-width: 949px) {
+    /* Hide original desktop sidebar-opener on mobile */
+    .sidebar-opener,
+    .sidebar-opener.minimized {
+        display: none !important;
+    }
+    
+    /* Show mobile sidebar-opener in footer */
+    .sidebar-opener-mobile,
+    .sidebar-opener-mobile.minimized {
+        display: inline-block !important;
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        z-index: auto !important;
+        border-radius: 0 !important;
+        width: auto !important;
+        height: auto !important;
+        padding: 0 10px 0 0 !important;
+        font-size: 0 !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        vertical-align: middle !important;
+    }
+    
+    .sidebar-opener-mobile::before,
+    .sidebar-opener-mobile.minimized::before {
+        content: "⋮";
+        font-size: 24px;
+        line-height: 1;
+        color: #cc9933 !important;
+        text-decoration: none !important;
+    }
+    
+    .sidebar-opener-mobile:hover,
+    .sidebar-opener-mobile:focus,
+    .sidebar-opener-mobile:hover::before,
+    .sidebar-opener-mobile:focus::before {
+        text-decoration: none !important;
+        color: #ffffff !important;
+    }
+}
+
+/* Hide mobile opener on desktop */
+@media only screen and (min-width: 950px) {
+    .sidebar-opener-mobile,
+    .sidebar-opener-mobile.minimized {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   ============================================ */
+@media only screen and (max-width: 949px) {
+    .footerbar .sidebar-opener-mobile {
+        display: inline-flex !important;
+        align-items: center !important;
+        z-index: 100 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        order: -1 !important;
+    }
+    
+    .footerbar .sidebar-opener-mobile::before {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* ============================================
+   MOBILE SIDEBAR OPENER - FLOATING BUTTON
+   ============================================ */
+@media only screen and (max-width: 949px) {
+    .sidebar-opener,
+    .sidebar-opener.minimized {
+        display: none !important;
+    }
+    .sidebar-opener-mobile,
+    .sidebar-opener-mobile.minimized {
+        display: block !important;
+        position: fixed !important;
+        bottom: 10px !important;
+        left: 10px !important;
+        z-index: 9999 !important;
+        font-size: 0 !important;
+        width: 40px !important;
+        height: 40px !important;
+        line-height: 40px !important;
+        text-align: center !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .sidebar-opener-mobile::before {
+        content: "⋮";
+        font-size: 28px;
+        color: #cc9933 !important;
+    }
+    .sidebar-opener-mobile:hover::before {
+        color: #ffffff !important;
+    }
+}
+@media only screen and (min-width: 950px) {
+    .sidebar-opener-mobile {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   COPYRIGHT MARGIN FIX
+   ============================================ */
+.footerbar .copyright,
+.footerbar .col-md-6.copyright {
+    margin-bottom: 0 !important;
 }

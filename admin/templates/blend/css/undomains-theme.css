@@ -234,7 +234,7 @@
     .footerbar .copyright,
     .footerbar .links {
         text-align: center !important;
-        margin-bottom: 10px;
+        margin-bottom: 0 !important;
     }
 }
 
@@ -387,7 +387,6 @@
 
 /* Sidebar collapse/expand button */
 .sidebar-collapse-expand {
-    background: #cc9933 !important;
     color: #000 !important;
 }
 
@@ -844,4 +843,121 @@ body.login {
 .health-status-block a:hover .count,
 .health-status-block a:hover .desc {
     color: #000 !important;
+}
+
+/* ============================================
+   ADDON MODULES MOBILE BUTTON ICONS
+   ============================================ */
+@media (max-width: 768px) {
+    table.datatable td input[type="button"][id$="_configure"],
+    table.datatable td input[type="button"][id$="_configure"].btn,
+    table.datatable td input[type="button"][id$="_configure"].disabled,
+    table.datatable td input[type="button"][id$="_configure"]:disabled {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        padding: 0 !important;
+        font-size: 0 !important;
+        text-indent: -9999px;
+        overflow: hidden;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 20px 20px !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L3.16 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z'/%3E%3C/svg%3E") !important;
+    }
+    
+    table.datatable td input[type="button"][value="Deactivate"],
+    table.datatable td input[type="button"][value="Deactivate"].btn,
+    table.datatable td input[type="button"][value="Deactivate"].disabled,
+    table.datatable td input[type="button"][value="Deactivate"]:disabled {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        padding: 0 !important;
+        font-size: 0 !important;
+        text-indent: -9999px;
+        overflow: hidden;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 20px 20px !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E") !important;
+    }
+    
+    table.datatable td input[type="button"][value="Activate"],
+    table.datatable td input[type="button"][value="Activate"].btn,
+    table.datatable td input[type="button"][value="Activate"].disabled,
+    table.datatable td input[type="button"][value="Activate"]:disabled {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        padding: 0 !important;
+        font-size: 0 !important;
+        text-indent: -9999px;
+        overflow: hidden;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 20px 20px !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") !important;
+    }
+}
+
+/* ============================================
+   REMOVE BACKGROUND COLOR FROM TABLE CELLS
+   ============================================ */
+table.datatable td[style*="background-color:#FDF4E8"],
+table.datatable td[style*="background-color: #FDF4E8"],
+table.datatable td[style*="background-color:#fff"],
+table.datatable td[style*="background-color: #fff"],
+table.datatable td[style*="background-color:#FFF"],
+table.datatable td[style*="background-color: #FFF"] {
+    background-color: transparent !important;
+}
+
+/* ============================================
+   LICENSE ADDON LINK COLORS
+   ============================================ */
+a[href*="licensing-addon"] {
+    color: #000 !important;
+}
+
+[data-theme="dark"] a[href*="licensing-addon"] {
+    color: #fff !important;
+}
+
+/* ============================================
+   ADDON MODULES TABLE LINKS
+   ============================================ */
+table.datatable td a,
+#contentarea table a[href*="go.whmcs.com"],
+#contentarea table a[href*="marketplace.whmcs.com"] {
+    color: #000 !important;
+}
+
+[data-theme="dark"] table.datatable td a,
+[data-theme="dark"] #contentarea table a[href*="go.whmcs.com"],
+[data-theme="dark"] #contentarea table a[href*="marketplace.whmcs.com"] {
+    color: #fff !important;
+}
+
+/* ============================================
+   SIDEBAR CLOSE MOBILE ICON HOVER
+   ============================================ */
+.sidebar-close-mobile:hover i.fa-times,
+.sidebar-close-mobile:focus i.fa-times,
+#sidebarClose:hover i.fa-times,
+#sidebarClose:focus i.fa-times {
+    color: #fff !important;
+}
+
+[data-theme="dark"] .sidebar-close-mobile:hover i.fa-times,
+[data-theme="dark"] .sidebar-close-mobile:focus i.fa-times,
+[data-theme="dark"] #sidebarClose:hover i.fa-times,
+[data-theme="dark"] #sidebarClose:focus i.fa-times {
+    color: #fff !important;
+}
+
+/* Force remove margin-bottom from copyright */
+.footerbar .col-md-6.copyright.text-right,
+.footerbar .copyright {
+    margin-bottom: 0 !important;
 }

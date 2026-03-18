@@ -1,4 +1,5 @@
 .sidebar {
+    display: block;
     float: left;
     margin: 0;
     padding: 0;
@@ -183,7 +184,8 @@
         }
     }
 
-    .sidebar-opener {
+    .sidebar-opener,
+    .sidebar-opener.minimized {
         display: none !important;
     }
 
@@ -194,12 +196,10 @@
 }
 @media only screen and (min-width: $sidebar-collapse-min) {
     .sidebar {
+        display: block !important;
+
         .sidebar-collapse {
             display: block !important;
-        }
-
-        &.minimized {
-            display: none;
         }
     }
 }
@@ -211,5 +211,54 @@
     }
     .contentarea {
         margin-left: 0;
+    }
+}
+
+/* ============================================
+
+@media only screen and (min-width: $sidebar-collapse-min) {
+    .sidebar-opener-mobile,
+    .sidebar-opener-mobile.minimized {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   MOBILE SIDEBAR OPENER - FLOATING BUTTON
+   ============================================ */
+@media only screen and (max-width: $sidebar-collapse-max) {
+    .sidebar-opener,
+    .sidebar-opener.minimized {
+        display: none !important;
+    }
+    .sidebar-opener-mobile,
+    .sidebar-opener-mobile.minimized {
+        display: block !important;
+        position: fixed !important;
+        bottom: 10px !important;
+        left: 10px !important;
+        z-index: 9999 !important;
+        font-size: 0 !important;
+        width: 40px !important;
+        height: 40px !important;
+        line-height: 40px !important;
+        text-align: center !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .sidebar-opener-mobile::before {
+        content: "⋮";
+        font-size: 28px;
+        color: #cc9933 !important;
+    }
+    .sidebar-opener-mobile:hover::before {
+        color: #ffffff !important;
+    }
+}
+@media only screen and (min-width: $sidebar-collapse-min) {
+    .sidebar-opener-mobile {
+        display: none !important;
     }
 }

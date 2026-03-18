@@ -13,6 +13,44 @@
     {\WHMCS\View\Asset::fontCssInclude('open-sans-family.css')}
     <link href="templates/{$template}/css/all.min.css?v={$versionHash}" rel="stylesheet" />
     <link href="templates/{$template}/css/theme.min.css?v={$versionHash}" rel="stylesheet" />
+    <style>
+        @media only screen and (max-width: 949px) {
+            .sidebar-opener,
+            .sidebar-opener.minimized {
+                display: none !important;
+            }
+            .sidebar-opener-mobile,
+            .sidebar-opener-mobile.minimized {
+                display: block !important;
+                position: fixed !important;
+                bottom: 10px !important;
+                left: 10px !important;
+                z-index: 9999 !important;
+                font-size: 0 !important;
+                width: 40px !important;
+                height: 40px !important;
+                line-height: 40px !important;
+                text-align: center !important;
+                background: transparent !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .sidebar-opener-mobile::before {
+                content: "⋮";
+                font-size: 28px;
+                color: #cc9933 !important;
+            }
+            .sidebar-opener-mobile:hover::before {
+                color: #ffffff !important;
+            }
+        }
+        @media only screen and (min-width: 950px) {
+            .sidebar-opener-mobile {
+                display: none !important;
+            }
+        }
+    </style>
     <link href="templates/{$template}/css/undomains-theme.css?v={$versionHash}" rel="stylesheet" />
     <link href="templates/{$template}/css/theme-toggle.css?v={$versionHash}" rel="stylesheet" />
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome.min.css" rel="stylesheet" />
@@ -67,12 +105,12 @@
     </div>
 
     <div class="sidebar{if $minsidebar} minimized{/if}" id="sidebar">
-        <a href="#" class="sidebar-collapse-expand" id="sidebarCollapseExpand">
-            <i class="fa fa-chevron-down"></i>
-        </a>
         <a href="#" class="sidebar-close-mobile" id="sidebarClose" style="display: none;">
             <i class="fa fa-times"></i>
         </a>
+        <div class="sidebar-collapse-expand" id="sidebarCollapseExpand">
+            <i class="fas fa-chevron-down"></i>
+        </div>
         <div class="sidebar-collapse">
             {include file="$template/sidebar.tpl"}
         </div>

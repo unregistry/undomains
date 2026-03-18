@@ -249,7 +249,6 @@ body {
 }
 
 .sidebar-collapse-expand {
-    background: var(--gold-primary) !important;
     color: #000 !important;
 }
 
@@ -447,6 +446,287 @@ body {
 .table thead th a:active {
     color: var(--text-table-header) !important;
     text-decoration: none !important;
+}
+
+/* ============================================
+   FORM TABLES (table.form)
+   ============================================ */
+[data-theme="dark"] table.form {
+    background-color: #1a1a1a !important;
+    border-color: #333 !important;
+}
+
+[data-theme="dark"] table.form td.fieldlabel {
+    background-color: #1a1a1a !important;
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea {
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea .form-control {
+    background-color: #333 !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea .form-control:focus {
+    border-color: #cc9933 !important;
+    box-shadow: 0 0 0 0.2rem rgba(204, 153, 51, 0.25) !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea .help-block,
+[data-theme="dark"] table.form td.fieldarea small,
+[data-theme="dark"] table.form td.fieldarea .text-muted {
+    color: #888 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea a {
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea a:hover {
+    color: #d4a84c !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea label {
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea .checkbox-inline,
+[data-theme="dark"] table.form td.fieldarea .radio-inline {
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea textarea {
+    background-color: #333 !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea select {
+    background-color: #333 !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] table.form td.fieldarea input[type="checkbox"],
+[data-theme="dark"] table.form td.fieldarea input[type="radio"] {
+    accent-color: #cc9933;
+}
+
+/* ============================================
+   AUTH CONTAINER (Password confirmation)
+   ============================================ */
+[data-theme="dark"] .auth-container {
+    background-color: #1a1a1a !important;
+    border: 1px solid #333 !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .auth-container h2 {
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .auth-container p {
+    color: #b0b0b0 !important;
+}
+
+[data-theme="dark"] .auth-container .form-control {
+    background-color: #333 !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] .auth-container .form-control:focus {
+    border-color: #cc9933 !important;
+    box-shadow: 0 0 0 0.2rem rgba(204, 153, 51, 0.25) !important;
+}
+
+[data-theme="dark"] .auth-container label {
+    color: #cc9933 !important;
+}
+
+/* ============================================
+   GRAPH CONTAINER
+   ============================================ */
+[data-theme="dark"] .graph-container,
+[data-theme="dark"] #graphContainer {
+    background-color: #1a1a1a !important;
+    border: 1px solid #333 !important;
+}
+
+[data-theme="dark"] .graph-container .graph-filters,
+[data-theme="dark"] #graphContainer .graph-filters {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid #333 !important;
+}
+
+[data-theme="dark"] .graph-container canvas,
+[data-theme="dark"] #graphContainer canvas {
+    background-color: #1a1a1a !important;
+}
+
+/* ============================================
+   WIDGETS (Dashboard widgets)
+   ============================================ */
+[data-theme="dark"] .widget {
+    background-color: #1a1a1a !important;
+    border: 1px solid #333 !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .widget .info-container {
+    background-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .widget .info-container .intro {
+    color: #b0b0b0 !important;
+}
+
+[data-theme="dark"] .widget .info-container .title {
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .widget .info-container .title .figure {
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .widget .info-container .title .figure a {
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .widget .info-container .title .note {
+    color: #888 !important;
+}
+
+[data-theme="dark"] .widget .info-container i {
+    color: #cc9933 !important;
+}
+
+/* ============================================
+   CALENDAR / DATEPICKER
+   ============================================ */
+[data-theme="dark"] .calendar-container {
+    background-color: #1a1a1a !important;
+    border: 1px solid #333 !important;
+}
+
+[data-theme="dark"] .datepicker {
+    background-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .datepicker-dropdown {
+    background-color: #1a1a1a !important;
+    border-color: #333 !important;
+}
+
+[data-theme="dark"] .datepicker table {
+    background-color: #1a1a1a !important;
+}
+
+[data-theme="dark"] .datepicker table thead tr:first-child th,
+[data-theme="dark"] .datepicker .datepicker-switch,
+[data-theme="dark"] .datepicker .prev,
+[data-theme="dark"] .datepicker .next {
+    background-color: #2a2a2a !important;
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .datepicker table th {
+    background-color: #2a2a2a !important;
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .datepicker table th.dow {
+    background-color: #333 !important;
+    color: #b0b0b0 !important;
+}
+
+[data-theme="dark"] .datepicker table td {
+    background-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .datepicker table td.day {
+    background-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .datepicker table td.day:hover {
+    background-color: #333 !important;
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .datepicker table td.today {
+    background-color: #cc9933 !important;
+    color: #000 !important;
+}
+
+[data-theme="dark"] .datepicker table td.today:hover {
+    background-color: #d4a84c !important;
+    color: #000 !important;
+}
+
+[data-theme="dark"] .datepicker table td.active,
+[data-theme="dark"] .datepicker table td.active:hover {
+    background-color: #cc9933 !important;
+    color: #000 !important;
+}
+
+[data-theme="dark"] .datepicker table td.disabled,
+[data-theme="dark"] .datepicker table td.new,
+[data-theme="dark"] .datepicker table td.old {
+    background-color: #1a1a1a !important;
+    color: #666 !important;
+}
+
+[data-theme="dark"] .datepicker table td span.month,
+[data-theme="dark"] .datepicker table td span.year,
+[data-theme="dark"] .datepicker table td span.decade,
+[data-theme="dark"] .datepicker table td span.century {
+    background-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .datepicker table td span.month:hover,
+[data-theme="dark"] .datepicker table td span.year:hover,
+[data-theme="dark"] .datepicker table td span.decade:hover,
+[data-theme="dark"] .datepicker table td span.century:hover {
+    background-color: #333 !important;
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .datepicker table td span.focused {
+    background-color: #cc9933 !important;
+    color: #000 !important;
+}
+
+[data-theme="dark"] .datepicker table tfoot th.today,
+[data-theme="dark"] .datepicker table tfoot th.clear {
+    background-color: #2a2a2a !important;
+    color: #cc9933 !important;
+}
+
+[data-theme="dark"] .datepicker table tfoot th.today:hover,
+[data-theme="dark"] .datepicker table tfoot th.clear:hover {
+    background-color: #333 !important;
+    color: #d4a84c !important;
+}
+
+/* ============================================
+   DROPDOWN MENU ACTIVE STATE
+   ============================================ */
+[data-theme="dark"] .dropdown-menu > li > a.active,
+[data-theme="dark"] .dropdown-menu > li > a:active,
+[data-theme="dark"] .dropdown-menu > li.active > a,
+[data-theme="dark"] .dropdown-menu > li.active > a:hover,
+[data-theme="dark"] .dropdown-menu > li.active > a:focus {
+    background-color: #333 !important;
+    color: #cc9933 !important;
 }
 
 /* ============================================
@@ -745,7 +1025,7 @@ body {
         top: 0;
         bottom: 0;
         width: 240px;
-        z-index: 1001;
+        z-index: 10000;
         transition: left 0.3s ease;
     }
     
@@ -1140,4 +1420,79 @@ body {
                 color 0.3s ease,
                 border-color 0.3s ease,
                 box-shadow 0.3s ease;
+}
+
+/* ============================================
+   AI COPILOT CONFIGURE BUTTON - DARK THEME
+   ============================================ */
+[data-theme="dark"] #ai_copilot_configure.btn.disabled,
+[data-theme="dark"] #ai_copilot_configure.btn:disabled,
+[data-theme="dark"] #ai_copilot_configure.btn {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] #ai_copilot_configure.btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%) !important;
+    color: #fff !important;
+    border-color: #cc9933 !important;
+}
+
+/* ============================================
+   MODULE CONFIGURE BUTTONS - DARK THEME
+   ============================================ */
+[data-theme="dark"] input[id$="_configure"].btn.disabled,
+[data-theme="dark"] input[id$="_configure"].btn:disabled,
+[data-theme="dark"] input[id$="_configure"].btn {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] input[id$="_configure"].btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%) !important;
+    color: #fff !important;
+    border-color: #cc9933 !important;
+}
+
+/* ============================================
+
+/* ============================================
+   LICENSE ADDON LINK COLORS
+   ============================================ */
+/* Light theme - black text */
+a[href*="licensing-addon"] {
+    color: #000 !important;
+}
+
+/* Dark theme - white text */
+[data-theme="dark"] a[href*="licensing-addon"] {
+    color: #fff !important;
+}
+
+/* ============================================
+   ADDON MODULES TABLE LINKS
+   ============================================ */
+/* Light theme - black text */
+table.datatable td a,
+#contentarea table a[href*="go.whmcs.com"],
+#contentarea table a[href*="marketplace.whmcs.com"] {
+    color: #000 !important;
+}
+
+/* Dark theme - white text */
+[data-theme="dark"] table.datatable td a,
+[data-theme="dark"] #contentarea table a[href*="go.whmcs.com"],
+[data-theme="dark"] #contentarea table a[href*="marketplace.whmcs.com"] {
+    color: #fff !important;
+}
+
+.sidebar-close-mobile:hover i.fa-times,
+.sidebar-close-mobile:focus i.fa-times,
+#sidebarClose:hover i.fa-times,
+#sidebarClose:focus i.fa-times {
+    color: #fff !important;
 }

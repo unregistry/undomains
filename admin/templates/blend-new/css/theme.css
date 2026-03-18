@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * WHMCS Blend Admin Theme
  *
@@ -1603,6 +1604,7 @@ body.mobile-active {
 }
 
 .sidebar {
+  display: block;
   float: left;
   margin: 0;
   padding: 0;
@@ -1758,7 +1760,8 @@ body.mobile-active {
   .sidebar .sidebar-collapse-expand {
     display: block;
   }
-  .sidebar-opener {
+  .sidebar-opener,
+  .sidebar-opener.minimized {
     display: none !important;
   }
   .contentarea {
@@ -1767,11 +1770,11 @@ body.mobile-active {
   }
 }
 @media only screen and (min-width: 950px) {
-  .sidebar .sidebar-collapse {
+  .sidebar {
     display: block !important;
   }
-  .sidebar.minimized {
-    display: none;
+  .sidebar .sidebar-collapse {
+    display: block !important;
   }
 }
 .no-sidebar .sidebar,
@@ -1782,6 +1785,54 @@ body.mobile-active {
   margin-left: 0;
 }
 
+/* ============================================
+
+@media only screen and (min-width: $sidebar-collapse-min) {
+    .sidebar-opener-mobile,
+    .sidebar-opener-mobile.minimized {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   MOBILE SIDEBAR OPENER - FLOATING BUTTON
+   ============================================ */
+@media only screen and (max-width: 949px) {
+  .sidebar-opener,
+  .sidebar-opener.minimized {
+    display: none !important;
+  }
+  .sidebar-opener-mobile,
+  .sidebar-opener-mobile.minimized {
+    display: block !important;
+    position: fixed !important;
+    bottom: 10px !important;
+    left: 10px !important;
+    z-index: 9999 !important;
+    font-size: 0 !important;
+    width: 40px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    text-align: center !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .sidebar-opener-mobile::before {
+    content: "⋮";
+    font-size: 28px;
+    color: #cc9933 !important;
+  }
+  .sidebar-opener-mobile:hover::before {
+    color: #ffffff !important;
+  }
+}
+@media only screen and (min-width: 950px) {
+  .sidebar-opener-mobile {
+    display: none !important;
+  }
+}
 .btn-container {
   padding: 10px 0;
   text-align: center;
@@ -3161,9 +3212,6 @@ h2.ticket-subject {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-  color: #ffffff !important;
 }
 #btnAiSuggestion:focus,
 #generateAiSuggestion:focus,
@@ -3192,6 +3240,13 @@ h2.ticket-subject {
 #generateAiSuggestion:hover::before,
 #generateAiSuggestionInitial:hover::before {
   left: 100%;
+}
+#btnAiSuggestion,
+#generateAiSuggestion,
+#generateAiSuggestionInitial {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  color: #ffffff !important;
 }
 
 #btnAiSuggestion {
@@ -4132,15 +4187,17 @@ h2.ticket-subject {
   color: #333;
   background: #ffffff;
   transition: all 0.2s ease;
-  cursor: pointer;
-  height: auto;
-  min-height: 38px;
 }
 .ai-tone-length-controls .control-group select.form-control:focus {
   border-color: #2196f3;
   box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
   outline: none;
   background: #ffffff;
+}
+.ai-tone-length-controls .control-group select.form-control {
+  cursor: pointer;
+  height: auto;
+  min-height: 38px;
 }
 .ai-tone-length-controls .control-group select.form-control:hover {
   border-color: #2196f3;
@@ -4194,7 +4251,7 @@ h2.ticket-subject {
   transition: all 0.2s ease;
 }
 .ai-collapsible-section .collapsible-header:hover {
-  background: #cbe7fb;
+  background: rgb(203.2, 230.95, 251.3);
 }
 .ai-collapsible-section .collapsible-header h5 {
   margin: 0;
