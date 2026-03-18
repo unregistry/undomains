@@ -183,12 +183,41 @@ body {
     background: rgba(204, 153, 51, 0.15) !important;
 }
 
+/* Left nav items styling */
+.navigation .left-nav {
+    display: flex;
+    align-items: center;
+}
+
+.navigation .left-nav li {
+    display: flex;
+    align-items: center;
+}
+
 .navigation .left-nav li a {
     color: var(--text-nav) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 15px;
 }
 
 .navigation .left-nav li a:hover {
     color: var(--gold-primary) !important;
+    background: rgba(204, 153, 51, 0.15) !important;
+}
+
+.navigation .left-nav li a i {
+    color: var(--gold-primary) !important;
+    font-size: 16px;
+}
+
+/* Ensure logo is properly aligned */
+.navigation .logo {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
 }
 
 .navigation .caret {
@@ -768,9 +797,29 @@ body {
 
 
 /* ============================================
-   MOBILE THEME TOGGLE (for custom pages)
+   NAVBAR THEME TOGGLE
    ============================================ */
 
+/* Theme toggle in left-nav */
+.navigation .left-nav li.theme-toggle-nav a {
+    color: #fff !important;
+    padding: 15px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation .left-nav li.theme-toggle-nav a:hover {
+    color: var(--gold-primary) !important;
+    background: rgba(204, 153, 51, 0.15) !important;
+}
+
+.navigation .left-nav li.theme-toggle-nav a i {
+    font-size: 18px;
+    color: var(--gold-primary) !important;
+}
+
+/* Mobile theme toggle (for custom pages) */
 .navigation .left-nav li a[onclick*="UndoTheme.toggle"] {
     color: #fff !important;
     padding: 15px !important;
