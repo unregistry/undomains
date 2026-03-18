@@ -538,8 +538,11 @@ function toggleDomainView() {
         return;
     }
     
+    console.log('Checking if visible class exists:', advancedSections.classList.contains('visible'));
+    
     if (advancedSections.classList.contains('visible')) {
         // Switch to Basic view
+        console.log('Removing visible class');
         advancedSections.classList.remove('visible');
         if (toggleText) toggleText.textContent = 'Show Advanced';
         if (toggleBtn) toggleBtn.classList.remove('active');
@@ -549,6 +552,7 @@ function toggleDomainView() {
         }
     } else {
         // Switch to Advanced view
+        console.log('Adding visible class');
         advancedSections.classList.add('visible');
         if (toggleText) toggleText.textContent = 'Show Basic';
         if (toggleBtn) toggleBtn.classList.add('active');
@@ -557,6 +561,8 @@ function toggleDomainView() {
             localStorage.setItem('domainSearchView', 'advanced');
         }
     }
+    
+    console.log('After toggle, classList:', advancedSections.className);
 }
 
 // Restore view preference on page load - wrap in jQuery ready to ensure DOM is loaded
