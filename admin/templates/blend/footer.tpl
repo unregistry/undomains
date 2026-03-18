@@ -15,10 +15,6 @@
                 <div class="col-md-6 links text-right">
                     <a href="https://undomains.com/" target="_blank" title="Visit Undomains"><i class="fas fa-globe"></i> Website</a>
                     <span class="divider">|</span>
-                    <a href="https://go.whmcs.com/1893/docs" target="_blank"><i class="fas fa-book"></i> Documentation</a>
-                    <span class="divider">|</span>
-                    <a href="https://www.whmcs.com/report-a-bug" target="_blank"><i class="fas fa-bug"></i> Report Bug</a>
-                    <span class="divider">|</span>
                     <a href="#" onclick="UndoTheme.toggle(); return false;" title="Toggle Dark/Light Theme"><i class="fas fa-moon" id="footer-theme-icon"></i> Theme</a>
                 </div>
             </div>
