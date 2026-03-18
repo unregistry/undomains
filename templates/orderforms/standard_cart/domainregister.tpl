@@ -394,3 +394,121 @@ jQuery(document).ready(function() {
 
 </script>
 
+
+<script>
+// Custom TLD Mode Display
+jQuery(document).ready(function() {
+    // Custom TLDs data passed from PHP
+    var customTldsData = {if isset($customTlds)}{json_encode($customTlds)}{else}[]{/if};
+    
+    // Function to check if domain has a custom TLD and get its mode
+    function getCustomTldMode(domain) {
+        if (!domain || !customTldsData || customTldsData.length === 0) {
+            return null;
+        }
+        domain = domain.toLowerCase();
+        for (var i = 0; i < customTldsData.length; i++) {
+            var tld = customTldsData[i].tld.toLowerCase();
+            if (domain.indexOf(tld) !== -1 || domain.indexOf(tld.replace('.', '')) !== -1) {
+                return customTldsData[i];
+            }
+        }
+        return null;
+    }
+    
+    // Function to create mode badge HTML
+    function createModeBadge(tldData) {
+        if (!tldData || !tldData.mode) return '';
+        var modeClass = 'label-' + (tldData.modeClass || 'info');
+        var modeText = tldData.modeDisplay || tldData.mode;
+        return ' <span class="label ' + modeClass + ' tld-mode-badge" style="font-size: 12px; margin-left: 8px;">' + modeText + '</span>';
+    }
+    
+    // Watch for changes to the primary lookup result
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' || mutation.type === 'attributes') {
+                // Check if the available message is visible
+                var availableMsg = jQuery('.domain-available:visible');
+                if (availableMsg.length > 0) {
+                    var domainName = availableMsg.find('strong').text();
+                    var tldData = getCustomTldMode(domainName);
+                    if (tldData && tldData.mode) {
+                        // Add badge if not already present
+                        if (availableMsg.find('.tld-mode-badge').length === 0) {
+                            availableMsg.append(createModeBadge(tldData));
+                        }
+                    }
+                }
+                
+                // Check unavailable message too
+                var unavailableMsg = jQuery('.domain-unavailable:visible, .domain-tld-unavailable:visible');
+                if (unavailableMsg.length > 0) {
+                    var domainName = unavailableMsg.find('strong').text();
+                    var tldData = getCustomTldMode(domainName);
+                    if (tldData && tldData.mode && (tldData.mode === 'reservation' || tldData.mode === 'coming_soon')) {
+                        // Add badge for reservation/coming_soon
+                        if (unavailableMsg.find('.tld-mode-badge').length === 0) {
+                            unavailableMsg.append(createModeBadge(tldData));
+                        }
+                    }
+                }
+            }
+        });
+    });
+    
+    // Start observing the primary lookup result
+    var targetNode = document.getElementById('primaryLookupResult');
+    if (targetNode) {
+        observer.observe(targetNode, { childList: true, subtree: true, attributes: true });
+    }
+    
+    // Also handle spotlight TLDs
+    setTimeout(function() {
+        jQuery('.spotlight-tld').each(function() {
+            var tldContainer = jQuery(this);
+            var tldText = tldContainer.contents().filter(function() {
+                return this.nodeType === 3;
+            }).text().trim();
+            
+            var tldData = getCustomTldMode('domain' + tldText);
+            if (tldData && tldData.mode) {
+                // Add badge to spotlight TLD
+                if (tldContainer.find('.tld-mode-badge').length === 0) {
+                    var badge = createModeBadge(tldData);
+                    tldContainer.find('div:first').prepend(badge);
+                }
+            }
+        });
+    }, 500);
+});
+</script>
+
+<style>
+.tld-mode-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+.label-reservation {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+.label-coming_soon {
+    background-color: #337ab7;
+    color: #fff;
+}
+.label-presale {
+    background-color: #5bc0de;
+    color: #fff;
+}
+.label-live {
+    background-color: #5cb85c;
+    color: #fff;
+}
+.label-disabled {
+    background-color: #777;
+    color: #fff;
+}
+</style>
