@@ -1,7 +1,7 @@
 <?php
 /**
  * Contact Form Submissions Admin Page
- * View and manage contact form submissions - Full WHMCS Admin Theme
+ * View, add, import contact form submissions - Full WHMCS Admin Theme
  */
 
 session_start();
@@ -39,6 +39,74 @@ if ($mysqli->connect_error) {
     die('Database connection failed: ' . $mysqli->connect_error);
 }
 
+$message = '';
+$message_type = '';
+
+// Handle manual add
+if (isset($_POST['action']) && $_POST['action'] === 'add_manual' && isset($_POST['email'])) {
+    $name = trim($_POST['name'] ?? '');
+    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    $subject = trim($_POST['subject'] ?? '');
+    $message_text = trim($_POST['message'] ?? '');
+    
+    if ($email && $name && $subject) {
+        $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+        if (strpos($ip_address, ',') !== false) {
+            $ip_address = trim(explode(',', $ip_address)[0]);
+        }
+        
+        $stmt = $mysqli->prepare("INSERT INTO mod_contact_form_submissions (name, email, subject, message, ip_address) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $name, $email, $subject, $message_text, $ip_address);
+        if ($stmt->execute()) {
+            $message = 'Contact added successfully!';
+            $message_type = 'success';
+        } else {
+            $message = 'Error adding contact.';
+            $message_type = 'error';
+        }
+        $stmt->close();
+    } else {
+        $message = 'Please fill in all required fields.';
+        $message_type = 'error';
+    }
+}
+
+// Handle CSV import
+if (isset($_POST['action']) && $_POST['action'] === 'import_csv' && isset($_FILES['csv_file'])) {
+    $file = $_FILES['csv_file']['tmp_name'];
+    if ($file && file_exists($file)) {
+        $handle = fopen($file, 'r');
+        $header = fgetcsv($handle);
+        $added = 0;
+        $errors = 0;
+        
+        while (($data = fgetcsv($handle)) !== false) {
+            $name = isset($data[0]) ? trim($data[0]) : '';
+            $email = isset($data[1]) ? trim($data[1]) : '';
+            $subject = isset($data[2]) ? trim($data[2]) : '';
+            $message_text = isset($data[3]) ? trim($data[3]) : '';
+            
+            if ($name && filter_var($email, FILTER_VALIDATE_EMAIL) && $subject) {
+                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+                $stmt = $mysqli->prepare("INSERT INTO mod_contact_form_submissions (name, email, subject, message, ip_address) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssss", $name, $email, $subject, $message_text, $ip_address);
+                if ($stmt->execute()) {
+                    $added++;
+                }
+                $stmt->close();
+            } else {
+                $errors++;
+            }
+        }
+        fclose($handle);
+        $message = "Import complete: $added added, $errors errors.";
+        $message_type = $errors > 0 ? 'warning' : 'success';
+    } else {
+        $message = 'Error uploading file.';
+        $message_type = 'error';
+    }
+}
+
 // Handle status update
 if (isset($_POST['action']) && $_POST['action'] === 'update_status' && isset($_POST['id']) && isset($_POST['status'])) {
     $id = intval($_POST['id']);
@@ -62,7 +130,19 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     exit;
 }
 
-// Handle export
+// Download template
+if (isset($_GET['download']) && $_GET['download'] === 'template') {
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="contact_template.csv"');
+    $output = fopen('php://output', 'w');
+    fputcsv($output, ['name', 'email', 'subject', 'message']);
+    fputcsv($output, ['John Doe', 'john@example.com', 'Inquiry about services', 'I would like to know more about your domain services.']);
+    fputcsv($output, ['Jane Smith', 'jane@example.com', 'Support request', 'I need help with my account.']);
+    fclose($output);
+    exit;
+}
+
+// Export CSV
 if (isset($_GET['export']) && $_GET['export'] === 'csv') {
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="contact_submissions_' . date('Y-m-d') . '.csv"');
@@ -87,7 +167,6 @@ $new_count = $new_result->fetch_assoc()['new'];
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $per_page = 20;
 $offset = ($page - 1) * $per_page;
-
 $submissions = $mysqli->query("SELECT * FROM mod_contact_form_submissions ORDER BY submitted_at DESC LIMIT $per_page OFFSET $offset");
 $total_pages = ceil($total / $per_page);
 
@@ -107,10 +186,22 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
     <link href="/admin/templates/blend/css/all.min.css" rel="stylesheet" />
     <link href="/admin/templates/blend/css/theme.min.css" rel="stylesheet" />
     <link href="/admin/templates/blend/css/undomains-theme.css" rel="stylesheet" />
+    <link href="/admin/templates/blend/css/theme-toggle.css" rel="stylesheet" />
     <link href="/assets/fonts/css/fontawesome.min.css" rel="stylesheet" />
     <link href="/assets/fonts/css/fontawesome-solid.min.css" rel="stylesheet" />
     <script type="text/javascript" src="/admin/templates/blend/js/vendor.min.js"></script>
     <script type="text/javascript" src="/admin/templates/blend/js/scripts.min.js"></script>
+    <script>
+        // Initialize theme before page renders
+        (function() {
+            try {
+                var theme = localStorage.getItem('undomains_admin_theme');
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch(e) {}
+        })();
+    </script>
     <style>
         .submission-message { max-width: 300px; max-height: 100px; overflow: auto; }
         .status-new { background: #5bc0de; }
@@ -132,9 +223,14 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                     <i aria-hidden="true" class="fas fa-bars always"></i>
                 </a>
             </li>
+            <li class="bt">
+                <a href="#" onclick="UndoTheme.toggle(); return false;" id="mobile-theme-toggle" aria-label="Toggle Dark Mode" title="Switch to Dark Mode">
+                    <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                </a>
+            </li>
         </ul>
 
-        <div class="navbar-collapse">
+<div class="navbar-collapse">
             <ul>
                 <!-- Add New -->
                 <li class="bt has-dropdown">
@@ -419,14 +515,23 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                 <li><a href="/admin/subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
                 <li><a href="/admin/contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
             </ul>
+            <a href="#" class="btn-min-sidebar" id="sidebarClose" onclick="var s=document.getElementById('sidebar');s.style.left='-240px';setTimeout(function(){s.style.display='none';},300);document.getElementById('sidebarOpener').style.display='block';return false;">
+                &laquo; Minimise Sidebar
+            </a>
         </div>
     </div>
-    <a href="#" class="sidebar-opener" id="sidebarOpener">Open Sidebar</a>
+    <a href="#" class="sidebar-opener" id="sidebarOpener" onclick="var s=document.getElementById('sidebar');s.style.display='block';setTimeout(function(){s.style.left='0';},10);this.style.display='none';return false;">Open Sidebar</a>
 
     <!-- Content Area -->
     <div class="contentarea" id="contentarea">
-        <div style="float:left;width:100%;">
+        <div style="width:100%;">
             <h1><i class="fas fa-address-card"></i> Contacts</h1>
+
+            <?php if ($message): ?>
+            <div class="alert alert-<?php echo $message_type === 'success' ? 'success' : ($message_type === 'warning' ? 'warning' : 'danger'); ?>">
+                <?php echo htmlspecialchars($message); ?>
+            </div>
+            <?php endif; ?>
 
             <!-- Stats -->
             <div class="row">
@@ -435,7 +540,7 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                         <div class="icon"><i class="fas fa-inbox"></i></div>
                         <div class="detail">
                             <span class="count"><?php echo $total; ?></span>
-                            <span class="desc">Total Submissions</span>
+                            <span class="desc">Total Contacts</span>
                         </div>
                     </div>
                 </div>
@@ -450,11 +555,55 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                 </div>
             </div>
 
+            <!-- Add Contact Panel -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fas fa-user-plus"></i> Add Contact</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Manual Add</h4>
+                            <form method="post">
+                                <input type="hidden" name="action" value="add_manual">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" placeholder="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="message" class="form-control" rows="3" placeholder="Message"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Contact</button>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Bulk Import (CSV)</h4>
+                            <form method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="action" value="import_csv">
+                                <div class="form-group">
+                                    <input type="file" name="csv_file" class="form-control" accept=".csv" required>
+                                </div>
+                                <button type="submit" class="btn btn-success"><i class="fas fa-upload"></i> Import</button>
+                            </form>
+                            <p class="help-block">
+                                <a href="?download=template" class="btn btn-link btn-sm"><i class="fas fa-download"></i> Download Template</a>
+                                <br><small>CSV columns: name, email, subject, message</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Table Panel -->
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <i class="fas fa-list"></i> Contact Form Submissions
+                        <i class="fas fa-list"></i> Contact List
                         <div class="pull-right">
                             <a href="?export=csv" class="btn btn-success btn-sm"><i class="fas fa-download"></i> Export to CSV</a>
                         </div>
@@ -483,22 +632,19 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                                     <td><?php echo htmlspecialchars($row['subject']); ?></td>
                                     <td class="submission-message"><?php echo nl2br(htmlspecialchars($row['message'])); ?></td>
                                     <td>
-                                        <span class="label status-<?php echo $row['status']; ?>">
-                                            <?php echo ucfirst($row['status']); ?>
-                                        </span>
-                                    </td>
-                                    <td>
                                         <form method="post" style="display:inline;">
                                             <input type="hidden" name="action" value="update_status">
                                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                            <select name="status" class="form-control input-sm" onchange="this.form.submit()" style="width:auto;display:inline;">
+                                            <select name="status" class="form-control input-sm" onchange="this.form.submit()" style="width:auto;">
                                                 <option value="new" <?php echo $row['status'] === 'new' ? 'selected' : ''; ?>>New</option>
                                                 <option value="read" <?php echo $row['status'] === 'read' ? 'selected' : ''; ?>>Read</option>
                                                 <option value="replied" <?php echo $row['status'] === 'replied' ? 'selected' : ''; ?>>Replied</option>
                                             </select>
                                         </form>
+                                    </td>
+                                    <td>
                                         <a href="mailto:<?php echo htmlspecialchars($row['email']); ?>?subject=Re: <?php echo urlencode($row['subject']); ?>" class="btn btn-primary btn-sm" title="Reply"><i class="fas fa-reply"></i></a>
-                                        <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this submission?');" title="Delete"><i class="fas fa-trash"></i></a>
+                                        <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete this contact?');" title="Delete"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <?php endwhile; ?>
@@ -548,6 +694,7 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
         </div>
     </div>
 
+    <script type="text/javascript" src="/admin/templates/blend/js/theme-toggle.js"></script>
     <script>
     $(document).ready(function() {
         $('#sidebarCollapseExpand').click(function(e) {

@@ -1,7 +1,7 @@
 <?php
 /**
  * Newsletter Subscribers Admin Page
- * View and export subscriber list - Full WHMCS Admin Theme
+ * View, add, import subscriber list - Full WHMCS Admin Theme
  */
 
 session_start();
@@ -39,6 +39,101 @@ if ($mysqli->connect_error) {
     die('Database connection failed: ' . $mysqli->connect_error);
 }
 
+$message = '';
+$message_type = '';
+
+// Handle manual add
+if (isset($_POST['action']) && $_POST['action'] === 'add_manual' && isset($_POST['email'])) {
+    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    if ($email) {
+        $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+        if (strpos($ip_address, ',') !== false) {
+            $ip_address = trim(explode(',', $ip_address)[0]);
+        }
+        
+        $stmt = $mysqli->prepare("INSERT INTO mod_newsletter_subscribers (email, ip_address) VALUES (?, ?) ON DUPLICATE KEY UPDATE status='active'");
+        $stmt->bind_param("ss", $email, $ip_address);
+        if ($stmt->execute()) {
+            $message = 'Subscriber added successfully!';
+            $message_type = 'success';
+        } else {
+            $message = 'Error adding subscriber.';
+            $message_type = 'error';
+        }
+        $stmt->close();
+    } else {
+        $message = 'Invalid email address.';
+        $message_type = 'error';
+    }
+}
+
+// Handle CSV import
+if (isset($_POST['action']) && $_POST['action'] === 'import_csv' && isset($_FILES['csv_file'])) {
+    $file = $_FILES['csv_file']['tmp_name'];
+    if ($file && file_exists($file)) {
+        $handle = fopen($file, 'r');
+        $header = fgetcsv($handle);
+        $added = 0;
+        $errors = 0;
+        
+        while (($data = fgetcsv($handle)) !== false) {
+            $email = isset($data[0]) ? trim($data[0]) : '';
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+                $stmt = $mysqli->prepare("INSERT INTO mod_newsletter_subscribers (email, ip_address) VALUES (?, ?) ON DUPLICATE KEY UPDATE status='active'");
+                $stmt->bind_param("ss", $email, $ip_address);
+                if ($stmt->execute()) {
+                    $added++;
+                }
+                $stmt->close();
+            } else {
+                $errors++;
+            }
+        }
+        fclose($handle);
+        $message = "Import complete: $added added, $errors errors.";
+        $message_type = $errors > 0 ? 'warning' : 'success';
+    } else {
+        $message = 'Error uploading file.';
+        $message_type = 'error';
+    }
+}
+
+// Handle delete
+if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+    $id = intval($_GET['delete']);
+    $stmt = $mysqli->prepare("DELETE FROM mod_newsletter_subscribers WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// Handle status update
+if (isset($_POST['action']) && $_POST['action'] === 'update_status' && isset($_POST['id'])) {
+    $id = intval($_POST['id']);
+    $status = $_POST['status'] === 'active' ? 'active' : 'unsubscribed';
+    $stmt = $mysqli->prepare("UPDATE mod_newsletter_subscribers SET status = ? WHERE id = ?");
+    $stmt->bind_param("si", $status, $id);
+    $stmt->execute();
+    $stmt->close();
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// Download template
+if (isset($_GET['download']) && $_GET['download'] === 'template') {
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="subscriber_template.csv"');
+    $output = fopen('php://output', 'w');
+    fputcsv($output, ['email']);
+    fputcsv($output, ['example@email.com']);
+    fputcsv($output, ['subscriber@domain.com']);
+    fclose($output);
+    exit;
+}
+
 // Export CSV
 if (isset($_GET['export']) && $_GET['export'] === 'csv') {
     header('Content-Type: text/csv');
@@ -58,7 +153,13 @@ $total_result = $mysqli->query("SELECT COUNT(*) as total FROM mod_newsletter_sub
 $total = $total_result->fetch_assoc()['total'];
 $active_result = $mysqli->query("SELECT COUNT(*) as active FROM mod_newsletter_subscribers WHERE status = 'active'");
 $active = $active_result->fetch_assoc()['active'];
-$recent = $mysqli->query("SELECT * FROM mod_newsletter_subscribers ORDER BY subscribed_at DESC LIMIT 50");
+
+// Get subscribers
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$per_page = 20;
+$offset = ($page - 1) * $per_page;
+$recent = $mysqli->query("SELECT * FROM mod_newsletter_subscribers ORDER BY subscribed_at DESC LIMIT $per_page OFFSET $offset");
+$total_pages = ceil($total / $per_page);
 
 // Admin info
 $admin_email = $_SESSION['adminemail'] ?? '';
@@ -71,16 +172,28 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="referrer" content="same-origin">
-    <title>Newsletter Subscribers - Undomains</title>
+    <title>Subscribers - Undomains</title>
     <link rel="icon" type="image/png" href="/admin/templates/blend/images/favicon.png" />
     <link href="/assets/fonts/css/open-sans-family.css" rel="stylesheet" type="text/css" />
     <link href="/admin/templates/blend/css/all.min.css" rel="stylesheet" />
     <link href="/admin/templates/blend/css/theme.min.css" rel="stylesheet" />
     <link href="/admin/templates/blend/css/undomains-theme.css" rel="stylesheet" />
+    <link href="/admin/templates/blend/css/theme-toggle.css" rel="stylesheet" />
     <link href="/assets/fonts/css/fontawesome.min.css" rel="stylesheet" />
     <link href="/assets/fonts/css/fontawesome-solid.min.css" rel="stylesheet" />
     <script type="text/javascript" src="/admin/templates/blend/js/vendor.min.js"></script>
     <script type="text/javascript" src="/admin/templates/blend/js/scripts.min.js"></script>
+    <script>
+        // Initialize theme before page renders
+        (function() {
+            try {
+                var theme = localStorage.getItem('undomains_admin_theme');
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch(e) {}
+        })();
+    </script>
 </head>
 <body>
 
@@ -96,9 +209,14 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                     <i aria-hidden="true" class="fas fa-bars always"></i>
                 </a>
             </li>
+            <li class="bt">
+                <a href="#" onclick="UndoTheme.toggle(); return false;" id="mobile-theme-toggle" aria-label="Toggle Dark Mode" title="Switch to Dark Mode">
+                    <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                </a>
+            </li>
         </ul>
 
-        <div class="navbar-collapse">
+<div class="navbar-collapse">
             <ul>
                 <!-- Add New -->
                 <li class="bt has-dropdown">
@@ -266,7 +384,8 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                                 <li><a href="/admin/index.php?rp=/admin/utilities/system/php-compat">PHP Version Compatibility</a></li>
                             </ul>
                         </li>
-                        <li><a href="/admin/subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+                        <li><a href="/admin/subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
+                        <li><a href="/admin/contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
                     </ul>
                 </li>
 
@@ -363,32 +482,42 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                 Utilities
             </div>
             <ul class="menu">
-                <li><a href="/admin/update.php">Update WHMCS</a></li>
-                <li><a href="/admin/whmcsconnect.php">WHMCS Connect</a></li>
-                <li><a href="/admin/automationstatus.php">Automation Status</a></li>
-                <li><a href="/admin/modulequeue.php">Module Queue</a></li>
-                <li><a href="/admin/index.php?rp=/admin/utilities/tools/tldsync/import">Registrar TLD Sync</a></li>
-                <li><a href="/admin/index.php?rp=/admin/utilities/tools/email/campaigns">Email Campaigns</a></li>
-                <li><a href="/admin/utilitiesemailmarketer.php">Email Marketer</a></li>
-                <li><a href="/admin/utilitieslinktracking.php">Link Tracking</a></li>
-                <li><a href="/admin/calendar.php">Calendar</a></li>
-                <li><a href="/admin/todolist.php">To-Do List</a></li>
-                <li><a href="/admin/whois.php">WHOIS Lookup</a></li>
-                <li><a href="/admin/utilitiesresolvercheck.php">Domain Resolver</a></li>
-                <li><a href="/admin/systemintegrationcode.php">Integration Code</a></li>
-                <li><a href="/admin/systemdatabase.php">Database Status</a></li>
-                <li><a href="/admin/systemcleanup.php">System Cleanup</a></li>
-                <li><a href="/admin/systemphpinfo.php">PHP Info</a></li>
-                <li><a href="/admin/subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+                <li><a href="/admin/update.php"><i class="fas fa-sync"></i> Update WHMCS</a></li>
+                <li><a href="/admin/whmcsconnect.php"><i class="fas fa-plug"></i> WHMCS Connect</a></li>
+                <li><a href="/admin/automationstatus.php"><i class="fas fa-cogs"></i> Automation Status</a></li>
+                <li><a href="/admin/modulequeue.php"><i class="fas fa-tasks"></i> Module Queue</a></li>
+                <li><a href="/admin/index.php?rp=/admin/utilities/tools/tldsync/import"><i class="fas fa-globe"></i> Registrar TLD Sync</a></li>
+                <li><a href="/admin/index.php?rp=/admin/utilities/tools/email/campaigns"><i class="fas fa-envelope-open-text"></i> Email Campaigns</a></li>
+                <li><a href="/admin/utilitiesemailmarketer.php"><i class="fas fa-bullhorn"></i> Email Marketer</a></li>
+                <li><a href="/admin/utilitieslinktracking.php"><i class="fas fa-link"></i> Link Tracking</a></li>
+                <li><a href="/admin/calendar.php"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="/admin/todolist.php"><i class="fas fa-check-square"></i> To-Do List</a></li>
+                <li><a href="/admin/whois.php"><i class="fas fa-search"></i> WHOIS Lookup</a></li>
+                <li><a href="/admin/utilitiesresolvercheck.php"><i class="fas fa-server"></i> Domain Resolver</a></li>
+                <li><a href="/admin/systemintegrationcode.php"><i class="fas fa-code"></i> Integration Code</a></li>
+                <li><a href="/admin/systemdatabase.php"><i class="fas fa-database"></i> Database Status</a></li>
+                <li><a href="/admin/systemcleanup.php"><i class="fas fa-broom"></i> System Cleanup</a></li>
+                <li><a href="/admin/systemphpinfo.php"><i class="fab fa-php"></i> PHP Info</a></li>
+                <li><a href="/admin/subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
+                <li><a href="/admin/contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
             </ul>
+            <a href="#" class="btn-min-sidebar" id="sidebarClose" onclick="var s=document.getElementById('sidebar');s.style.left='-240px';setTimeout(function(){s.style.display='none';},300);document.getElementById('sidebarOpener').style.display='block';return false;">
+                &laquo; Minimise Sidebar
+            </a>
         </div>
     </div>
-    <a href="#" class="sidebar-opener" id="sidebarOpener">Open Sidebar</a>
+    <a href="#" class="sidebar-opener" id="sidebarOpener" onclick="var s=document.getElementById('sidebar');s.style.display='block';setTimeout(function(){s.style.left='0';},10);this.style.display='none';return false;">Open Sidebar</a>
 
     <!-- Content Area -->
     <div class="contentarea" id="contentarea">
-        <div style="float:left;width:100%;">
-            <h1><i class="fas fa-envelope"></i> Newsletter Subscribers</h1>
+        <div style="width:100%;">
+            <h1><i class="fas fa-envelope"></i> Subscribers</h1>
+
+            <?php if ($message): ?>
+            <div class="alert alert-<?php echo $message_type === 'success' ? 'success' : ($message_type === 'warning' ? 'warning' : 'danger'); ?>">
+                <?php echo htmlspecialchars($message); ?>
+            </div>
+            <?php endif; ?>
 
             <!-- Stats -->
             <div class="row">
@@ -412,6 +541,41 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                 </div>
             </div>
 
+            <!-- Add Subscriber Panel -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fas fa-user-plus"></i> Add Subscriber</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Manual Add</h4>
+                            <form method="post" class="form-inline">
+                                <input type="hidden" name="action" value="add_manual">
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control" placeholder="Enter email address" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add</button>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Bulk Import (CSV)</h4>
+                            <form method="post" enctype="multipart/form-data" class="form-inline">
+                                <input type="hidden" name="action" value="import_csv">
+                                <div class="form-group">
+                                    <input type="file" name="csv_file" class="form-control" accept=".csv" required>
+                                </div>
+                                <button type="submit" class="btn btn-success"><i class="fas fa-upload"></i> Import</button>
+                            </form>
+                            <p class="help-block">
+                                <a href="?download=template" class="btn btn-link btn-sm"><i class="fas fa-download"></i> Download Template</a>
+                                <small>CSV should have one email per row</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Table Panel -->
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -430,6 +594,7 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                                 <th>Subscribed Date</th>
                                 <th>Status</th>
                                 <th>IP Address</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -437,14 +602,45 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                             <tr>
                                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                                 <td><?php echo $row['subscribed_at']; ?></td>
-                                <td><span class="label label-<?php echo $row['status'] === 'active' ? 'success' : 'default'; ?>"><?php echo ucfirst($row['status']); ?></span></td>
+                                <td>
+                                    <form method="post" style="display:inline;">
+                                        <input type="hidden" name="action" value="update_status">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <select name="status" class="form-control input-sm" onchange="this.form.submit()" style="width:auto;">
+                                            <option value="active" <?php echo $row['status'] === 'active' ? 'selected' : ''; ?>>Active</option>
+                                            <option value="unsubscribed" <?php echo $row['status'] === 'unsubscribed' ? 'selected' : ''; ?>>Unsubscribed</option>
+                                        </select>
+                                    </form>
+                                </td>
                                 <td><?php echo htmlspecialchars($row['ip_address']); ?></td>
+                                <td>
+                                    <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete this subscriber?');"><i class="fas fa-trash"></i></a>
+                                </td>
                             </tr>
                             <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <!-- Pagination -->
+            <?php if ($total_pages > 1): ?>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <?php if ($page > 1): ?>
+                    <li><a href="?page=<?php echo $page - 1; ?>">&laquo; Prev</a></li>
+                    <?php endif; ?>
+                    
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <li <?php echo $i === $page ? 'class="active"' : ''; ?>><a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <?php endfor; ?>
+                    
+                    <?php if ($page < $total_pages): ?>
+                    <li><a href="?page=<?php echo $page + 1; ?>">Next &raquo;</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+            <?php endif; ?>
         </div>
         <div class="clear"></div>
     </div>
@@ -459,28 +655,21 @@ $gravatar_hash = md5(strtolower(trim($admin_email)));
                     Part of <a href="https://un4.com/" target="_blank">UN4</a>
                 </div>
                 <div class="col-md-6 links text-right">
-                    <a href="https://undomains.com/" target="_blank" title="Visit Undomains"><i class="fas fa-globe"></i> Website</a>
+                    <a href="https://undomains.com/" target="_blank"><i class="fas fa-globe"></i> Website</a>
                     <span class="divider">|</span>
                     <a href="https://go.whmcs.com/1893/docs" target="_blank"><i class="fas fa-book"></i> Documentation</a>
-                    <span class="divider">|</span>
-                    <a href="https://www.whmcs.com/report-a-bug" target="_blank"><i class="fas fa-bug"></i> Report Bug</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <script type="text/javascript" src="/admin/templates/blend/js/theme-toggle.js"></script>
     <script>
     $(document).ready(function() {
         $('#sidebarCollapseExpand').click(function(e) {
             e.preventDefault();
             $(this).toggleClass('expanded');
             $('.sidebar-collapse').slideToggle();
-        });
-        $('#sidebarOpener').click(function(e) {
-            e.preventDefault();
-            $(this).fadeOut();
-            $('#contentarea').removeClass('sidebar-minimized');
-            $('#sidebar').delay(400).fadeIn('fast');
         });
     });
     </script>
