@@ -1185,3 +1185,12 @@
         margin-bottom: 0;
     }
 }
+
+/* ============================================
+   PANEL SIDEBAR HEADING - Remove background
+   ============================================ */
+#order-standard_cart .panel-sidebar>.panel-heading,
+#order-standard_cart .card-sidebar>.card-header {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+}
