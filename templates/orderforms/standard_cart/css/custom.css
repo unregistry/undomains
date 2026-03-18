@@ -607,9 +607,8 @@
    ============================================ */
 #order-standard_cart .panel,
 #order-standard_cart .card {
-    background-color: var(--dr-bg-secondary);
     border: 1px solid var(--dr-border);
-    border-radius: var(--dr-radius-lg);
+    border-radius: 0;
 }
 
 #order-standard_cart .panel-body,
@@ -1193,4 +1192,12 @@
 #order-standard_cart .card-sidebar>.card-header {
     background-color: transparent !important;
     border-radius: 0 !important;
+}
+
+/* ============================================
+   PANEL - Remove background-color override
+   ============================================ */
+#order-standard_cart .panel,
+.panel {
+    background-color: transparent !important;
 }
