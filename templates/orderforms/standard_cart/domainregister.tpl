@@ -362,7 +362,7 @@
                 </div>
 
             {* Footer - always visible *}
-            <div class="row">
+            <div class="row domain-search-footer" style="display: block !important; visibility: visible !important; margin-top: 30px;">
                 {if $domainTransferEnabled}
                     <div class="col-md-6 col-md-offset-3 offset-md-3">
                         <div class="domain-promo-box">
@@ -376,6 +376,10 @@
                             </a>
                             <p class="small">* {lang key='orderForm.extendExclusions'}</p>
                         </div>
+                    </div>
+                {else}
+                    <div class="col-md-12 text-center">
+                        <p class="text-muted">Looking to transfer a domain? <a href="{$WEB_ROOT}/cart.php?a=add&domain=transfer">Start here</a></p>
                     </div>
                 {/if}
             </div>
@@ -520,54 +524,42 @@ jQuery(document).ready(function() {
     }, 500);
 });
 
-// View Toggle Function
+// View Toggle Function - Complete rewrite
 function toggleDomainView() {
     console.log('toggleDomainView called');
+    
     var advancedSections = document.getElementById('advancedSections');
     var toggleBtn = document.getElementById('viewToggleBtn');
     var toggleText = document.getElementById('viewToggleText');
     
-    console.log('advancedSections:', advancedSections);
-    console.log('toggleBtn:', toggleBtn);
-    console.log('toggleText:', toggleText);
-    
     if (!advancedSections) {
-        console.log('advancedSections not found, returning');
+        console.error('advancedSections element not found!');
         return;
     }
     
-    console.log('Checking if visible class exists:', advancedSections.classList.contains('visible'));
+    // Check current state based on inline style
+    var isCurrentlyVisible = advancedSections.style.display === 'block';
     
-    if (advancedSections.classList.contains('visible')) {
-        // Switch to Basic view
-        console.log('Switching to Basic view');
-        advancedSections.classList.remove('visible');
-        advancedSections.style.display = 'none';
+    console.log('Current state - style.display:', advancedSections.style.display);
+    console.log('isCurrentlyVisible:', isCurrentlyVisible);
+    
+    if (isCurrentlyVisible) {
+        // Hide advanced sections
+        console.log('Hiding advanced sections');
+        advancedSections.style.cssText = 'display: none !important;';
         if (toggleText) toggleText.textContent = 'Show Advanced';
         if (toggleBtn) toggleBtn.classList.remove('active');
-        // Store preference
-        if (typeof localStorage !== 'undefined') {
-            localStorage.setItem('domainSearchView', 'basic');
-        }
+        localStorage.setItem('domainSearchView', 'basic');
     } else {
-        // Switch to Advanced view
-        console.log('Switching to Advanced view');
-        advancedSections.classList.add('visible');
-        advancedSections.style.display = 'block';
+        // Show advanced sections
+        console.log('Showing advanced sections');
+        advancedSections.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
         if (toggleText) toggleText.textContent = 'Show Basic';
         if (toggleBtn) toggleBtn.classList.add('active');
-        // Store preference
-        if (typeof localStorage !== 'undefined') {
-            localStorage.setItem('domainSearchView', 'advanced');
-        }
+        localStorage.setItem('domainSearchView', 'advanced');
     }
     
-    console.log('After toggle, classList:', advancedSections.className);
-    console.log('After toggle, style.display:', advancedSections.style.display);
-    console.log('After toggle, computed display:', window.getComputedStyle(advancedSections).display);
-    
-    // Force reflow
-    void advancedSections.offsetHeight;
+    console.log('After toggle - style.display:', advancedSections.style.display);
 }
 
 // Restore view preference on page load - wrap in jQuery ready to ensure DOM is loaded
