@@ -218,7 +218,6 @@ body {
    SIDEBAR
    ============================================ */
 .sidebar {
-    background: var(--bg-sidebar) !important;
     border-right: 1px solid var(--border-primary) !important;
     min-height: 100vh !important;
     height: auto !important;
