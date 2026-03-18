@@ -11,7 +11,7 @@
                         <div class="row align-items-center">
                             <div class="col-lg-7 mx-auto text-center">
                                 <h1 class="text-gold">Find your perfect domain name</h1>
-                                <p>We are in preview mode for the upcoming new gTLD application round and reservation system.</p>
+                                <p>We are in preview mode for the upcoming new gTLD application round and reservation system. Orders cannot be completed at the moment. Search Only.</p>
 
                                 <form class="domain-search-simple" id="frmDomainHomepage" onsubmit="return handleDomainSearch(event)">
                                     <div class="domain-search-wrapper" style="justify-content: center;">
