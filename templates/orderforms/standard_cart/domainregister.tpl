@@ -586,4 +586,10 @@ jQuery(document).ready(function() {
 [data-theme="dark"] .unregistry-tld-card .text-muted {
     color: #aaa;
 }
+
+/* Hide spotlight TLDs - not needed */
+#spotlightTlds,
+.spotlight-tlds {
+    display: none !important;
+}
 </style>
