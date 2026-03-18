@@ -971,3 +971,51 @@ table.datatable td a,
 .footerbar .copyright {
     margin-bottom: 0 !important;
 }
+
+/* ============================================
+   UNREGISTRY TLD MANAGER - List Group Styles
+   ============================================ */
+.unregistry-manager .list-group {
+    background: transparent;
+}
+
+.unregistry-manager .list-group-item {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #ddd !important;
+    border-left: 4px solid #cc9933 !important;
+    margin-bottom: 8px;
+    border-radius: 4px !important;
+    transition: all 0.3s ease;
+}
+
+.unregistry-manager .list-group-item:hover {
+    background: #f5f5f5 !important;
+    border-color: #cc9933 !important;
+    color: #000000 !important;
+}
+
+.unregistry-manager .list-group-item i {
+    color: #cc9933 !important;
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Dark theme styles */
+[data-theme="dark"] .unregistry-manager .list-group-item {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 1px solid #333 !important;
+    border-left: 4px solid #cc9933 !important;
+}
+
+[data-theme="dark"] .unregistry-manager .list-group-item:hover {
+    background: #2a2a2a !important;
+    border-color: #cc9933 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .unregistry-manager .list-group-item i {
+    color: #cc9933 !important;
+}
