@@ -569,7 +569,6 @@
    SIDEBAR
    ============================================ */
 #order-standard_cart .cart-sidebar {
-    background-color: var(--dr-bg-secondary);
     border-radius: var(--dr-radius-lg);
     padding: 20px;
 }
@@ -1108,7 +1107,6 @@
 
 /* Cart Sidebar */
 #order-standard_cart .cart-sidebar {
-    background-color: var(--dr-bg-secondary);
     border-radius: 0;
 }
 
