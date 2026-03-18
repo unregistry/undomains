@@ -1150,24 +1150,37 @@
 #order-standard_cart .cart-buttons-row {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    align-items: stretch;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
 #order-standard_cart .cart-buttons-row .btn {
-    width: 100%;
+    width: auto;
+    min-width: 200px;
     text-align: center;
+}
+
+/* Continue Shopping button spacing */
+#order-standard_cart .cart-buttons-row .btn-continue-shopping {
+    margin-bottom: 10px;
 }
 
 /* On mobile (768px and below), show side by side */
 @media (max-width: 768px) {
     #order-standard_cart .cart-buttons-row {
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        gap: 15px;
     }
     
     #order-standard_cart .cart-buttons-row .btn {
         width: auto;
+        min-width: auto;
+    }
+    
+    #order-standard_cart .cart-buttons-row .btn-continue-shopping {
+        margin-bottom: 0;
     }
 }
