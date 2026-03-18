@@ -1220,26 +1220,26 @@
 /* ============================================
    TOTAL DUE TODAY - Theme aware styling
    ============================================ */
-/* Dark theme (default) - black border, no background, black text */
+/* Dark theme (default) - white border, no background, white text */
 #order-standard_cart .total-due-today {
-    border: 2px solid #000000 !important;
-    background-color: transparent !important;
-    color: #000000 !important;
-}
-
-#order-standard_cart .total-due-today .amt,
-#order-standard_cart .total-due-today span {
-    color: #000000 !important;
-}
-
-/* Light theme - white border, no background, white text */
-[data-background="light"] #order-standard_cart .total-due-today {
     border: 2px solid #ffffff !important;
     background-color: transparent !important;
     color: #ffffff !important;
 }
 
+#order-standard_cart .total-due-today .amt,
+#order-standard_cart .total-due-today span {
+    color: #ffffff !important;
+}
+
+/* Light theme - black border, no background, black text */
+[data-background="light"] #order-standard_cart .total-due-today {
+    border: 2px solid #000000 !important;
+    background-color: transparent !important;
+    color: #000000 !important;
+}
+
 [data-background="light"] #order-standard_cart .total-due-today .amt,
 [data-background="light"] #order-standard_cart .total-due-today span {
-    color: #ffffff !important;
+    color: #000000 !important;
 }
