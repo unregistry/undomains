@@ -729,6 +729,30 @@ jQuery(document).ready(function() {
     display: block !important;
 }
 
+/* Emergency visibility override for advanced sections */
+#advancedSections.visible,
+#advancedSections.visible * {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#advancedSections.visible .row {
+    display: flex !important;
+}
+
+#advancedSections.visible .badge {
+    display: inline-block !important;
+}
+
+/* Ensure parent containers don't hide content */
+.domain-pricing {
+    overflow: visible !important;
+}
+
+#order-standard_cart .cart-body {
+    overflow: visible !important;
+}
+
 /* Dark theme support */
 [data-theme="dark"] .view-toggle-btn {
     background: #333;
@@ -745,3 +769,16 @@ jQuery(document).ready(function() {
     border-color: #cc9933;
 }
 </style>
+
+<style>
+/* Emergency visibility override for advanced sections */
+#advancedSections.visible,
+#advancedSections.visible * {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#advancedSections.visible table,
+#advancedSections.visible .row,
+#advancedSections.visible .col-md-4,
