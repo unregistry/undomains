@@ -358,29 +358,27 @@
 
             </div>
 
+                {* End Advanced View Sections *}
+                </div>
+
+            {* Footer - always visible *}
             <div class="row">
                 {if $domainTransferEnabled}
                     <div class="col-md-6 col-md-offset-3 offset-md-3">
                         <div class="domain-promo-box">
-
                             <div class="clearfix">
                                 <i class="fas fa-globe fa-4x"></i>
                                 <h3 class="font-size-22">{lang key='orderForm.transferToUs'}</h3>
                                 <p class="font-bold text-primary">{lang key='orderForm.transferExtend'}*</p>
                             </div>
-
                             <a href="{$WEB_ROOT}/cart.php?a=add&domain=transfer" class="btn btn-primary">
                                 {lang key='orderForm.transferDomain'}
                             </a>
-
                             <p class="small">* {lang key='orderForm.extendExclusions'}</p>
                         </div>
                     </div>
                 {/if}
             </div>
-
-                {* End Advanced View Sections *}
-                </div>
 
         </div>
     </div>
