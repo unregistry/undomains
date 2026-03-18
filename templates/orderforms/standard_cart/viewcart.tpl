@@ -580,7 +580,7 @@
                                     {/foreach}
                                 </div>
 
-                                <div class="cart-buttons-row" style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="cart-buttons-row">
                                     <a href="{$WEB_ROOT}/cart.php" class="btn btn-link btn-continue-shopping" id="continueShopping">
                                         {$LANG.orderForm.continueShopping}
                                     </a>

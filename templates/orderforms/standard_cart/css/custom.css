@@ -1143,3 +1143,31 @@
     color: var(--dr-text-muted);
     font-size: 0.9em;
 }
+
+/* ============================================
+   CART BUTTONS ROW - Desktop: vertical, Mobile: horizontal
+   ============================================ */
+#order-standard_cart .cart-buttons-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+}
+
+#order-standard_cart .cart-buttons-row .btn {
+    width: 100%;
+    text-align: center;
+}
+
+/* On mobile (768px and below), show side by side */
+@media (max-width: 768px) {
+    #order-standard_cart .cart-buttons-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    #order-standard_cart .cart-buttons-row .btn {
+        width: auto;
+    }
+}
