@@ -121,7 +121,7 @@
     </a>
 
     <div class="{$contentAreaClasses}" id="contentarea">
-        <div style="float:left;width:100%;">
+        <div style="width:100%;">
             {if !$isCustomHeader}
                 <h1{if $pagetitle == $_ADMINLANG.global.hometitle} class="pull-left"{/if}>{$pagetitle}</h1>
             {/if}
