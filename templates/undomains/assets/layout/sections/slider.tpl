@@ -10,8 +10,8 @@
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-lg-7 mx-auto text-center">
-                                <h1 class="text-gold">We are in preview mode for the upcoming new gTLD application round and reservation system</h1>
-                                <p>Search available domain names and start your online journey today.</p>
+                                <h1 class="text-gold">Find your perfect domain name</h1>
+                                <p>We are in preview mode for the upcoming new gTLD application round and reservation system.</p>
 
                                 <form class="domain-search-simple" id="frmDomainHomepage" onsubmit="return handleDomainSearch(event)">
                                     <div class="domain-search-wrapper" style="justify-content: center;">
