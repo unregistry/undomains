@@ -247,6 +247,13 @@
                     </div>
                 {/if}
 
+                {* View Toggle Button *}
+                <div class="view-toggle-container">
+                    <button type="button" id="viewToggleBtn" class="view-toggle-btn" onclick="toggleDomainView()">
+                        <i class="fas fa-cog"></i> <span id="viewToggleText">Show Advanced</span>
+                    </button>
+                </div>
+
                 {* Unregistry Custom TLDs Section *}
                 {if isset($unregistryTlds) && count($unregistryTlds) > 0}
                     <div class="unregistry-tlds-section margin-top-20 margin-bottom-20">
@@ -273,6 +280,9 @@
                         </div>
                     </div>
                 {/if}
+
+                {* Advanced View Sections *}
+                <div id="advancedSections" class="advanced-section">
 
                 <h4 class="font-size-18">{lang key='pricing.browseExtByCategory'}</h4>
 
@@ -370,6 +380,10 @@
                     </div>
                 {/if}
             </div>
+
+                {* End Advanced View Sections *}
+                </div>
+
         </div>
     </div>
 </div>
@@ -509,6 +523,45 @@ jQuery(document).ready(function() {
         });
     }, 500);
 });
+
+// View Toggle Function
+function toggleDomainView() {
+    var advancedSections = document.getElementById('advancedSections');
+    var toggleBtn = document.getElementById('viewToggleBtn');
+    var toggleText = document.getElementById('viewToggleText');
+    
+    if (advancedSections.classList.contains('visible')) {
+        // Switch to Basic view
+        advancedSections.classList.remove('visible');
+        toggleText.textContent = 'Show Advanced';
+        toggleBtn.classList.remove('active');
+        // Store preference
+        localStorage.setItem('domainSearchView', 'basic');
+    } else {
+        // Switch to Advanced view
+        advancedSections.classList.add('visible');
+        toggleText.textContent = 'Show Basic';
+        toggleBtn.classList.add('active');
+        // Store preference
+        localStorage.setItem('domainSearchView', 'advanced');
+    }
+}
+
+// Restore view preference on page load
+document.addEventListener('DOMContentLoaded', function() {
+    var savedView = localStorage.getItem('domainSearchView');
+    if (savedView === 'advanced') {
+        var advancedSections = document.getElementById('advancedSections');
+        var toggleBtn = document.getElementById('viewToggleBtn');
+        var toggleText = document.getElementById('viewToggleText');
+        
+        if (advancedSections) {
+            advancedSections.classList.add('visible');
+            toggleText.textContent = 'Show Basic';
+            toggleBtn.classList.add('active');
+        }
+    }
+});
 </script>
 
 <style>
@@ -591,5 +644,56 @@ jQuery(document).ready(function() {
 #spotlightTlds,
 .spotlight-tlds {
     display: none !important;
+}
+
+/* View Toggle Styles */
+.view-toggle-container {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.view-toggle-btn {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.view-toggle-btn:hover {
+    background: #e5e5e5;
+}
+
+.view-toggle-btn.active {
+    background: #cc9933;
+    color: #fff;
+    border-color: #cc9933;
+}
+
+/* Advanced sections hidden by default */
+.advanced-section {
+    display: none;
+}
+
+.advanced-section.visible {
+    display: block;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .view-toggle-btn {
+    background: #333;
+    border-color: #444;
+    color: #fff;
+}
+
+[data-theme="dark"] .view-toggle-btn:hover {
+    background: #444;
+}
+
+[data-theme="dark"] .view-toggle-btn.active {
+    background: #cc9933;
+    border-color: #cc9933;
 }
 </style>
