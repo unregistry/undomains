@@ -264,11 +264,6 @@
         left: 0;
     }
     
-    /* Show sidebar opener button */
-    .sidebar-opener {
-        display: block !important;
-    }
-    
     /* Mobile sidebar close button */
     .sidebar-close-mobile {
         display: block !important;
@@ -395,15 +390,23 @@
     background: #b3862b !important;
 }
 
-/* Sidebar opener */
+/* Sidebar opener - hidden on desktop */
 .sidebar-opener {
-    background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
-    color: #000 !important;
-    font-weight: 600;
+    display: none !important;
 }
 
-.sidebar-opener:hover {
-    background: linear-gradient(135deg, #d4a84c 0%, #cc9933 100%) !important;
+/* Only show sidebar opener on mobile */
+@media (max-width: 950px) {
+    .sidebar-opener {
+        display: block !important;
+        background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
+        color: #000 !important;
+        font-weight: 600;
+    }
+
+    .sidebar-opener:hover {
+        background: linear-gradient(135deg, #d4a84c 0%, #cc9933 100%) !important;
+    }
 }
 
 /* ============================================

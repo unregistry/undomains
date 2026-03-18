@@ -280,10 +280,9 @@ body {
     background: var(--gold-dark) !important;
 }
 
+/* Sidebar opener - hidden on desktop by default */
 .sidebar-opener {
-    background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%) !important;
-    color: #000 !important;
-    font-weight: 600;
+    display: none !important;
 }
 
 /* ============================================
@@ -777,10 +776,14 @@ body {
         left: 0;
     }
     
-    a.sidebar-opener#sidebarOpener {
+    /* Show sidebar opener on mobile with proper styling */
+    .sidebar-opener {
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
+        background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%) !important;
+        color: #000 !important;
+        font-weight: 600;
     }
 }
 
