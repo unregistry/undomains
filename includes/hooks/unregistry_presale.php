@@ -321,10 +321,17 @@ add_hook('DomainSearchResults', 1, function($results) {
 add_hook('ClientAreaPageCart', 1, function($vars) {
     $requestUri = $_SERVER['REQUEST_URI'] ?? '';
     
+    // Debug logging
+    logActivity("Unregistry Hook: ClientAreaPageCart - URI: " . $requestUri);
+    logActivity("Unregistry Hook: GET vars: " . print_r($_GET, true));
+    logActivity("Unregistry Hook: lookupTerm in vars: " . ($vars['lookupTerm'] ?? 'not set'));
+    
     // Check if this is a search URL (/search/domain)
     if (preg_match('#^/search/(.+)$#', $requestUri, $matches)) {
+        logActivity("Unregistry Hook: Search URL detected - matches: " . print_r($matches, true));
         $domain = urldecode($matches[1]);
         $domain = trim($domain);
+        logActivity("Unregistry Hook: Domain extracted: " . $domain);
         
         // Check if domain has an extension
         if ($domain && strpos($domain, '.') === false) {
@@ -339,6 +346,7 @@ add_hook('ClientAreaPageCart', 1, function($vars) {
             $_REQUEST['domain'] = $domain;
             $_GET['domain'] = $domain;
             $_GET['query'] = $domain;
+            logActivity("Unregistry Hook: Set lookupTerm to: " . $domain);
         }
     }
     
