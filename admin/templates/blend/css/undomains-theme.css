@@ -355,7 +355,7 @@
 /* Sidebar menu links */
 .sidebar .menu li a,
 .sidebar ul li a {
-    color: #fff !important;
+    color: #000 !important;
     text-decoration: none !important;
     transition: all 0.3s ease;
 }
@@ -378,10 +378,10 @@
     margin-right: 8px;
 }
 
-/* Sidebar content text - White */
+/* Sidebar content text - Black for light theme */
 .sidebar .content-padded,
 .sidebar .content-padded.small {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 /* Sidebar collapse/expand button */
