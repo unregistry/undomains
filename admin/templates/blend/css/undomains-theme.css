@@ -240,6 +240,21 @@
 
 /* Mobile layout fixes */
 @media (max-width: 950px) {
+    /* Navigation layout - hamburger left of logo */
+    .navigation {
+        flex-wrap: wrap;
+    }
+    
+    .navigation .left-nav {
+        order: -1;
+        margin-right: 10px;
+    }
+    
+    .navigation .logo {
+        order: 0;
+        flex: 1;
+    }
+    
     /* Ensure content area is visible and takes full width */
     #contentarea {
         margin-left: 0 !important;

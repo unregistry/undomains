@@ -1,14 +1,14 @@
-<a href="index.php" class="logo" title="{$_ADMINLANG.home.title}">
-    <img src="templates/{$template}/images/undomains-dark-logo.png" style="max-height: 40px; padding-top: 5px;">
-</a>
-
 <ul class="left-nav">
-    <li class="bt visible-sidebar">
+    <li class="bt nav-menu-toggle">
         <a href="#" class="nav-toggle" id="btnNavbarToggle" aria-label="{lang key='global.navigation'}">
             <i aria-hidden="true" class="fas fa-bars always"></i>
         </a>
     </li>
 </ul>
+
+<a href="index.php" class="logo" title="{$_ADMINLANG.home.title}">
+    <img src="templates/{$template}/images/undomains-dark-logo.png" style="max-height: 40px; padding-top: 5px;">
+</a>
 
 <div class="navbar-collapse">
     <ul>

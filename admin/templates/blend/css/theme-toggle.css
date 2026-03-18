@@ -140,6 +140,31 @@ body {
     background: var(--bg-nav) !important;
     border-bottom: 3px solid var(--border-primary) !important;
     box-shadow: 0 2px 15px var(--shadow-nav) !important;
+    display: flex;
+    align-items: center;
+}
+
+/* Navigation menu toggle (hamburger) - always visible */
+.navigation .left-nav li.nav-menu-toggle {
+    display: flex !important;
+}
+
+.navigation .left-nav li.nav-menu-toggle a {
+    color: #fff !important;
+    padding: 15px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation .left-nav li.nav-menu-toggle a:hover {
+    color: var(--gold-primary) !important;
+    background: rgba(204, 153, 51, 0.15) !important;
+}
+
+.navigation .left-nav li.nav-menu-toggle a i {
+    font-size: 18px;
+    color: var(--gold-primary) !important;
 }
 
 .navigation .navbar-collapse > ul > li > a {
