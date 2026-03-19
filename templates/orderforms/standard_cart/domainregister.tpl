@@ -219,11 +219,16 @@
 
             </div>
 
+            <!-- UNCONDITIONAL TEST 1 - Outside domain-pricing -->
+            <div style="background: orange; padding: 15px; border: 3px solid green; margin: 10px 0;">
+                <strong>TEST 1 - Outside domain-pricing (always visible)</strong>
+            </div>
+
             <div class="domain-pricing">
 
-                <!-- UNCONDITIONAL TEST - Should always be in DOM -->
-                <div class="adv-section" style="background: yellow; padding: 20px; border: 3px solid red;">
-                    <strong>TEST: This should appear when Show Advanced is clicked</strong>
+                <!-- UNCONDITIONAL TEST 2 - Inside domain-pricing -->
+                <div style="background: yellow; padding: 20px; border: 3px solid red;">
+                    <strong>TEST 2 - Inside domain-pricing (always visible)</strong>
                 </div>
 
                 {if $featuredTlds}
