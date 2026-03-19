@@ -221,6 +221,11 @@
 
             <div class="domain-pricing">
 
+                <!-- UNCONDITIONAL TEST - Should always be in DOM -->
+                <div class="adv-section" style="background: yellow; padding: 20px; border: 3px solid red;">
+                    <strong>TEST: This should appear when Show Advanced is clicked</strong>
+                </div>
+
                 {if $featuredTlds}
                     <div class="featured-tlds-container adv-section">
                         <div class="row">
