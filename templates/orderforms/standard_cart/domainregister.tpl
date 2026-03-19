@@ -224,7 +224,7 @@
                 <div class="domain-search-basic">
                     <h4 class="font-size-18 margin-bottom-20">{lang key='orderForm.tldPricing'}</h4>
                     <div class="bg-white">
-                        {foreach $pricing['pricing']|@array_slice:0:10 as $tld => $price}
+                        {foreach $pricing['pricing'] as $tld => $price}
                             <div class="row no-gutters tld-row-simple" style="border-bottom: 1px solid #eee; padding: 10px 0;">
                                 <div class="col-xs-6 col-6 px-4">
                                     <strong>.{$tld}</strong>
