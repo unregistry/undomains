@@ -231,7 +231,7 @@
 
             PLAIN TEXT BEFORE DOMAIN-PRICING
 
-            <div class="domain-pricing" style="background: lightcyan !important; padding: 15px; border: 3px solid purple; margin: 10px 0; display: block !important; visibility: visible !important; opacity: 1 !important; min-height: 100px;">
+            <div style="background: lightcyan !important; padding: 15px; border: 3px solid purple; margin: 10px 0; display: block !important; visibility: visible !important; opacity: 1 !important; min-height: 100px;">
 
                 PLAIN TEXT INSIDE DOMAIN-PRICING
 
