@@ -218,7 +218,7 @@
 
             </div>
 
-            <div class="domain-pricing">
+            <div class="domain-pricing-renamed">
 
                 <div class="domain-search-advanced">
 
@@ -601,6 +601,14 @@ jQuery(document).ready(function() {
 }
 
 /* Domain Search View Toggle */
+.domain-pricing-renamed {
+    border: 1px solid var(--dr-border, #ddd);
+    border-radius: 0;
+    margin: 25px 0;
+    color: var(--dr-text-primary, #333);
+    padding: 20px;
+}
+
 .domain-search-advanced {
     display: none !important;
     background: rgba(255,0,0,0.1) !important;
