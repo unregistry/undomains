@@ -222,6 +222,11 @@
 
                 <div id="advancedSections" class="advanced-section">
 
+                <!-- TEST: This should always be visible -->
+                <div style="background: yellow; padding: 20px; border: 3px solid blue;">
+                    <strong>TEST CONTENT - If you see this, toggle is working!</strong>
+                </div>
+
                 {if $featuredTlds}
                     <div class="featured-tlds-container">
                         <div class="row">
