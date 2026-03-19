@@ -220,6 +220,7 @@
 
             <div class="domain-pricing-renamed">
 
+                <!-- ADVANCED VIEW ONLY: Featured TLDs and Premium Content -->
                 <div class="domain-search-advanced">
 
                 {if $featuredTlds}
@@ -279,6 +280,9 @@
                     </div>
                 {/if}
 
+                </div>{* /domain-search-advanced - END OF ADVANCED ONLY CONTENT *}
+
+                <!-- BASIC VIEW: Categories and Pricing (always visible) -->
                 <h4 class="font-size-18">{lang key='pricing.browseExtByCategory'}</h4>
 
                 <div class="tld-filters">
@@ -352,8 +356,6 @@
                         </div>
                     </div>
                 </div>
-
-                </div>{* /domain-search-advanced *}
 
             </div>
 
