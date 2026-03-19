@@ -606,15 +606,6 @@ jQuery(document).ready(function() {
     display: none;
 }
 
-/* Show when visible class is added - use maximum specificity */
-#order-standard_cart #advancedSections.visible,
-.domain-pricing #advancedSections.visible,
-#advancedSections.visible {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
 /* Ensure footer is always visible */
 .domain-search-footer {
     display: block !important;
@@ -622,99 +613,65 @@ jQuery(document).ready(function() {
 </style>
 
 <script>
-// Domain Search View Toggle
+// Domain Search View Toggle - Simple inline style approach
 function toggleDomainView() {
-    console.log('toggleDomainView called');
-    
     var sections = document.getElementById('advancedSections');
     var btn = document.getElementById('viewToggleBtn');
     var txt = document.getElementById('viewToggleText');
-    
-    console.log('sections element:', sections);
-    console.log('button element:', btn);
     
     if (!sections) {
         console.error('advancedSections not found!');
         return;
     }
     
-    var isVisible = sections.classList.contains('visible');
-    console.log('Current visible state:', isVisible);
+    // Check current visibility by computed style
+    var computedDisplay = window.getComputedStyle(sections).display;
+    var isVisible = computedDisplay !== 'none';
+    
+    console.log('Toggle clicked. Current computed display:', computedDisplay);
     
     if (isVisible) {
         // Hide
-        sections.classList.remove('visible');
-        sections.style.display = 'none';
+        sections.style.cssText = 'display: none !important;';
         if (txt) txt.textContent = 'Show Advanced';
         if (btn) btn.classList.remove('active');
         localStorage.setItem('domainSearchView', 'basic');
-        console.log('Switched to basic view');
+        console.log('Hidden');
     } else {
-        // Show
-        sections.classList.add('visible');
-        sections.style.display = 'block';
+        // Show - use cssText to override everything
+        sections.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
         if (txt) txt.textContent = 'Show Basic';
         if (btn) btn.classList.add('active');
         localStorage.setItem('domainSearchView', 'advanced');
-        console.log('Switched to advanced view, display set to:', sections.style.display);
+        console.log('Shown, new computed display:', window.getComputedStyle(sections).display);
     }
 }
 
 // Restore view preference on page load
-if (typeof jQuery !== 'undefined') {
-    jQuery(document).ready(function() {
-        console.log('DOM ready - checking saved view preference');
+function restoreDomainView() {
+    if (typeof localStorage !== 'undefined') {
+        var savedView = localStorage.getItem('domainSearchView');
+        console.log('Restoring view:', savedView);
         
-        if (typeof localStorage !== 'undefined') {
-            var savedView = localStorage.getItem('domainSearchView');
-            console.log('Saved view:', savedView);
+        if (savedView === 'advanced') {
+            var sections = document.getElementById('advancedSections');
+            var btn = document.getElementById('viewToggleBtn');
+            var txt = document.getElementById('viewToggleText');
             
-            if (savedView === 'advanced') {
-                var sections = document.getElementById('advancedSections');
-                var btn = document.getElementById('viewToggleBtn');
-                var txt = document.getElementById('viewToggleText');
-                
-                if (sections) {
-                    sections.classList.add('visible');
-                    sections.style.display = 'block';
-                    if (txt) txt.textContent = 'Show Basic';
-                    if (btn) btn.classList.add('active');
-                    console.log('Restored advanced view');
-                }
+            if (sections) {
+                sections.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                if (txt) txt.textContent = 'Show Basic';
+                if (btn) btn.classList.add('active');
+                console.log('Advanced view restored');
             }
-        }
-    });
-} else {
-    // Fallback if jQuery not loaded yet
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM ready (fallback) - checking saved view preference');
-        
-        if (typeof localStorage !== 'undefined') {
-            var savedView = localStorage.getItem('domainSearchView');
-            if (savedView === 'advanced') {
-                var sections = document.getElementById('advancedSections');
-                var btn = document.getElementById('viewToggleBtn');
-                var txt = document.getElementById('viewToggleText');
-                
-                if (sections) {
-                    sections.classList.add('visible');
-                    sections.style.display = 'block';
-                    if (txt) txt.textContent = 'Show Basic';
-                    if (btn) btn.classList.add('active');
-                }
-            }
-        }
-    });
-}
-
-// Failsafe: Ensure advanced sections stay visible if they should be shown
-setInterval(function() {
-    var sections = document.getElementById('advancedSections');
-    if (sections && sections.classList.contains('visible')) {
-        if (sections.style.display !== 'block' || window.getComputedStyle(sections).display === 'none') {
-            console.log('Failsafe: forcing advanced sections to display:block');
-            sections.style.cssText = 'display: block !important; visibility: visible !important;';
         }
     }
-}, 500);
+}
+
+// Run on page load
+if (typeof jQuery !== 'undefined') {
+    jQuery(document).ready(restoreDomainView);
+} else {
+    document.addEventListener('DOMContentLoaded', restoreDomainView);
+}
 </script>
