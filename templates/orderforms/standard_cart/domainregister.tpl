@@ -610,42 +610,31 @@ jQuery(document).ready(function() {
 }
 
 .domain-search-advanced {
-    display: none !important;
-    background: rgba(255,0,0,0.1) !important;
-    border: 3px solid red !important;
+    display: none;
 }
 
 body.domain-search-advanced-visible .domain-search-advanced {
-    display: block !important;
-    background: rgba(0,255,0,0.2) !important;
-    border: 3px solid lime !important;
+    display: block;
 }
 </style>
 
 <script>
 function toggleDomainView() {
-    console.log('toggleDomainView called');
     var body = document.body;
     var btn = document.getElementById('viewToggleBtn');
     var txt = document.getElementById('viewToggleText');
-    
-    console.log('Body classes before:', body.className);
     
     if (body.classList.contains('domain-search-advanced-visible')) {
         body.classList.remove('domain-search-advanced-visible');
         txt.textContent = 'Show Advanced';
         btn.classList.remove('active');
         localStorage.setItem('domainSearchView', 'basic');
-        console.log('Switched to basic');
     } else {
         body.classList.add('domain-search-advanced-visible');
         txt.textContent = 'Show Basic';
         btn.classList.add('active');
         localStorage.setItem('domainSearchView', 'advanced');
-        console.log('Switched to advanced');
     }
-    
-    console.log('Body classes after:', body.className);
 }
 
 jQuery(document).ready(function() {
