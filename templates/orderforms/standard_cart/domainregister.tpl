@@ -218,13 +218,18 @@
 
             </div>
 
-            <div class="domain-pricing">
+            <!-- TEST 2: Outside advancedSections -->
+            <div style="background: orange; padding: 15px; border: 3px solid green; margin-bottom: 10px;">
+                <strong>TEST 2 - Outside advancedSections</strong>
+            </div>
+
+            <div class="domain-pricing" style="min-height: 100px; border: 2px dashed purple;">
 
                 <div id="advancedSections" class="advanced-section">
 
-                <!-- TEST: This should always be visible -->
+                <!-- TEST: Inside advancedSections -->
                 <div style="background: yellow; padding: 20px; border: 3px solid blue;">
-                    <strong>TEST CONTENT - If you see this, toggle is working!</strong>
+                    <strong>TEST 1 - Inside advancedSections</strong>
                 </div>
 
                 {if $featuredTlds}
