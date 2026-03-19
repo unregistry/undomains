@@ -229,7 +229,11 @@
                 <strong>TEST 2 - Sibling (always visible)</strong>
             </div>
 
-            <div class="domain-pricing" style="background: lightcyan; padding: 15px; border: 3px solid purple; margin: 10px 0;">
+            PLAIN TEXT BEFORE DOMAIN-PRICING
+
+            <div class="domain-pricing" style="background: lightcyan !important; padding: 15px; border: 3px solid purple; margin: 10px 0; display: block !important; visibility: visible !important; opacity: 1 !important; min-height: 100px;">
+
+                PLAIN TEXT INSIDE DOMAIN-PRICING
 
                 <!-- UNCONDITIONAL TEST 3 - Inside domain-pricing -->
                 <div style="background: yellow; padding: 20px; border: 3px solid red;">
