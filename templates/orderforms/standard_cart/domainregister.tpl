@@ -220,9 +220,31 @@
 
             <div class="domain-pricing-renamed">
 
-                <!-- BASIC VIEW: Simple message -->
-                <div class="domain-search-basic text-center padding-20">
-                    <p class="text-muted">Advanced view includes featured TLDs, categories, and full pricing table.</p>
+                <!-- BASIC VIEW: Simplified domain list -->
+                <div class="domain-search-basic">
+                    <h4 class="font-size-18 margin-bottom-20">{lang key='orderForm.tldPricing'}</h4>
+                    <div class="bg-white">
+                        {foreach $pricing['pricing']|@array_slice:0:10 as $tld => $price}
+                            <div class="row no-gutters tld-row-simple" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                                <div class="col-xs-6 col-6 px-4">
+                                    <strong>.{$tld}</strong>
+                                </div>
+                                <div class="col-xs-6 col-6 text-right px-4">
+                                    {if isset($price.register) && current($price.register) > 0}
+                                        <span class="text-success">{current($price.register)}</span>
+                                        <small class="text-muted">/{key($price.register)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
+                                    {elseif isset($price.register) && current($price.register) == 0}
+                                        <span class="text-success">{lang key='orderfree'}</span>
+                                    {else}
+                                        <span class="text-muted">{lang key='na'}</span>
+                                    {/if}
+                                </div>
+                            </div>
+                        {/foreach}
+                        <div class="text-center padding-10">
+                            <p class="text-muted small">{lang key='viewMoreTLDs' defaultValue='View all TLDs in Advanced mode'}</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ADVANCED VIEW ONLY: Featured TLDs, Categories, and Pricing -->
@@ -616,6 +638,16 @@ jQuery(document).ready(function() {
     padding: 20px;
 }
 
+/* Basic view - shown by default, hidden in advanced */
+.domain-search-basic {
+    display: block;
+}
+
+body.domain-search-advanced-visible .domain-search-basic {
+    display: none;
+}
+
+/* Advanced view - hidden by default, shown in advanced */
 .domain-search-advanced {
     display: none;
 }
