@@ -606,6 +606,8 @@ jQuery(document).ready(function() {
 /* Show when body has adv-visible class */
 body.adv-visible .adv-section {
     display: block !important;
+    background: rgba(0,255,0,0.1) !important;
+    border: 2px solid blue !important;
 }
 
 /* Ensure footer is always visible */
