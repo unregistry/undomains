@@ -656,7 +656,6 @@ function restoreDomainView() {
             if (btn) btn.classList.add('active');
             console.log('Advanced view restored');
         }
-        }
     }
 }
 
