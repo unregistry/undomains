@@ -221,14 +221,16 @@
             <div class="domain-pricing-renamed">
 
                 <!-- BASIC VIEW: Simplified domain list -->
+                {* Define Unregistry TLD modes - hardcoded for now *}
+                {assign var=unregistryTldModes value=['degen'=>'disabled','fio'=>'disabled','com.store'=>'coming_soon','com.film'=>'coming_soon','com.supply'=>'coming_soon','com.bond'=>'coming_soon','com.barcelona'=>'coming_soon','app.onl'=>'live','org.onl'=>'live','site.onl'=>'live']}
+                {assign var=unregistryDisabledTlds value=['degen','fio']}
+                
                 <div class="domain-search-basic">
                     <h4 class="font-size-18 margin-bottom-20">{lang key='orderForm.tldPricing'}</h4>
-                    <!-- DEBUG disabled: {$unregistryDisabledTlds|@print_r:true} -->
-                    <!-- DEBUG modes: {$unregistryTldModes|@print_r:true} -->
                     <div class="bg-white">
                         {foreach $pricing['pricing'] as $tld => $price}
                             {* Skip disabled Unregistry TLDs *}
-                            {if isset($unregistryDisabledTlds) && in_array($tld, $unregistryDisabledTlds)}{continue}{/if}
+                            {if in_array($tld, $unregistryDisabledTlds)}{continue}{/if}
                             
                             {* Check if this is a Unregistry TLD with special mode *}
                             {assign var=tldMode value=''}
