@@ -602,15 +602,17 @@ jQuery(document).ready(function() {
 
 /* Advanced Sections Toggle */
 /* Advanced sections - hidden by default */
-.advanced-section,
 #advancedSections {
-    display: none !important;
+    display: none;
 }
 
-/* Show when visible class is added */
-.advanced-section.visible,
+/* Show when visible class is added - use maximum specificity */
+#order-standard_cart #advancedSections.visible,
+.domain-pricing #advancedSections.visible,
 #advancedSections.visible {
     display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* Ensure footer is always visible */
@@ -642,6 +644,7 @@ function toggleDomainView() {
     if (isVisible) {
         // Hide
         sections.classList.remove('visible');
+        sections.style.display = 'none';
         if (txt) txt.textContent = 'Show Advanced';
         if (btn) btn.classList.remove('active');
         localStorage.setItem('domainSearchView', 'basic');
@@ -649,10 +652,11 @@ function toggleDomainView() {
     } else {
         // Show
         sections.classList.add('visible');
+        sections.style.display = 'block';
         if (txt) txt.textContent = 'Show Basic';
         if (btn) btn.classList.add('active');
         localStorage.setItem('domainSearchView', 'advanced');
-        console.log('Switched to advanced view');
+        console.log('Switched to advanced view, display set to:', sections.style.display);
     }
 }
 
@@ -672,6 +676,7 @@ if (typeof jQuery !== 'undefined') {
                 
                 if (sections) {
                     sections.classList.add('visible');
+                    sections.style.display = 'block';
                     if (txt) txt.textContent = 'Show Basic';
                     if (btn) btn.classList.add('active');
                     console.log('Restored advanced view');
@@ -693,6 +698,7 @@ if (typeof jQuery !== 'undefined') {
                 
                 if (sections) {
                     sections.classList.add('visible');
+                    sections.style.display = 'block';
                     if (txt) txt.textContent = 'Show Basic';
                     if (btn) btn.classList.add('active');
                 }
@@ -700,4 +706,15 @@ if (typeof jQuery !== 'undefined') {
         }
     });
 }
+
+// Failsafe: Ensure advanced sections stay visible if they should be shown
+setInterval(function() {
+    var sections = document.getElementById('advancedSections');
+    if (sections && sections.classList.contains('visible')) {
+        if (sections.style.display !== 'block' || window.getComputedStyle(sections).display === 'none') {
+            console.log('Failsafe: forcing advanced sections to display:block');
+            sections.style.cssText = 'display: block !important; visibility: visible !important;';
+        }
+    }
+}, 500);
 </script>
