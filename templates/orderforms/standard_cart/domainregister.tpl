@@ -221,7 +221,7 @@
             <div class="domain-pricing-renamed">
 
                 <!-- BASIC VIEW: Simplified domain list -->
-                {* TLD modes - UPDATE THESE WHEN YOU CHANGE SETTINGS IN ADMIN *}
+                {* TLD modes: 'disabled', 'presale', 'coming_soon', 'reservation', or 'live' *}
                 {assign var=unregistryTldModes value=['degen'=>'disabled','fio'=>'disabled','com.store'=>'coming_soon','com.film'=>'coming_soon','com.supply'=>'coming_soon','com.bond'=>'coming_soon','com.barcelona'=>'coming_soon','app.onl'=>'live','org.onl'=>'live','site.onl'=>'live']}
                 {assign var=unregistryDisabledTlds value=['degen','fio']}
                 
@@ -241,11 +241,15 @@
                                     <strong>.{$tld}</strong>
                                 </div>
                                 <div class="col-xs-6 col-6 text-right px-4">
-                                    {* Show mode badge for reservation/coming_soon TLDs *}
-                                    {if $tldMode == 'reservation' || $tldMode == 'coming_soon'}
-                                        <span class="label label-{if $tldMode == 'reservation'}warning{else}primary{/if}">
-                                            {if $tldMode == 'reservation'}Reservation{else}Coming Soon{/if}
+                                    {* Show mode badge for reservation/coming_soon/presale TLDs *}
+                                    {if $tldMode == 'reservation' || $tldMode == 'coming_soon' || $tldMode == 'presale'}
+                                        <span class="label label-{if $tldMode == 'reservation'}warning{elseif $tldMode == 'presale'}info{else}primary{/if}">
+                                            {if $tldMode == 'reservation'}Reservation{elseif $tldMode == 'presale'}Pre-Sale{else}Coming Soon{/if}
                                         </span>
+                                        {if $tldMode == 'presale' && isset($price.register) && current($price.register) > 0}
+                                            <br><span class="text-success">{current($price.register)}</span>
+                                            <small class="text-muted">/{key($price.register)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
+                                        {/if}
                                     {elseif isset($price.register) && current($price.register) > 0}
                                         <span class="text-success">{current($price.register)}</span>
                                         <small class="text-muted">/{key($price.register)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
