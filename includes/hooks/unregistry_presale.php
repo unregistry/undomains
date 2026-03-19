@@ -110,25 +110,26 @@ function unregistry_presale_getTldMode($tld)
         ->first();
 
     if ($tldInfo) {
-        $mode = $tldInfo->tld_mode ?? ($tldInfo->presale_mode ? 'presale' : 'live');
+        $mode = $tldInfo->tld_mode ?: ($tldInfo->presale_mode ? 'presale' : 'live');
+        
+        $display = ucfirst($mode);
+        if ($mode === 'live') $display = 'Live';
+        elseif ($mode === 'presale') $display = 'Pre-Sale';
+        elseif ($mode === 'reservation') $display = 'Reservation';
+        elseif ($mode === 'coming_soon') $display = 'Coming Soon';
+        elseif ($mode === 'disabled') $display = 'Disabled';
+        
+        $class = 'info';
+        if ($mode === 'live') $class = 'success';
+        elseif ($mode === 'presale') $class = 'info';
+        elseif ($mode === 'reservation') $class = 'warning';
+        elseif ($mode === 'coming_soon') $class = 'primary';
+        elseif ($mode === 'disabled') $class = 'default';
+        
         return [
             'mode' => $mode,
-            'display' => match($mode) {
-                'live' => 'Live',
-                'presale' => 'Pre-Sale',
-                'reservation' => 'Reservation',
-                'coming_soon' => 'Coming Soon',
-                'disabled' => 'Disabled',
-                default => ucfirst($mode),
-            },
-            'class' => match($mode) {
-                'live' => 'success',
-                'presale' => 'info',
-                'reservation' => 'warning',
-                'coming_soon' => 'primary',
-                'disabled' => 'default',
-                default => 'info',
-            },
+            'display' => $display,
+            'class' => $class,
         ];
     }
     return null;
@@ -273,7 +274,7 @@ add_hook('ClientAreaDomainDetails', 1, function($vars) {
  * Hook: Add pre-sale indicator to domain checker page
  */
 add_hook('ClientAreaPageDomainChecker', 1, function($vars) {
-    // Get ALL custom TLDs including disabled ones (to know which to exclude)
+    // Get custom TLDs (enabled only)
     $allCustomTlds = Capsule::table('mod_unregistry_presale_tlds')
         ->leftJoin('mod_unregistry_presale_pricing',
                'mod_unregistry_presale_tlds.id',
@@ -283,22 +284,39 @@ add_hook('ClientAreaPageDomainChecker', 1, function($vars) {
         ->get();
 
     $vars['customTlds'] = [];
-    $vars['unregistryTlds'] = []; // For display section (excludes disabled)
-    $vars['unregistryDisabledTlds'] = []; // List of disabled TLDs to exclude
-    $vars['unregistryTldModes'] = []; // TLD => mode mapping
+    $vars['unregistryTlds'] = [];
+    $vars['unregistryDisabledTlds'] = [];
+    $vars['unregistryTldModes'] = [];
     
     foreach ($allCustomTlds as $tld) {
-        $mode = $tld->tld_mode ?? ($tld->presale_mode ? 'presale' : 'live');
-        $tldName = ltrim($tld->tld, '.'); // Remove leading dot for comparison
+        $mode = $tld->tld_mode ?: ($tld->presale_mode ? 'presale' : 'live');
+        $tldName = ltrim($tld->tld, '.');
         
-        // Store mode for all TLDs
         $vars['unregistryTldModes'][$tldName] = $mode;
         
-        // Skip disabled TLDs for display arrays
         if ($mode === 'disabled') {
             $vars['unregistryDisabledTlds'][] = $tldName;
             continue;
         }
+        
+        // Use simple if/else instead of match() for PHP 8.0 compatibility
+        $modeDisplay = ucfirst($mode);
+        if ($mode === 'live') $modeDisplay = 'Live';
+        elseif ($mode === 'presale') $modeDisplay = 'Pre-Sale';
+        elseif ($mode === 'reservation') $modeDisplay = 'Reservation';
+        elseif ($mode === 'coming_soon') $modeDisplay = 'Coming Soon';
+        
+        $modeClass = 'info';
+        if ($mode === 'live') $modeClass = 'success';
+        elseif ($mode === 'presale') $modeClass = 'info';
+        elseif ($mode === 'reservation') $modeClass = 'warning';
+        elseif ($mode === 'coming_soon') $modeClass = 'primary';
+        
+        $description = 'Domain availability varies';
+        if ($mode === 'live') $description = 'Available for immediate registration';
+        elseif ($mode === 'presale') $description = 'Pre-order now for early access';
+        elseif ($mode === 'reservation') $description = 'Reserve your domain now';
+        elseif ($mode === 'coming_soon') $description = 'Coming soon - check back later';
         
         $tldData = [
             'tld' => $tld->tld,
@@ -307,29 +325,9 @@ add_hook('ClientAreaPageDomainChecker', 1, function($vars) {
             'renew' => $tld->renew_price,
             'presale' => $tld->presale_mode ? true : false,
             'mode' => $mode,
-            'modeDisplay' => match($mode) {
-                'live' => 'Live',
-                'presale' => 'Pre-Sale',
-                'reservation' => 'Reservation',
-                'coming_soon' => 'Coming Soon',
-                'disabled' => 'Disabled',
-                default => ucfirst($mode),
-            },
-            'modeClass' => match($mode) {
-                'live' => 'success',
-                'presale' => 'info',
-                'reservation' => 'warning',
-                'coming_soon' => 'primary',
-                'disabled' => 'default',
-                default => 'info',
-            },
-            'description' => match($mode) {
-                'live' => 'Available for immediate registration',
-                'presale' => 'Pre-order now for early access',
-                'reservation' => 'Reserve your domain now',
-                'coming_soon' => 'Coming soon - check back later',
-                default => 'Domain availability varies',
-            },
+            'modeDisplay' => $modeDisplay,
+            'modeClass' => $modeClass,
+            'description' => $description,
         ];
         
         $vars['customTlds'][] = $tldData;
