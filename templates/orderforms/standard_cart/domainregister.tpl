@@ -224,11 +224,16 @@
                 <strong>TEST 1 - Outside domain-pricing (always visible)</strong>
             </div>
 
-            <div class="domain-pricing">
+            <!-- UNCONDITIONAL TEST 2 - Sibling to TEST 1 -->
+            <div style="background: pink; padding: 15px; border: 3px solid blue; margin: 10px 0;">
+                <strong>TEST 2 - Sibling (always visible)</strong>
+            </div>
 
-                <!-- UNCONDITIONAL TEST 2 - Inside domain-pricing -->
+            <div class="domain-pricing" style="background: lightcyan; padding: 15px; border: 3px solid purple; margin: 10px 0;">
+
+                <!-- UNCONDITIONAL TEST 3 - Inside domain-pricing -->
                 <div style="background: yellow; padding: 20px; border: 3px solid red;">
-                    <strong>TEST 2 - Inside domain-pricing (always visible)</strong>
+                    <strong>TEST 3 - Inside domain-pricing (always visible)</strong>
                 </div>
 
                 {if $featuredTlds}
