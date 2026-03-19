@@ -225,6 +225,14 @@
                     <h4 class="font-size-18 margin-bottom-20">{lang key='orderForm.tldPricing'}</h4>
                     <div class="bg-white">
                         {foreach $pricing['pricing'] as $tld => $price}
+                            {* Skip Unregistry custom TLDs in basic view *}
+                            {if isset($unregistryTlds)}
+                                {assign var=isUnregistry value=false}
+                                {foreach $unregistryTlds as $utld}
+                                    {if $utld.tld == '.'|cat:$tld}{assign var=isUnregistry value=true}{/if}
+                                {/foreach}
+                                {if $isUnregistry}{continue}{/if}
+                            {/if}
                             <div class="row no-gutters tld-row-simple" style="border-bottom: 1px solid #eee; padding: 10px 0;">
                                 <div class="col-xs-6 col-6 px-4">
                                     <strong>.{$tld}</strong>
