@@ -29,12 +29,16 @@ add_hook('ClientAreaPageDomainChecker', 1, function($vars) {
     
     foreach ($tlds as $tld) {
         $mode = $tld->tld_mode ?: 'live';
-        $name = ltrim($tld->tld, '.');
+        // Store both with and without dot for compatibility
+        $nameWithDot = $tld->tld;
+        $nameWithoutDot = ltrim($tld->tld, '.');
         
-        $vars['unregistryTldModes'][$name] = $mode;
+        $vars['unregistryTldModes'][$nameWithDot] = $mode;
+        $vars['unregistryTldModes'][$nameWithoutDot] = $mode;
         
         if ($mode === 'disabled') {
-            $vars['unregistryDisabledTlds'][] = $name;
+            $vars['unregistryDisabledTlds'][] = $nameWithDot;
+            $vars['unregistryDisabledTlds'][] = $nameWithoutDot;
         }
     }
     
