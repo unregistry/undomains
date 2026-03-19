@@ -221,9 +221,7 @@
             <div class="domain-pricing-renamed">
 
                 <!-- BASIC VIEW: Simplified domain list -->
-                {* Define Unregistry TLD modes - edit these based on admin settings *}
-                {assign var=unregistryTldModes value=['degen'=>'disabled','fio'=>'disabled','com.store'=>'coming_soon','com.film'=>'coming_soon','com.supply'=>'coming_soon','com.bond'=>'coming_soon','com.barcelona'=>'coming_soon','app.onl'=>'live','org.onl'=>'live','site.onl'=>'live']}
-                {assign var=unregistryDisabledTlds value=['degen','fio']}
+                {* TLD modes are loaded from database via hook *}
                 
                 <div class="domain-search-basic">
                     <h4 class="font-size-18 margin-bottom-20">{lang key='orderForm.tldPricing'}</h4>
