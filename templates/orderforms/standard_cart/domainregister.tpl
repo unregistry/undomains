@@ -7,7 +7,6 @@
             {include file="orderforms/standard_cart/sidebar-categories.tpl"}
         </div>
         <div class="cart-body">
-
             <div class="header-lined" style="display: flex; justify-content: space-between; align-items: center;">
                 <h1 class="font-size-36" style="margin: 0;">
                     {$LANG.registerdomain}
@@ -219,29 +218,12 @@
 
             </div>
 
-            <!-- UNCONDITIONAL TEST 1 - Outside domain-pricing -->
-            <div style="background: orange; padding: 15px; border: 3px solid green; margin: 10px 0;">
-                <strong>TEST 1 - Outside domain-pricing (always visible)</strong>
-            </div>
+            <div class="domain-pricing">
 
-            <!-- UNCONDITIONAL TEST 2 - Sibling to TEST 1 -->
-            <div style="background: pink; padding: 15px; border: 3px solid blue; margin: 10px 0;">
-                <strong>TEST 2 - Sibling (always visible)</strong>
-            </div>
-
-            PLAIN TEXT BEFORE DOMAIN-PRICING
-
-            <div style="background: lightcyan !important; padding: 15px; border: 3px solid purple; margin: 10px 0; display: block !important; visibility: visible !important; opacity: 1 !important; min-height: 100px;">
-
-                PLAIN TEXT INSIDE DOMAIN-PRICING
-
-                <!-- UNCONDITIONAL TEST 3 - Inside domain-pricing -->
-                <div style="background: yellow; padding: 20px; border: 3px solid red;">
-                    <strong>TEST 3 - Inside domain-pricing (always visible)</strong>
-                </div>
+                <div class="domain-search-advanced">
 
                 {if $featuredTlds}
-                    <div class="featured-tlds-container adv-section">
+                    <div class="featured-tlds-container">
                         <div class="row">
                             {foreach $featuredTlds as $num => $tldinfo}
                                 {if $num % 3 == 0 && (count($featuredTlds) - $num < 3)}
@@ -272,7 +254,7 @@
 
                 {* Unregistry Custom TLDs Section *}
                 {if isset($unregistryTlds) && count($unregistryTlds) > 0}
-                    <div class="unregistry-tlds-section margin-top-20 margin-bottom-20 adv-section">
+                    <div class="unregistry-tlds-section margin-top-20 margin-bottom-20">
                         <h4 class="font-size-18">Premium TLDs</h4>
                         <p class="text-muted">Special domain extensions with unique availability status</p>
                         <div class="row">
@@ -297,15 +279,15 @@
                     </div>
                 {/if}
 
-                <h4 class="font-size-18 adv-section">{lang key='pricing.browseExtByCategory'}</h4>
+                <h4 class="font-size-18">{lang key='pricing.browseExtByCategory'}</h4>
 
-                <div class="tld-filters adv-section">
+                <div class="tld-filters">
                     {foreach $categoriesWithCounts as $category => $count}
                         <a href="#" data-category="{$category}" class="badge badge-secondary">{lang key="domainTldCategory.$category" defaultValue=$category} ({$count})</a>
                     {/foreach}
                 </div>
 
-                <div class="bg-white adv-section">
+                <div class="bg-white">
                     <div class="row no-gutters tld-pricing-header text-center">
                         <div class="col-md-4 tld-column">{lang key='orderdomain'}</div>
                         <div class="col-md-8">
@@ -370,6 +352,8 @@
                         </div>
                     </div>
                 </div>
+
+                </div>{* /domain-search-advanced *}
 
             </div>
 
@@ -616,74 +600,40 @@ jQuery(document).ready(function() {
     display: none !important;
 }
 
-/* Advanced Sections Toggle */
-/* Hide advanced sections by default */
-.adv-section {
-    display: none !important;
+/* Domain Search View Toggle */
+.domain-search-advanced {
+    display: none;
 }
 
-/* Show when body has adv-visible class */
-body.adv-visible .adv-section {
-    display: block !important;
-    background: rgba(0,255,0,0.1) !important;
-    border: 2px solid blue !important;
-}
-
-/* Ensure footer is always visible */
-.domain-search-footer {
-    display: block !important;
+body.domain-search-advanced-visible .domain-search-advanced {
+    display: block;
 }
 </style>
 
 <script>
-// Domain Search View Toggle - Toggle body class
 function toggleDomainView() {
     var body = document.body;
     var btn = document.getElementById('viewToggleBtn');
     var txt = document.getElementById('viewToggleText');
     
-    var isVisible = body.classList.contains('adv-visible');
-    console.log('Toggle clicked, current visible:', isVisible);
-    
-    if (isVisible) {
-        // Hide
-        body.classList.remove('adv-visible');
-        if (txt) txt.textContent = 'Show Advanced';
-        if (btn) btn.classList.remove('active');
+    if (body.classList.contains('domain-search-advanced-visible')) {
+        body.classList.remove('domain-search-advanced-visible');
+        txt.textContent = 'Show Advanced';
+        btn.classList.remove('active');
         localStorage.setItem('domainSearchView', 'basic');
-        console.log('Switched to basic');
     } else {
-        // Show
-        body.classList.add('adv-visible');
-        if (txt) txt.textContent = 'Show Basic';
-        if (btn) btn.classList.add('active');
+        body.classList.add('domain-search-advanced-visible');
+        txt.textContent = 'Show Basic';
+        btn.classList.add('active');
         localStorage.setItem('domainSearchView', 'advanced');
-        console.log('Switched to advanced');
     }
 }
 
-// Restore view preference on page load
-function restoreDomainView() {
-    if (typeof localStorage !== 'undefined') {
-        var savedView = localStorage.getItem('domainSearchView');
-        console.log('Restoring view:', savedView);
-        
-        if (savedView === 'advanced') {
-            document.body.classList.add('adv-visible');
-            var btn = document.getElementById('viewToggleBtn');
-            var txt = document.getElementById('viewToggleText');
-            
-            if (txt) txt.textContent = 'Show Basic';
-            if (btn) btn.classList.add('active');
-            console.log('Advanced view restored');
-        }
+jQuery(document).ready(function() {
+    if (localStorage.getItem('domainSearchView') === 'advanced') {
+        document.body.classList.add('domain-search-advanced-visible');
+        document.getElementById('viewToggleText').textContent = 'Show Basic';
+        document.getElementById('viewToggleBtn').classList.add('active');
     }
-}
-
-// Run on page load
-if (typeof jQuery !== 'undefined') {
-    jQuery(document).ready(restoreDomainView);
-} else {
-    document.addEventListener('DOMContentLoaded', restoreDomainView);
-}
+});
 </script>
