@@ -44,3 +44,30 @@ add_hook('ClientAreaPageDomainChecker', 1, function($vars) {
     
     return $vars;
 });
+
+// Also hook into cart page
+add_hook('ClientAreaPageCart', 1, function($vars) {
+    // Get enabled TLDs with their modes
+    $tlds = Capsule::table('mod_unregistry_presale_tlds')
+        ->where('enabled', 1)
+        ->get();
+    
+    $vars['unregistryDisabledTlds'] = [];
+    $vars['unregistryTldModes'] = [];
+    
+    foreach ($tlds as $tld) {
+        $mode = $tld->tld_mode ?: 'live';
+        $nameWithDot = $tld->tld;
+        $nameWithoutDot = ltrim($tld->tld, '.');
+        
+        $vars['unregistryTldModes'][$nameWithDot] = $mode;
+        $vars['unregistryTldModes'][$nameWithoutDot] = $mode;
+        
+        if ($mode === 'disabled') {
+            $vars['unregistryDisabledTlds'][] = $nameWithDot;
+            $vars['unregistryDisabledTlds'][] = $nameWithoutDot;
+        }
+    }
+    
+    return $vars;
+});
