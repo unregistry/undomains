@@ -2,6 +2,7 @@
 /**
  * Fix for knowledgebase numarticles showing 0
  * This hook recalculates the article counts from the database
+ * Also adds subtitle to knowledgebase page
  */
 
 if (!defined("WHMCS")) {
@@ -9,6 +10,12 @@ if (!defined("WHMCS")) {
 }
 
 use WHMCS\Database\Capsule;
+
+// Add subtitle to knowledgebase page
+add_hook('ClientAreaPageKnowledgebase', 2, function($vars) {
+    $vars['tagline'] = 'Enter a question here to search our knowledgebase for answers.';
+    return $vars;
+});
 
 add_hook('ClientAreaPageKnowledgebase', 1, function($vars) {
     if (!isset($vars['kbcats']) || !is_array($vars['kbcats'])) {
@@ -38,6 +45,18 @@ add_hook('ClientAreaPageKnowledgebase', 1, function($vars) {
         logActivity("Knowledgebase fix hook error: " . $e->getMessage());
     }
     
+    return $vars;
+});
+
+// Add subtitle to knowledgebase category page
+add_hook('ClientAreaPageKnowledgebaseCat', 2, function($vars) {
+    $vars['tagline'] = 'Enter a question here to search our knowledgebase for answers.';
+    return $vars;
+});
+
+// Add subtitle to knowledgebase article page
+add_hook('ClientAreaPageKnowledgebaseArticle', 2, function($vars) {
+    $vars['tagline'] = 'Enter a question here to search our knowledgebase for answers.';
     return $vars;
 });
 

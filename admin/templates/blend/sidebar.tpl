@@ -449,6 +449,7 @@
     {/if}
     <li><a href="subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
     <li><a href="contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
+    <li><a href="addonmodules.php?module=unregistry_manager"><i class="fas fa-globe"></i> Unregistry TLDs</a></li>
 </ul>
 
 {elseif $sidebar eq "logs"}

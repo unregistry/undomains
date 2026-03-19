@@ -606,33 +606,8 @@
                     </li>
                 {/if}
                 <li><a id="Menu-Utilities-Newsletter_Subscribers" href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
-            </ul>
-        </li>
-        <li class="has-dropdown" data-dropdown>
-            <a id="Menu-Addons" href="#" onclick="return false;" data-dropdown-btn
-               data-title="{$_ADMINLANG.utilities.addonmodules}">
-
-                {$_ADMINLANG.utilities.addonmodules}
-                <i class="ph ph-caret-down"></i>
-                <i class="ph ph-plus"></i>
-            </a>
-            <ul data-dropdown-menu>
-                {foreach from=$addon_modules key=module item=displayname}
-                    <li>
-                        <a id="Menu-Addons-{$displayname}"
-                           href="addonmodules.php?module={$module}">{$displayname}</a>
-                    </li>
-                    {foreachelse}
-                    <li>
-                        <a id="Menu-Addons-AppsAndIntegrations"
-                           href="{routePath('admin-apps-index')}">{$_ADMINLANG.setup.appsAndIntegrations}</a>
-                    </li>
-                    <li>
-                        <a id="Menu-Addons-Marketplace-Link" class="autoLinked"
-                           href="https://marketplace.whmcs.com">Visit
-                            WHMCS Marketplace</a>
-                    </li>
-                {/foreach}
+                <li><a id="Menu-Utilities-Addon_Modules" href="configaddonmods.php">{$_ADMINLANG.utilities.addonmodules}</a></li>
+                <li><a id="Menu-Utilities-Unregistry_TLDs" href="addonmodules.php?module=unregistry_manager"><i class="fas fa-globe"></i> Unregistry TLDs</a></li>
             </ul>
         </li>
 

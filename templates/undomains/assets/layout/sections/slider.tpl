@@ -33,6 +33,10 @@
                                     e.preventDefault();
                                     var domain = document.getElementById('domainSearchInput').value.trim().toLowerCase();
                                     if (domain) {
+                                        // Default to .com if no extension provided
+                                        if (domain.indexOf('.') === -1) {
+                                            domain = domain + '.com';
+                                        }
                                         window.location.href = '/search/' + encodeURIComponent(domain);
                                     }
                                     return false;

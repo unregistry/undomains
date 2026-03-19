@@ -127,6 +127,7 @@ h3 {
   background-color: #fff;
   border: 0;
   border-left: 1px solid #ccc;
+  overflow: hidden;
 }
 .contentarea .page-header-btns {
   margin: 0 -15px 20px;

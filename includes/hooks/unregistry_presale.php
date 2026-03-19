@@ -273,35 +273,39 @@ add_hook('ClientAreaDomainDetails', 1, function($vars) {
  * Hook: Add pre-sale indicator to domain checker page
  */
 add_hook('ClientAreaPageDomainChecker', 1, function($vars) {
-    // Get custom TLD pricing info with mode (exclude disabled TLDs)
-    $customTldPricing = Capsule::table('mod_unregistry_presale_tlds')
-        ->join('mod_unregistry_presale_pricing',
+    // Get ALL custom TLDs including disabled ones (to know which to exclude)
+    $allCustomTlds = Capsule::table('mod_unregistry_presale_tlds')
+        ->leftJoin('mod_unregistry_presale_pricing',
                'mod_unregistry_presale_tlds.id',
                '=',
                'mod_unregistry_presale_pricing.tld_id')
         ->where('mod_unregistry_presale_tlds.enabled', 1)
-        ->where(function($query) {
-            $query->where('mod_unregistry_presale_tlds.tld_mode', '!=', 'disabled')
-                  ->orWhereNull('mod_unregistry_presale_tlds.tld_mode');
-        })
         ->get();
 
     $vars['customTlds'] = [];
-    $vars['unregistryTlds'] = []; // For display section
-    foreach ($customTldPricing as $pricing) {
-        $mode = $pricing->tld_mode ?? ($pricing->presale_mode ? 'presale' : 'live');
+    $vars['unregistryTlds'] = []; // For display section (excludes disabled)
+    $vars['unregistryDisabledTlds'] = []; // List of disabled TLDs to exclude
+    $vars['unregistryTldModes'] = []; // TLD => mode mapping
+    
+    foreach ($allCustomTlds as $tld) {
+        $mode = $tld->tld_mode ?? ($tld->presale_mode ? 'presale' : 'live');
+        $tldName = ltrim($tld->tld, '.'); // Remove leading dot for comparison
         
-        // Skip disabled TLDs
+        // Store mode for all TLDs
+        $vars['unregistryTldModes'][$tldName] = $mode;
+        
+        // Skip disabled TLDs for display arrays
         if ($mode === 'disabled') {
+            $vars['unregistryDisabledTlds'][] = $tldName;
             continue;
         }
         
         $tldData = [
-            'tld' => $pricing->tld,
-            'register' => $pricing->register_price,
-            'transfer' => $pricing->transfer_price,
-            'renew' => $pricing->renew_price,
-            'presale' => $pricing->presale_mode ? true : false,
+            'tld' => $tld->tld,
+            'register' => $tld->register_price,
+            'transfer' => $tld->transfer_price,
+            'renew' => $tld->renew_price,
+            'presale' => $tld->presale_mode ? true : false,
             'mode' => $mode,
             'modeDisplay' => match($mode) {
                 'live' => 'Live',

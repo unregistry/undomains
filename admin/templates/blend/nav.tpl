@@ -388,35 +388,8 @@
                 {/if}
                 <li><a id="Menu-Utilities-Newsletter_Subscribers" href="subscribers/"><i class="fas fa-envelope"></i> Subscribers</a></li>
                 <li><a id="Menu-Utilities-Contact_Submissions" href="contact-submissions/"><i class="fas fa-address-card"></i> Contacts</a></li>
-            </ul>
-        </li>
-        <li class="has-dropdown">
-            <a id="Menu-Addons" href="#" onclick="return false;">
-                <i class="fas fa-cube"></i>
-                {$_ADMINLANG.utilities.addonmodules}
-                <span class="caret"></span>
-            </a>
-            <ul>
-                {foreach from=$addon_modules key=module item=displayname}
-                    <li><a id="Menu-Addons-{$displayname}" href="addonmodules.php?module={$module}">{$displayname}</a></li>
-                {foreachelse}
-                    <li><a id="Menu-Addons-AppsAndIntegrations" href="{routePath('admin-apps-index')}">{$_ADMINLANG.setup.appsAndIntegrations}</a></li>
-                    <li><a id="Menu-Addons-Marketplace-Link" class="autoLinked" href="https://marketplace.whmcs.com">Visit WHMCS Marketplace</a></li>
-                {/foreach}
-            </ul>
-        </li>
-        <li class="has-dropdown">
-            <a id="Menu-Domains" href="#" onclick="return false;">
-                <i class="fas fa-globe"></i>
-                Unregistry
-                <span class="caret"></span>
-            </a>
-            <ul>
-                <li><a id="Menu-Unregistry-Dashboard" href="addonmodules.php?module=unregistry_manager"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a id="Menu-Unregistry-CustomDomains" href="addonmodules.php?module=unregistry_manager&action=custom_domains"><i class="fas fa-plus-circle"></i> Add Custom Domains</a></li>
-                <li><a id="Menu-Unregistry-TLDs" href="addonmodules.php?module=unregistry_manager&action=tlds"><i class="fas fa-globe"></i> Manage TLDs</a></li>
-                <li><a id="Menu-Unregistry-DomainLists" href="addonmodules.php?module=unregistry_manager&action=domain_lists"><i class="fas fa-list"></i> Domain Lists</a></li>
-                <li><a id="Menu-Unregistry-OrderQueue" href="addonmodules.php?module=unregistry_manager&action=order_queue"><i class="fas fa-tasks"></i> Order Queue</a></li>
+                <li><a id="Menu-Utilities-Addon_Modules" href="configaddonmods.php">{$_ADMINLANG.utilities.addonmodules}</a></li>
+                <li><a id="Menu-Utilities-Unregistry_TLDs" href="addonmodules.php?module=unregistry_manager"><i class="fas fa-globe"></i> Unregistry TLDs</a></li>
             </ul>
         </li>
     </ul>

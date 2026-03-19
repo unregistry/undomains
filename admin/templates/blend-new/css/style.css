@@ -4501,3 +4501,53 @@ span.grey-item {
     background-color: #fbf8e5;
     color: #937e55;
 }
+
+/* Override inline background-color on addon modules table */
+table.datatable td[style*="background-color:#fff"],
+table.datatable td[style*="background-color: #fff"] {
+    background-color: transparent !important;
+}
+
+@media (max-width: 768px) {
+    table.datatable td input[type="button"][value="Activate"],
+    table.datatable td input[type="button"][value="Deactivate"],
+    table.datatable td input[type="button"][value="Configure"] {
+        font-size: 0 !important;
+        padding: 0 !important;
+        min-width: 36px;
+        width: 36px;
+        height: 36px;
+        text-indent: -9999px;
+        overflow: hidden;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    table.datatable td input[type="button"][value="Activate"]::after,
+    table.datatable td input[type="button"][value="Deactivate"]::after,
+    table.datatable td input[type="button"][value="Configure"]::after {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-indent: 0;
+        font-size: 16px;
+        font-family: "Font Awesome 5 Free", "FontAwesome", "Font Awesome 6 Free";
+        font-weight: 900;
+        display: block;
+        line-height: 1;
+    }
+    
+    table.datatable td input[type="button"][value="Activate"]::after {
+        content: "\f00c";
+    }
+    
+    table.datatable td input[type="button"][value="Deactivate"]::after {
+        content: "\f00d";
+    }
+    
+    table.datatable td input[type="button"][value="Configure"]::after {
+        content: "\f013";
+    }
+}

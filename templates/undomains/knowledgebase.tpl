@@ -2,7 +2,7 @@
     <form role="form" method="post" action="{routePath('knowledgebase-search')}">
         <div class="input-group input-group-lg kb-search overlay mb-50">
             <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-                <input type="text" id="inputKnowledgebaseSearch" name="search" class="form-control" placeholder="{$LANG.clientHomeSearchKb}" />
+                <input type="text" id="inputKnowledgebaseSearch" name="search" class="form-control" placeholder="Enter a question or query here" />
                 <span class="input-group-btn">
                     <input type="submit" id="btnKnowledgebaseSearch" class="btn btn-default-yellow-fill btn-input-padded-responsive" value="{$LANG.search}" />
                 </span>

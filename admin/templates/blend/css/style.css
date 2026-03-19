@@ -4565,3 +4565,11 @@ span.grey-item {
     transform: translateX(0);
     opacity: 1;
 }
+
+/* Override inline background-color on addon modules table */
+table.datatable td[style*="background-color:#fff"],
+table.datatable td[style*="background-color: #fff"] {
+    background-color: transparent !important;
+}
+
+/* ============================================

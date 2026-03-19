@@ -478,6 +478,7 @@
             <li><a href="{routePath('admin-utilities-system-phpcompat')}">{lang key='utilities.phpcompat'}</a></li>
         {/if}
         <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
+        <li><a href="addonmodules.php?module=unregistry_manager"><i class="fas fa-globe"></i> Unregistry TLDs</a></li>
     </ul>
 {elseif $sidebar eq "logs"}
     <div class="sidebar-header" style="word-wrap: break-word">

@@ -224,25 +224,25 @@
                 <div class="domain-search-basic">
                     <h4 class="font-size-18 margin-bottom-20">{lang key='orderForm.tldPricing'}</h4>
                     <div class="bg-white">
-                        {* Build list of Unregistry TLDs to exclude *}
-                        {assign var=excludeTlds value=[]}
-                        {if isset($unregistryTlds) && count($unregistryTlds) > 0}
-                            {foreach $unregistryTlds as $utld}
-                                {* Remove leading dot for comparison *}
-                                {assign var=cleanTld value=$utld.tld|substr:1}
-                                {assign var=excludeTlds value=array_merge($excludeTlds, [$cleanTld])}
-                            {/foreach}
-                        {/if}
-                        
                         {foreach $pricing['pricing'] as $tld => $price}
-                            {* Skip if this TLD is in the exclude list *}
-                            {if in_array($tld, $excludeTlds)}{continue}{/if}
+                            {* Skip disabled Unregistry TLDs *}
+                            {if isset($unregistryDisabledTlds) && in_array($tld, $unregistryDisabledTlds)}{continue}{/if}
+                            
+                            {* Check if this is a Unregistry TLD with special mode *}
+                            {assign var=tldMode value=''}
+                            {if isset($unregistryTldModes[$tld])}{assign var=tldMode value=$unregistryTldModes[$tld]}{/if}
+                            
                             <div class="row no-gutters tld-row-simple" style="border-bottom: 1px solid #eee; padding: 10px 0;">
                                 <div class="col-xs-6 col-6 px-4">
                                     <strong>.{$tld}</strong>
                                 </div>
                                 <div class="col-xs-6 col-6 text-right px-4">
-                                    {if isset($price.register) && current($price.register) > 0}
+                                    {* Show mode badge for reservation/coming_soon TLDs *}
+                                    {if $tldMode == 'reservation' || $tldMode == 'coming_soon'}
+                                        <span class="label label-{if $tldMode == 'reservation'}warning{else}primary{/if}">
+                                            {if $tldMode == 'reservation'}Reservation{else}Coming Soon{/if}
+                                        </span>
+                                    {elseif isset($price.register) && current($price.register) > 0}
                                         <span class="text-success">{current($price.register)}</span>
                                         <small class="text-muted">/{key($price.register)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
                                     {elseif isset($price.register) && current($price.register) == 0}
