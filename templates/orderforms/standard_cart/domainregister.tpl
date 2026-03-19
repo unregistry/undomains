@@ -639,11 +639,21 @@ function toggleDomainView() {
         console.log('Hidden');
     } else {
         // Show - use cssText to override everything
-        sections.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+        sections.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important; height: auto !important; overflow: visible !important; background: rgba(0,255,0,0.1) !important; border: 2px solid red !important;';
         if (txt) txt.textContent = 'Show Basic';
         if (btn) btn.classList.add('active');
         localStorage.setItem('domainSearchView', 'advanced');
-        console.log('Shown, new computed display:', window.getComputedStyle(sections).display);
+        
+        // Debug info
+        var rect = sections.getBoundingClientRect();
+        console.log('DIV INFO:', {
+            display: window.getComputedStyle(sections).display,
+            visibility: window.getComputedStyle(sections).visibility,
+            height: rect.height,
+            width: rect.width,
+            childCount: sections.children.length,
+            innerHTML_length: sections.innerHTML.length
+        });
     }
 }
 
