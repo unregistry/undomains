@@ -223,8 +223,6 @@
                 <!-- BASIC VIEW: Simplified domain list -->
                 <div class="domain-search-basic">
                     <h4 class="font-size-18 margin-bottom-20">{lang key='orderForm.tldPricing'}</h4>
-                    <!-- DEBUG: Disabled TLDs: {if isset($unregistryDisabledTlds)}{json_encode($unregistryDisabledTlds)}{else}Not set{/if} -->
-                    <!-- DEBUG: TLD Modes: {if isset($unregistryTldModes)}{json_encode($unregistryTldModes)}{else}Not set{/if} -->
                     <div class="bg-white">
                         {foreach $pricing['pricing'] as $tld => $price}
                             {* Skip disabled Unregistry TLDs *}
