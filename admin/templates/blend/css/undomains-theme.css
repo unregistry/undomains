@@ -468,7 +468,6 @@
 }
 
 .panel-primary > .panel-heading {
-    background: linear-gradient(135deg, #cc9933 0%, #b3862b 100%) !important;
     color: #000 !important;
 }
 

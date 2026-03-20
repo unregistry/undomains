@@ -1,9 +1,6 @@
 <?php
 /**
  * WHMCS Hooks for Unregistry Pre-sale - Working Version
- * 
- * IMPORTANT: When you change TLD modes in the admin, you need to update
- * the template file: /templates/orderforms/standard_cart/domainregister.tpl
  */
 
 if (!defined("WHMCS")) {
@@ -42,3 +39,42 @@ function unregistry_presale_getTldFromDomain($domain) {
     }
     return null;
 }
+
+/**
+ * Push Unregistry TLD modes from DB to Smarty templates
+ * Uses ClientAreaInit to set globals early, then ClientAreaPageCart
+ * to pass them as template variables
+ */
+
+// Store in globals so they're available everywhere
+add_hook('ClientAreaInit', 1, function() {
+    $tldModes = [];
+    $tldDisabled = [];
+
+    try {
+        $tlds = Capsule::table('mod_unregistry_presale_tlds')
+            ->where('enabled', 1)
+            ->get();
+
+        foreach ($tlds as $tld) {
+            $mode = $tld->tld_mode ?: 'live';
+            $name = ltrim($tld->tld, '.');
+            $tldModes[$name] = $mode;
+            if ($mode === 'disabled') {
+                $tldDisabled[] = $name;
+            }
+        }
+    } catch (Exception $e) {
+        // DB unavailable
+    }
+
+    $GLOBALS['unregistryTldModes'] = $tldModes;
+    $GLOBALS['unregistryDisabledTlds'] = $tldDisabled;
+});
+
+// Pass to template on cart pages
+add_hook('ClientAreaPageCart', 1, function($vars) {
+    $vars['unregistryTldModes'] = $GLOBALS['unregistryTldModes'] ?? [];
+    $vars['unregistryDisabledTlds'] = $GLOBALS['unregistryDisabledTlds'] ?? [];
+    return $vars;
+});

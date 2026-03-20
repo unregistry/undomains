@@ -435,6 +435,141 @@
 }
 
 /* ============================================
+   SUGGESTION CATEGORY FILTER
+   ============================================ */
+#order-standard_cart .suggestion-category-section {
+    margin: 20px 0 15px 0;
+    padding: 0;
+}
+
+#order-standard_cart .suggestion-category-section h4 {
+    color: var(--dr-text-primary);
+    margin-bottom: 10px;
+}
+
+#order-standard_cart .suggestion-category-filters {
+    margin-bottom: 15px;
+}
+
+#order-standard_cart .suggestion-category-filters .badge {
+    background-color: var(--dr-bg-tertiary);
+    color: var(--dr-text-primary);
+    border: 1px solid var(--dr-border);
+    padding: 8px 16px;
+    margin: 4px;
+    border-radius: var(--dr-radius);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+
+#order-standard_cart .suggestion-category-filters .badge:hover,
+#order-standard_cart .suggestion-category-filters .badge.badge-success {
+    background-color: var(--dr-accent);
+    color: #000;
+    border-color: var(--dr-accent);
+}
+
+#order-standard_cart .suggestion-category-results {
+    border: 1px solid var(--dr-border);
+    border-radius: var(--dr-radius-lg);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#order-standard_cart .suggestion-category-row {
+    background-color: var(--dr-bg-secondary);
+    border-bottom: 1px solid var(--dr-border);
+    padding: 12px 20px;
+    transition: background-color 0.15s ease;
+}
+
+#order-standard_cart .suggestion-category-row:last-child {
+    border-bottom: none;
+}
+
+#order-standard_cart .suggestion-category-row:hover {
+    background-color: var(--dr-bg-tertiary);
+}
+
+#order-standard_cart .suggestion-category-row.tld-unavailable {
+    opacity: 0.7;
+}
+
+#order-standard_cart .suggestion-category-row-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#order-standard_cart .cat-tld-info {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+#order-standard_cart .cat-tld-name {
+    color: var(--dr-text-primary);
+    font-weight: 600;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+#order-standard_cart .cat-tld-fullname {
+    color: var(--dr-text-secondary);
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#order-standard_cart .cat-tld-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+#order-standard_cart .cat-tld-price {
+    color: var(--dr-accent);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#order-standard_cart .cat-tld-na {
+    color: var(--dr-text-muted);
+    font-weight: 500;
+    font-style: italic;
+    background-color: var(--dr-bg-tertiary);
+    padding: 4px 12px;
+    border-radius: var(--dr-radius);
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+#order-standard_cart .suggestion-category-results .domain-lookup-loader {
+    text-align: center;
+    padding: 20px;
+    color: var(--dr-accent);
+}
+
+@media (max-width: 768px) {
+    #order-standard_cart .suggestion-category-row-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    #order-standard_cart .cat-tld-actions {
+        align-self: flex-end;
+    }
+}
+
+/* ============================================
    FEATURED TLDs
    ============================================ */
 #order-standard_cart .featured-tlds-container {

@@ -250,6 +250,46 @@ function unregistry_manager_handlePost($modulelink)
             exit;
             break;
 
+        case 'update_tld':
+            $tldId = $_POST['tld_id'] ?? 0;
+            $tld = trim($_POST['tld'] ?? '');
+            if (strpos($tld, '.') !== 0 && $tld) {
+                $tld = '.' . $tld;
+            }
+            $extension = $tld;
+            $mode = $_POST['tld_mode'] ?? 'presale';
+            $registerPrice = floatval($_POST['register_price'] ?? 0);
+            $transferPrice = floatval($_POST['transfer_price'] ?? 0);
+            $renewPrice = floatval($_POST['renew_price'] ?? 0);
+            if ($tldId && $tld) {
+                Capsule::table('mod_unregistry_presale_tlds')->where('id', $tldId)->update([
+                    'tld' => $tld,
+                    'extension' => $extension,
+                    'tld_mode' => $mode,
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ]);
+                // Update or insert pricing
+                $existing = Capsule::table('mod_unregistry_presale_pricing')->where('tld_id', $tldId)->where('currency', 'USD')->first();
+                if ($existing) {
+                    Capsule::table('mod_unregistry_presale_pricing')->where('id', $existing->id)->update([
+                        'register_price' => $registerPrice,
+                        'transfer_price' => $transferPrice,
+                        'renew_price' => $renewPrice,
+                    ]);
+                } else {
+                    Capsule::table('mod_unregistry_presale_pricing')->insert([
+                        'tld_id' => $tldId,
+                        'currency' => 'USD',
+                        'register_price' => $registerPrice,
+                        'transfer_price' => $transferPrice,
+                        'renew_price' => $renewPrice,
+                    ]);
+                }
+            }
+            header("Location: $modulelink&action=tlds&updated=1");
+            exit;
+            break;
+
         case 'bulk_add_custom_domains':
             $domainsText = trim($_POST['domains_bulk'] ?? '');
             $tld = trim($_POST['bulk_tld'] ?? '');
@@ -303,7 +343,6 @@ function unregistry_manager_pageDashboard($modulelink, $vars, $stats)
         ->get();
 
     echo '<div class="unregistry-manager">';
-    echo '<div class="page-header"><h1><i class="fas fa-globe"></i> Unregistry TLD Manager</h1></div>';
 
     // Statistics boxes
     echo '<div class="row">';
@@ -325,7 +364,7 @@ function unregistry_manager_pageDashboard($modulelink, $vars, $stats)
     echo '</div>';
 
     // Quick Actions
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Quick Actions</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important">Quick Actions</h3></div>';
     echo '<div class="list-group">';
     echo '<a href="' . $modulelink . '&action=tlds" class="list-group-item"><i class="fas fa-globe"></i> Manage TLDs</a>';
     echo '<a href="' . $modulelink . '&action=domain_lists" class="list-group-item"><i class="fas fa-list"></i> Domain Lists</a>';
@@ -333,7 +372,7 @@ function unregistry_manager_pageDashboard($modulelink, $vars, $stats)
     echo '</div></div>';
 
     // Recent Orders
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Recent Pre-Orders</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important">Recent Pre-Orders</h3></div>';
     echo '<div class="panel-body">';
     if (count($recentOrders) > 0) {
         echo '<table class="table table-striped"><thead><tr><th>Domain</th><th>TLD</th><th>Action</th><th>Queued</th><th>Status</th></tr></thead><tbody>';
@@ -344,7 +383,7 @@ function unregistry_manager_pageDashboard($modulelink, $vars, $stats)
             echo '<td>' . htmlspecialchars($order->tld) . '</td>';
             echo '<td>' . htmlspecialchars($order->action) . '</td>';
             echo '<td>' . $order->queued_at . '</td>';
-            echo '<td><span class="label label-' . $statusClass . '">' . ucfirst($order->status) . '</span></td>';
+            echo '<td><span class="label label-' . $statusClass . '" style="color:#000 !important">' . ucfirst($order->status) . '</span></td>';
             echo '</tr>';
         }
         echo '</tbody></table>';
@@ -376,12 +415,12 @@ function unregistry_manager_pageTlds($modulelink, $vars)
         echo '<div class="alert alert-success"><i class="fas fa-check-circle"></i> TLD mode updated successfully!</div>';
     }
 
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Configured TLDs</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important">Configured TLDs</h3></div>';
     echo '<div class="panel-body">';
     echo '<table class="table table-striped"><thead><tr><th>TLD</th><th>Status</th><th>Mode</th><th>Register</th><th>Transfer</th><th>Renew</th><th>Actions</th></tr></thead><tbody>';
 
     foreach ($tlds as $tld) {
-        $statusLabel = $tld->enabled ? '<span class="label label-success">Enabled</span>' : '<span class="label label-default">Disabled</span>';
+        $statusLabel = $tld->enabled ? '<span class="label label-success" style="color:#000 !important">Enabled</span>' : '<span class="label label-default" style="color:#000 !important">Disabled</span>';
         
         // Mode display with color coding
         $mode = $tld->tld_mode ?? ($tld->presale_mode ? 'presale' : 'live');
@@ -401,43 +440,43 @@ function unregistry_manager_pageTlds($modulelink, $vars)
             'disabled' => 'Disabled',
             default => ucfirst($mode),
         };
-        $modeLabel = '<span class="label label-' . $modeClass . '">' . $modeDisplay . '</span>';
+        $modeLabel = '<span class="label label-' . $modeClass . '" style="color:#000 !important">' . $modeDisplay . '</span>';
         
-        echo '<tr>';
-        echo '<td><strong>' . htmlspecialchars($tld->tld) . '</strong></td>';
-        echo '<td>' . $statusLabel . '</td>';
-        echo '<td>' . $modeLabel . '</td>';
-        echo '<td>$' . number_format($tld->register_price ?? 0, 2) . '</td>';
-        echo '<td>$' . number_format($tld->transfer_price ?? 0, 2) . '</td>';
-        echo '<td>$' . number_format($tld->renew_price ?? 0, 2) . '</td>';
-        echo '<td>';
-        // Mode selector form
-        echo '<form method="post" style="display:inline" class="form-inline">';
-        echo '<input type="hidden" name="action" value="update_tld_mode">';
+        echo '<form method="post" class="form-inline">';
+        echo '<input type="hidden" name="action" value="update_tld">';
         echo '<input type="hidden" name="tld_id" value="' . $tld->id . '">';
-        echo '<select name="tld_mode" class="form-control input-sm" onchange="this.form.submit()">';
+        echo '<tr>';
+        echo '<td><input type="text" name="tld" class="form-control input-sm" value="' . htmlspecialchars($tld->tld) . '" style="width:100px"></td>';
+        echo '<td>' . $statusLabel . '</td>';
+        echo '<td>';
+        echo '<select name="tld_mode" class="form-control input-sm">';
         $modes = ['live' => 'Live', 'presale' => 'Pre-Sale', 'reservation' => 'Reservation', 'coming_soon' => 'Coming Soon', 'disabled' => 'Disabled'];
         foreach ($modes as $value => $label) {
             $selected = ($mode === $value) ? ' selected' : '';
             echo '<option value="' . $value . '"' . $selected . '>' . $label . '</option>';
         }
-        echo '</select>';
-        echo '</form>';
+        echo '</select></td>';
+        echo '<td><div class="input-group input-group-sm" style="width:100px"><input type="number" name="register_price" class="form-control" step="0.01" value="' . number_format($tld->register_price ?? 0, 2, '.', '') . '"></div></td>';
+        echo '<td><div class="input-group input-group-sm" style="width:100px"><input type="number" name="transfer_price" class="form-control" step="0.01" value="' . number_format($tld->transfer_price ?? 0, 2, '.', '') . '"></div></td>';
+        echo '<td><div class="input-group input-group-sm" style="width:100px"><input type="number" name="renew_price" class="form-control" step="0.01" value="' . number_format($tld->renew_price ?? 0, 2, '.', '') . '"></div></td>';
+        echo '<td>';
+        echo '<button type="submit" class="btn btn-xs btn-success" title="Save"><i class="fas fa-save"></i></button>';
         echo '</td>';
         echo '</tr>';
+        echo '</form>';
     }
 
     echo '</tbody></table></div></div>';
     
     // Mode Legend
-    echo '<div class="panel panel-info"><div class="panel-heading"><h3 class="panel-title">Mode Descriptions</h3></div>';
+    echo '<div class="panel panel-info"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important">Mode Descriptions</h3></div>';
     echo '<div class="panel-body">';
     echo '<ul>';
-    echo '<li><span class="label label-success">Live</span> - Domain is fully available for registration</li>';
-    echo '<li><span class="label label-info">Pre-Sale</span> - Pre-orders are being accepted</li>';
-    echo '<li><span class="label label-warning">Reservation</span> - Domain is in reservation mode (special access required)</li>';
-    echo '<li><span class="label label-primary">Coming Soon</span> - Domain will be available soon</li>';
-    echo '<li><span class="label label-default">Disabled</span> - Domain is not available</li>';
+    echo '<li><span class="label label-success" style="color:#000 !important">Live</span> - Domain is fully available for registration</li>';
+    echo '<li><span class="label label-info" style="color:#000 !important">Pre-Sale</span> - Pre-orders are being accepted</li>';
+    echo '<li><span class="label label-warning" style="color:#000 !important">Reservation</span> - Domain is in reservation mode (special access required)</li>';
+    echo '<li><span class="label label-primary" style="color:#000 !important">Coming Soon</span> - Domain will be available soon</li>';
+    echo '<li><span class="label label-default" style="color:#000 !important">Disabled</span> - Domain is not available</li>';
     echo '</ul>';
     echo '</div></div>';
     
@@ -480,7 +519,7 @@ function unregistry_manager_pageDomainLists($modulelink, $vars)
     echo '</ul>';
 
     // Add form
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Add Domain</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important">Add Domain</h3></div>';
     echo '<div class="panel-body">';
     echo '<form method="post" class="form-horizontal">';
     echo '<input type="hidden" name="action" value="add_domain">';
@@ -513,7 +552,7 @@ function unregistry_manager_pageDomainLists($modulelink, $vars)
     echo '</div></div></form></div></div>';
 
     // List
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Domains</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important">Domains</h3></div>';
     echo '<div class="panel-body"><table class="table table-striped">';
     echo '<thead><tr><th>Domain</th><th>Type</th><th>Price/Reason</th><th>Notes</th><th>Actions</th></tr></thead><tbody>';
 
@@ -521,7 +560,7 @@ function unregistry_manager_pageDomainLists($modulelink, $vars)
         $typeClass = $domain->list_type === 'reserved' ? 'danger' : ($domain->list_type === 'restricted' ? 'warning' : 'info');
         echo '<tr>';
         echo '<td><code>' . htmlspecialchars($domain->domain) . '</code></td>';
-        echo '<td><span class="label label-' . $typeClass . '">' . ucfirst($domain->list_type) . '</span></td>';
+        echo '<td><span class="label label-' . $typeClass . '" style="color:#000 !important">' . ucfirst($domain->list_type) . '</span></td>';
         echo '<td>' . ($domain->premium_price ? '$' . number_format($domain->premium_price, 2) : ($domain->restriction_reason ?: '-')) . '</td>';
         echo '<td>' . htmlspecialchars($domain->notes ?: '-') . '</td>';
         echo '<td>';
@@ -569,7 +608,7 @@ function unregistry_manager_pageOrderQueue($modulelink, $vars)
     echo '<li' . ($status === 'failed' ? ' class="active"' : '') . '><a href="' . $modulelink . '&action=order_queue&status=failed">Failed (' . $counts['failed'] . ')</a></li>';
     echo '</ul>';
 
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Orders</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important">Orders</h3></div>';
     echo '<div class="panel-body"><table class="table table-striped">';
     echo '<thead><tr><th>ID</th><th>Domain</th><th>TLD</th><th>Action</th><th>Years</th><th>Status</th><th>Queued</th><th>Actions</th></tr></thead><tbody>';
 
@@ -581,7 +620,7 @@ function unregistry_manager_pageOrderQueue($modulelink, $vars)
         echo '<td>' . htmlspecialchars($order->tld) . '</td>';
         echo '<td>' . htmlspecialchars($order->action) . '</td>';
         echo '<td>' . $order->years . '</td>';
-        echo '<td><span class="label label-' . $statusClass . '">' . ucfirst($order->status) . '</span></td>';
+        echo '<td><span class="label label-' . $statusClass . '" style="color:#000 !important">' . ucfirst($order->status) . '</span></td>';
         echo '<td>' . $order->queued_at . '</td>';
         echo '<td>';
         echo '<form method="post" style="display:inline">';
@@ -607,7 +646,7 @@ function unregistry_manager_pageSettings($modulelink, $vars)
     echo '<div class="page-header"><h1><i class="fas fa-cog"></i> Settings</h1>';
     echo '<a href="' . $modulelink . '" class="btn btn-default pull-right"><i class="fas fa-arrow-left"></i> Back</a></div>';
 
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Module Settings</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important">Module Settings</h3></div>';
     echo '<div class="panel-body">';
     echo '<p>Configure this module in <a href="configaddonmods.php">Addon Modules</a> settings.</p>';
     echo '</div></div></div>';
@@ -680,7 +719,7 @@ function unregistry_manager_pageCustomDomains($modulelink, $vars)
     if ($editId) {
         $editDomain = Capsule::table('mod_unregistry_supported_domains')->where('id', $editId)->first();
         if ($editDomain) {
-            echo '<div class="panel panel-warning"><div class="panel-heading"><h3 class="panel-title"><i class="fas fa-edit"></i> Edit Custom Domain</h3></div>';
+            echo '<div class="panel panel-warning"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important"><i class="fas fa-edit"></i> Edit Custom Domain</h3></div>';
             echo '<div class="panel-body">';
             echo '<form method="post" class="form-horizontal">';
             echo '<input type="hidden" name="action" value="update_custom_domain">';
@@ -717,7 +756,7 @@ function unregistry_manager_pageCustomDomains($modulelink, $vars)
     }
 
     // Add Single Domain Form
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><i class="fas fa-plus"></i> Add Single Custom Domain</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important"><i class="fas fa-plus"></i> Add Single Custom Domain</h3></div>';
     echo '<div class="panel-body">';
     echo '<form method="post" class="form-horizontal">';
     echo '<input type="hidden" name="action" value="add_custom_domain">';
@@ -750,7 +789,7 @@ function unregistry_manager_pageCustomDomains($modulelink, $vars)
     echo '</div></div>';
 
     // Bulk Add Form
-    echo '<div class="panel panel-info"><div class="panel-heading"><h3 class="panel-title"><i class="fas fa-list-ul"></i> Bulk Add Custom Domains</h3></div>';
+    echo '<div class="panel panel-info"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important"><i class="fas fa-list-ul"></i> Bulk Add Custom Domains</h3></div>';
     echo '<div class="panel-body">';
     echo '<form method="post" class="form-horizontal">';
     echo '<input type="hidden" name="action" value="bulk_add_custom_domains">';
@@ -781,7 +820,7 @@ function unregistry_manager_pageCustomDomains($modulelink, $vars)
     echo '</div></div>';
 
     // Domains List
-    echo '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><i class="fas fa-globe"></i> Custom Domains List</h3></div>';
+    echo '<div class="panel panel-default"><div class="panel-heading" style="background-color:#333 !important"><h3 class="panel-title" style="color:#fff !important"><i class="fas fa-globe"></i> Custom Domains List</h3></div>';
     echo '<div class="panel-body">';
 
     if (count($domains) > 0) {
@@ -790,8 +829,8 @@ function unregistry_manager_pageCustomDomains($modulelink, $vars)
 
         foreach ($domains as $domain) {
             $statusLabel = $domain->is_active 
-                ? '<span class="label label-success">Active</span>' 
-                : '<span class="label label-default">Inactive</span>';
+                ? '<span class="label label-success" style="color:#000 !important">Active</span>' 
+                : '<span class="label label-default" style="color:#000 !important">Inactive</span>';
             
             $categoryClass = match($domain->category) {
                 'premium' => 'warning',
@@ -804,9 +843,9 @@ function unregistry_manager_pageCustomDomains($modulelink, $vars)
             echo '<tr>';
             echo '<td>' . $domain->id . '</td>';
             echo '<td><code>' . htmlspecialchars($domain->domain) . '</code></td>';
-            echo '<td><span class="label label-primary">' . htmlspecialchars($domain->tld) . '</span></td>';
+            echo '<td><span class="label label-primary" style="color:#000 !important">' . htmlspecialchars($domain->tld) . '</span></td>';
             echo '<td><strong>' . htmlspecialchars($domain->domain . $domain->tld) . '</strong></td>';
-            echo '<td><span class="label label-' . $categoryClass . '">' . ucfirst($domain->category) . '</span></td>';
+            echo '<td><span class="label label-' . $categoryClass . '" style="color:#000 !important">' . ucfirst($domain->category) . '</span></td>';
             echo '<td>' . htmlspecialchars($domain->description ?: '-') . '</td>';
             echo '<td>' . $statusLabel . '</td>';
             echo '<td>' . date('Y-m-d', strtotime($domain->created_at)) . '</td>';

@@ -478,7 +478,6 @@
             <li><a href="{routePath('admin-utilities-system-phpcompat')}">{lang key='utilities.phpcompat'}</a></li>
         {/if}
         <li><a href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
-        <li><a href="addonmodules.php?module=unregistry_manager"><i class="fas fa-globe"></i> Unregistry TLDs</a></li>
     </ul>
 {elseif $sidebar eq "logs"}
     <div class="sidebar-header" style="word-wrap: break-word">
@@ -503,6 +502,17 @@
 {elseif $sidebar eq "addonmodules"}
 
     {$addon_module_sidebar}
+    <div class="sidebar-header">
+        <i class="fas fa-sitemap"></i>
+        TLD Manager
+    </div>
+    <ul class="menu">
+        <li><a href="addonmodules.php?module=unregistry_manager" style="text-decoration:none"><i class="fas fa-globe"></i> Unregistry TLDs</a></li>
+        <li><a href="addonmodules.php?module=web3_ud_manager" style="text-decoration:none"><i class="fas fa-cube"></i> Web3 (UD) TLDs</a></li>
+        <li><a href="addonmodules.php?module=web3_fio_manager" style="text-decoration:none"><i class="fas fa-link"></i> Web3 (FIO) TLDs</a></li>
+        <li><a href="addonmodules.php?module=web3_ens_manager" style="text-decoration:none"><i class="fab fa-ethereum"></i> Web3 (ENS) TLDs</a></li>
+        <li><a href="addonmodules.php?module=prereserve_manager" style="text-decoration:none"><i class="fas fa-bookmark"></i> Pre-Reserve TLDs</a></li>
+    </ul>
     <div class="sidebar-header">
         <i class="fas fa-box-alt"></i>
         {$_ADMINLANG.utilities.addonmodules}

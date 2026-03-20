@@ -607,7 +607,19 @@
                 {/if}
                 <li><a id="Menu-Utilities-Newsletter_Subscribers" href="subscribers/"><i class="fas fa-envelope"></i> Newsletter Subscribers</a></li>
                 <li><a id="Menu-Utilities-Addon_Modules" href="configaddonmods.php">{$_ADMINLANG.utilities.addonmodules}</a></li>
-                <li><a id="Menu-Utilities-Unregistry_TLDs" href="addonmodules.php?module=unregistry_manager"><i class="fas fa-globe"></i> Unregistry TLDs</a></li>
+                <li class="has-dropdown sub-menu expand" data-dropdown>
+                    <a id="Menu-Utilities-TLD_Manager" href="#" data-dropdown-btn data-title="TLD Manager">
+                        <i class="fas fa-sitemap"></i> TLD Manager
+                        <i class="ph ph-plus"></i>
+                    </a>
+                    <ul class="sub-menu" data-dropdown-menu>
+                        <li><a id="Menu-Utilities-TLD_Manager-Unregistry" href="addonmodules.php?module=unregistry_manager"><i class="fas fa-globe"></i> Unregistry TLDs</a></li>
+                        <li><a id="Menu-Utilities-TLD_Manager-Web3_UD" href="addonmodules.php?module=web3_ud_manager"><i class="fas fa-cube"></i> Web3 (UD) TLDs</a></li>
+                        <li><a id="Menu-Utilities-TLD_Manager-Web3_FIO" href="addonmodules.php?module=web3_fio_manager"><i class="fas fa-link"></i> Web3 (FIO) TLDs</a></li>
+                        <li><a id="Menu-Utilities-TLD_Manager-Web3_ENS" href="addonmodules.php?module=web3_ens_manager"><i class="fab fa-ethereum"></i> Web3 (ENS) TLDs</a></li>
+                        <li><a id="Menu-Utilities-TLD_Manager-PreReserve" href="addonmodules.php?module=prereserve_manager"><i class="fas fa-bookmark"></i> Pre-Reserve TLDs</a></li>
+                    </ul>
+                </li>
             </ul>
         </li>
 

@@ -7,13 +7,10 @@
             {include file="orderforms/standard_cart/sidebar-categories.tpl"}
         </div>
         <div class="cart-body">
-            <div class="header-lined" style="display: flex; justify-content: space-between; align-items: center;">
-                <h1 class="font-size-36" style="margin: 0;">
+            <div class="header-lined">
+                <h1 class="font-size-36">
                     {$LANG.registerdomain}
                 </h1>
-                <button type="button" id="viewToggleBtn" class="btn btn-default btn-sm" onclick="toggleDomainView()">
-                    <i class="fas fa-cog"></i> <span id="viewToggleText">Show Advanced</span>
-                </button>
             </div>
             {include file="orderforms/standard_cart/sidebar-categories-collapsed.tpl"}
 
@@ -133,8 +130,35 @@
                     </div>
                 </div>
 
+                {* --- Category Filter for Search Results --- *}
+                <div id="suggestionCategorySection" class="suggestion-category-section" style="display:none;">
+                    <h4 class="font-size-18">{lang key='pricing.browseExtByCategory'}</h4>
+                    <div class="suggestion-category-filters">
+                        {foreach $categoriesWithCounts as $category => $count}
+                            <a href="#" data-suggestion-category="{$category}" class="badge badge-secondary suggestion-category-badge">
+                                {lang key="domainTldCategory.$category" defaultValue=$category} ({$count})
+                            </a>
+                        {/foreach}
+                        <a href="#" data-suggestion-category="uTLDs" class="badge badge-secondary suggestion-category-badge">
+                            uTLDs
+                        </a>
+                        <a href="#" data-suggestion-category="Web3 (UD)" class="badge badge-secondary suggestion-category-badge">
+                            Web3 (UD)
+                        </a>
+                        <a href="#" data-suggestion-category="Web3 (FIO)" class="badge badge-secondary suggestion-category-badge">
+                            Web3 (FIO)
+                        </a>
+                        <a href="#" data-suggestion-category="Web3 (ENS)" class="badge badge-secondary suggestion-category-badge">
+                            Web3 (ENS)
+                        </a>
+                        <a href="#" data-suggestion-category="Pre-Reserve" class="badge badge-secondary suggestion-category-badge">
+                            Pre-Reserve
+                        </a>
+                    </div>
+                </div>
+
                 {if $spotlightTlds}
-                    <div id="spotlightTlds" class="spotlight-tlds clearfix">
+                    <div id="spotlightTlds" class="spotlight-tlds clearfix" style="display:none;">
                         <div class="spotlight-tlds-container">
                             {foreach $spotlightTlds as $key => $data}
                                 <div class="spotlight-tld-container spotlight-tld-container-{$spotlightTlds|count}">
@@ -173,7 +197,7 @@
                     </div>
                 {/if}
 
-                <div class="suggested-domains{if !$showSuggestionsContainer} w-hidden{/if}">
+                <div class="suggested-domains w-hidden">
                     <div class="panel-heading card-header">
                         {lang key='orderForm.suggestedDomains'}
                     </div>
@@ -216,59 +240,243 @@
                     </div>
                 </div>
 
-            </div>
-
-            <div class="domain-pricing-renamed">
-
-                <!-- BASIC VIEW: Simplified domain list -->
-                {* TLD modes: 'disabled', 'presale', 'coming_soon', 'reservation', or 'live' *}
-                {assign var=unregistryTldModes value=['degen'=>'disabled','fio'=>'disabled','com.store'=>'coming_soon','com.film'=>'coming_soon','com.supply'=>'coming_soon','com.bond'=>'coming_soon','com.barcelona'=>'coming_soon','app.onl'=>'live','org.onl'=>'live','site.onl'=>'live']}
-                {assign var=unregistryDisabledTlds value=['degen','fio']}
-                
-                <div class="domain-search-basic">
-                    <h4 class="font-size-18 margin-bottom-20">{lang key='orderForm.tldPricing'}</h4>
-                    <div class="bg-white">
+                {* --- Pre-rendered Category TLD Rows --- *}
+                {assign var=catLookupSLD value=''}
+                {if $lookupTerm}{assign var=catLookupParts value='.'|explode:$lookupTerm}{assign var=catLookupSLD value=$catLookupParts[0]}{/if}
+                {assign var=catUnregistryTldModes value=['com.store'=>'coming_soon','com.film'=>'coming_soon','com.supply'=>'coming_soon','com.bond'=>'coming_soon','com.barcelona'=>'coming_soon','app.onl'=>'coming_soon','org.onl'=>'coming_soon','site.onl'=>'coming_soon']}
+                {assign var=catUnregistryDisabledTlds value=['degen','fio']}
+                <div id="suggestionCategoryResults" class="suggestion-category-results" style="display:none;">
+                    <div id="suggestionCategoryLoader" class="domain-lookup-loader" style="display:none;">
+                        <i class="fas fa-spinner fa-spin"></i> {lang key='orderForm.searching'}...
+                    </div>
+                    <div id="suggestionCategoryTlds" class="suggestion-category-tld-list">
                         {foreach $pricing['pricing'] as $tld => $price}
-                            {* Skip disabled Unregistry TLDs *}
-                            {if in_array($tld, $unregistryDisabledTlds)}{continue}{/if}
-                            
-                            {* Check if this is a Unregistry TLD with special mode *}
-                            {assign var=tldMode value=''}
-                            {if isset($unregistryTldModes[$tld])}{assign var=tldMode value=$unregistryTldModes[$tld]}{/if}
-                            
-                            <div class="row no-gutters tld-row-simple" style="border-bottom: 1px solid #eee; padding: 10px 0;">
-                                <div class="col-xs-6 col-6 px-4">
-                                    <strong>.{$tld}</strong>
+                            {assign var=catIsUnregistry value=false}
+                            {if in_array($tld, $catUnregistryDisabledTlds)}{assign var=catIsUnregistry value=true}{/if}
+                            {if isset($catUnregistryTldModes[$tld])}{assign var=catIsUnregistry value=true}{/if}
+                            {if !$catIsUnregistry}
+                                <div class="suggestion-category-row"
+                                     data-cat-tld="{$tld}"
+                                     data-cat-categories="{foreach $price.categories as $cat}|{$cat}|{/foreach}"
+                                     data-cat-price="{if isset($price.register) && current($price.register) > 0}{current($price.register)}{else}0{/if}"
+                                     style="display:none;">
+                                    <div class="suggestion-category-row-inner">
+                                        <div class="cat-tld-info">
+                                            <span class="cat-tld-name">{$tld}</span>
+                                            <span class="cat-tld-fullname" data-cat-full-domain="">{$tld}</span>
+                                        </div>
+                                        <div class="cat-tld-actions">
+                                            <span class="cat-tld-checking domain-lookup-loader" style="display:none;">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                            <span class="cat-tld-price"></span>
+                                            <button type="button" class="btn btn-add-to-cart btn-sm cat-tld-add" data-whois="0" data-domain="" style="display:none;">
+                                                <span class="to-add">{lang key='orderForm.add'}</span>
+                                                <span class="loading"><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</span>
+                                                <span class="added"><i class="far fa-shopping-cart"></i> {lang key='checkout'}</span>
+                                                <span class="unavailable">{$LANG.domaincheckertaken}</span>
+                                            </button>
+                                            <span class="cat-tld-na" style="display:none;">N/A</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-xs-6 col-6 text-right px-4">
-                                    {* Show mode badge for reservation/coming_soon/presale TLDs *}
-                                    {if $tldMode == 'reservation' || $tldMode == 'coming_soon' || $tldMode == 'presale'}
-                                        <span class="label label-{if $tldMode == 'reservation'}warning{elseif $tldMode == 'presale'}info{else}primary{/if}">
-                                            {if $tldMode == 'reservation'}Reservation{elseif $tldMode == 'presale'}Pre-Sale{else}Coming Soon{/if}
-                                        </span>
-                                        {if $tldMode == 'presale' && isset($price.register) && current($price.register) > 0}
-                                            <br><span class="text-success">{current($price.register)}</span>
-                                            <small class="text-muted">/{key($price.register)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
-                                        {/if}
-                                    {elseif isset($price.register) && current($price.register) > 0}
-                                        <span class="text-success">{current($price.register)}</span>
-                                        <small class="text-muted">/{key($price.register)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
-                                    {elseif isset($price.register) && current($price.register) == 0}
-                                        <span class="text-success">{lang key='orderfree'}</span>
-                                    {else}
-                                        <span class="text-muted">{lang key='na'}</span>
-                                    {/if}
-                                </div>
-                            </div>
+                            {/if}
                         {/foreach}
-                        <div class="text-center padding-10">
-                            <p class="text-muted small">{lang key='viewMoreTLDs' defaultValue='View all TLDs in Advanced mode'}</p>
-                        </div>
+
+                        {* --- Unregistry uTLDs Category Rows --- *}
+                        {foreach $catUnregistryTldModes as $tldName => $tldMode}
+                            {if $tldMode !== 'disabled'}
+                                <div class="suggestion-category-row"
+                                     data-cat-tld="{$tldName}"
+                                     data-cat-categories="|uTLDs|"
+                                     data-cat-price="0"
+                                     data-cat-unregistry-mode="{$tldMode}"
+                                     style="display:none;">
+                                    <div class="suggestion-category-row-inner">
+                                        <div class="cat-tld-info">
+                                            <span class="cat-tld-name">.{$tldName}</span>
+                                            <span class="cat-tld-fullname" data-cat-full-domain="">.{$tldName}</span>
+                                        </div>
+                                        <div class="cat-tld-actions">
+                                            <span class="label label-{if $tldMode === 'live'}success{elseif $tldMode === 'presale'}warning{elseif $tldMode === 'reservation'}info{else}default{/if} cat-tld-mode-badge">{$tldMode|capitalize}</span>
+                                            <span class="cat-tld-checking domain-lookup-loader" style="display:none;">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                            <span class="cat-tld-price"></span>
+                                            <button type="button" class="btn btn-add-to-cart btn-sm cat-tld-add" data-whois="0" data-domain="" style="display:none;">
+                                                <span class="to-add">{lang key='orderForm.add'}</span>
+                                                <span class="loading"><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</span>
+                                                <span class="added"><i class="far fa-shopping-cart"></i> {lang key='checkout'}</span>
+                                                <span class="unavailable">{$LANG.domaincheckertaken}</span>
+                                            </button>
+                                            <span class="cat-tld-na" style="display:none;">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/if}
+                        {/foreach}
+
+                        {* --- Web3 (UD) Category Rows --- *}
+                        {assign var=catWeb3UdTlds value=[]}
+                        {if isset($web3TldModes['Web3 (UD)'])}{assign var=catWeb3UdTlds value=$web3TldModes['Web3 (UD)']}{/if}
+                        {if $catWeb3UdTlds|@count == 0}{assign var=catWeb3UdTlds value=['u'=>['tld'=>'.u','extension'=>'.u','mode'=>'coming_soon','register_price'=>0]]}{/if}
+                        {foreach $catWeb3UdTlds as $tldName => $tldData}
+                            {assign var=web3UdTldMode value=$tldData.mode}
+                            {if $web3UdTldMode !== 'disabled'}
+                                <div class="suggestion-category-row"
+                                     data-cat-tld="{$tldData.tld}"
+                                     data-cat-categories="|Web3 (UD)|"
+                                     data-cat-price="{$tldData.register_price}"
+                                     data-cat-unregistry-mode="{$web3UdTldMode}"
+                                     style="display:none;">
+                                    <div class="suggestion-category-row-inner">
+                                        <div class="cat-tld-info">
+                                            <span class="cat-tld-name">{$tldData.tld}</span>
+                                            <span class="cat-tld-fullname" data-cat-full-domain="">{$tldData.tld}</span>
+                                        </div>
+                                        <div class="cat-tld-actions">
+                                            <span class="label label-{if $web3UdTldMode === 'live'}success{elseif $web3UdTldMode === 'presale'}warning{elseif $web3UdTldMode === 'reservation'}info{else}default{/if} cat-tld-mode-badge">{$web3UdTldMode|capitalize}</span>
+                                            <span class="cat-tld-checking domain-lookup-loader" style="display:none;">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                            <span class="cat-tld-price"></span>
+                                            <button type="button" class="btn btn-add-to-cart btn-sm cat-tld-add" data-whois="0" data-domain="" style="display:none;">
+                                                <span class="to-add">{lang key='orderForm.add'}</span>
+                                                <span class="loading"><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</span>
+                                                <span class="added"><i class="far fa-shopping-cart"></i> {lang key='checkout'}</span>
+                                                <span class="unavailable">{$LANG.domaincheckertaken}</span>
+                                            </button>
+                                            <span class="cat-tld-na" style="display:none;">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/if}
+                        {/foreach}
+
+                        {* --- Web3 (FIO) Category Rows --- *}
+                        {assign var=catWeb3FioTlds value=[]}
+                        {if isset($web3TldModes['Web3 (FIO)'])}{assign var=catWeb3FioTlds value=$web3TldModes['Web3 (FIO)']}{/if}
+                        {if $catWeb3FioTlds|@count == 0}{assign var=catWeb3FioTlds value=['u'=>['tld'=>'@u','extension'=>'.u','mode'=>'coming_soon','register_price'=>0]]}{/if}
+                        {foreach $catWeb3FioTlds as $tldName => $tldData}
+                            {assign var=web3FioTldMode value=$tldData.mode}
+                            {if $web3FioTldMode !== 'disabled'}
+                                <div class="suggestion-category-row"
+                                     data-cat-tld="{$tldData.tld}"
+                                     data-cat-categories="|Web3 (FIO)|"
+                                     data-cat-price="{$tldData.register_price}"
+                                     data-cat-unregistry-mode="{$web3FioTldMode}"
+                                     style="display:none;">
+                                    <div class="suggestion-category-row-inner">
+                                        <div class="cat-tld-info">
+                                            <span class="cat-tld-name">{$tldData.tld}</span>
+                                            <span class="cat-tld-fullname" data-cat-full-domain="">{$tldData.tld}</span>
+                                        </div>
+                                        <div class="cat-tld-actions">
+                                            <span class="label label-{if $web3FioTldMode === 'live'}success{elseif $web3FioTldMode === 'presale'}warning{elseif $web3FioTldMode === 'reservation'}info{else}default{/if} cat-tld-mode-badge">{$web3FioTldMode|capitalize}</span>
+                                            <span class="cat-tld-checking domain-lookup-loader" style="display:none;">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                            <span class="cat-tld-price"></span>
+                                            <button type="button" class="btn btn-add-to-cart btn-sm cat-tld-add" data-whois="0" data-domain="" style="display:none;">
+                                                <span class="to-add">{lang key='orderForm.add'}</span>
+                                                <span class="loading"><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</span>
+                                                <span class="added"><i class="far fa-shopping-cart"></i> {lang key='checkout'}</span>
+                                                <span class="unavailable">{$LANG.domaincheckertaken}</span>
+                                            </button>
+                                            <span class="cat-tld-na" style="display:none;">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/if}
+                        {/foreach}
+
+                        {* --- Web3 (ENS) Category Rows --- *}
+                        {assign var=catWeb3EnsTlds value=[]}
+                        {if isset($web3TldModes['Web3 (ENS)'])}{assign var=catWeb3EnsTlds value=$web3TldModes['Web3 (ENS)']}{/if}
+                        {if $catWeb3EnsTlds|@count == 0}{assign var=catWeb3EnsTlds value=['eth'=>['tld'=>'.eth','extension'=>'.eth','mode'=>'coming_soon','register_price'=>0]]}{/if}
+                        {foreach $catWeb3EnsTlds as $tldName => $tldData}
+                            {assign var=web3EnsTldMode value=$tldData.mode}
+                            {if $web3EnsTldMode !== 'disabled'}
+                                <div class="suggestion-category-row"
+                                     data-cat-tld="{$tldData.tld}"
+                                     data-cat-categories="|Web3 (ENS)|"
+                                     data-cat-price="{$tldData.register_price}"
+                                     data-cat-unregistry-mode="{$web3EnsTldMode}"
+                                     style="display:none;">
+                                    <div class="suggestion-category-row-inner">
+                                        <div class="cat-tld-info">
+                                            <span class="cat-tld-name">{$tldData.tld}</span>
+                                            <span class="cat-tld-fullname" data-cat-full-domain="">{$tldData.tld}</span>
+                                        </div>
+                                        <div class="cat-tld-actions">
+                                            <span class="label label-{if $web3EnsTldMode === 'live'}success{elseif $web3EnsTldMode === 'presale'}warning{elseif $web3EnsTldMode === 'reservation'}info{else}default{/if} cat-tld-mode-badge">{$web3EnsTldMode|capitalize}</span>
+                                            <span class="cat-tld-checking domain-lookup-loader" style="display:none;">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                            <span class="cat-tld-price"></span>
+                                            <button type="button" class="btn btn-add-to-cart btn-sm cat-tld-add" data-whois="0" data-domain="" style="display:none;">
+                                                <span class="to-add">{lang key='orderForm.add'}</span>
+                                                <span class="loading"><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</span>
+                                                <span class="added"><i class="far fa-shopping-cart"></i> {lang key='checkout'}</span>
+                                                <span class="unavailable">{$LANG.domaincheckertaken}</span>
+                                            </button>
+                                            <span class="cat-tld-na" style="display:none;">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/if}
+                        {/foreach}
+
+                        {* --- Pre-Reserve Category Rows --- *}
+                        {assign var=catPrereserveTlds value=[]}
+                        {if isset($web3TldModes['Pre-Reserve'])}{assign var=catPrereserveTlds value=$web3TldModes['Pre-Reserve']}{/if}
+                        {if $catPrereserveTlds|@count == 0}{assign var=catPrereserveTlds value=['fio'=>['tld'=>'.fio','extension'=>'.fio','mode'=>'coming_soon','register_price'=>0],'degen'=>['tld'=>'.degen','extension'=>'.degen','mode'=>'coming_soon','register_price'=>0]]}{/if}
+                        {foreach $catPrereserveTlds as $tldName => $tldData}
+                            {assign var=prereserveTldMode value=$tldData.mode}
+                            {if $prereserveTldMode !== 'disabled'}
+                                <div class="suggestion-category-row"
+                                     data-cat-tld="{$tldData.tld}"
+                                     data-cat-categories="|Pre-Reserve|"
+                                     data-cat-price="{$tldData.register_price}"
+                                     data-cat-unregistry-mode="{$prereserveTldMode}"
+                                     style="display:none;">
+                                    <div class="suggestion-category-row-inner">
+                                        <div class="cat-tld-info">
+                                            <span class="cat-tld-name">{$tldData.tld}</span>
+                                            <span class="cat-tld-fullname" data-cat-full-domain="">{$tldData.tld}</span>
+                                        </div>
+                                        <div class="cat-tld-actions">
+                                            <span class="label label-{if $prereserveTldMode === 'live'}success{elseif $prereserveTldMode === 'presale'}warning{elseif $prereserveTldMode === 'reservation'}info{else}default{/if} cat-tld-mode-badge">{$prereserveTldMode|capitalize}</span>
+                                            <span class="cat-tld-checking domain-lookup-loader" style="display:none;">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                            <span class="cat-tld-price"></span>
+                                            <button type="button" class="btn btn-add-to-cart btn-sm cat-tld-add" data-whois="0" data-domain="" style="display:none;">
+                                                <span class="to-add">{lang key='orderForm.add'}</span>
+                                                <span class="loading"><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</span>
+                                                <span class="added"><i class="far fa-shopping-cart"></i> {lang key='checkout'}</span>
+                                                <span class="unavailable">{$LANG.domaincheckertaken}</span>
+                                            </button>
+                                            <span class="cat-tld-na" style="display:none;">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/if}
+                        {/foreach}
                     </div>
                 </div>
 
-                <!-- ADVANCED VIEW ONLY: Featured TLDs, Categories, and Pricing -->
-                <div class="domain-search-advanced">
+            </div>
+
+            <div class="domain-pricing">
+
+                {* Extract SLD from lookupTerm *}
+                {assign var=lookupSLD value=''}
+                {if $lookupTerm}{assign var=lookupParts value='.'|explode:$lookupTerm}{assign var=lookupSLD value=$lookupParts[0]}{/if}
+
+                {* Unregistry TLD modes (from database) *}
+                {assign var=unregistryTldModes value=['degen'=>'disabled','fio'=>'disabled','com.store'=>'coming_soon','com.film'=>'coming_soon','com.supply'=>'coming_soon','com.bond'=>'coming_soon','com.barcelona'=>'coming_soon','app.onl'=>'coming_soon','org.onl'=>'coming_soon','site.onl'=>'coming_soon']}
+                {assign var=unregistryDisabledTlds value=['degen','fio']}
 
                 {if $featuredTlds}
                     <div class="featured-tlds-container">
@@ -327,7 +535,6 @@
                     </div>
                 {/if}
 
-                <!-- CATEGORIES & PRICING - Advanced View Only -->
                 <h4 class="font-size-18">{lang key='pricing.browseExtByCategory'}</h4>
 
                 <div class="tld-filters">
@@ -339,25 +546,33 @@
                 <div class="bg-white">
                     <div class="row no-gutters tld-pricing-header text-center">
                         <div class="col-md-4 tld-column">{lang key='orderdomain'}</div>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <div class="row no-gutters">
                                 <div class="col-xs-4 col-4">{lang key='pricing.register'}</div>
                                 <div class="col-xs-4 col-4">{lang key='pricing.transfer'}</div>
                                 <div class="col-xs-4 col-4">{lang key='pricing.renewal'}</div>
                             </div>
                         </div>
+                        <div class="col-md-1"></div>
                     </div>
+                    {assign var=tldIndex value=0}
                     {foreach $pricing['pricing'] as $tld => $price}
-                        <div class="row no-gutters tld-row" data-category="{foreach $price.categories as $category}|{$category}|{/foreach}">
+                        {assign var=isUnregistry value=false}
+                        {if in_array($tld, $unregistryDisabledTlds)}{assign var=isUnregistry value=true}{/if}
+                        {if isset($unregistryTldModes[$tld])}{assign var=isUnregistry value=true}{/if}
+                        {if $isUnregistry}
+                        {else}
+                        {assign var=tldIndex value=$tldIndex+1}
+                        <div class="row no-gutters tld-row{if $tldIndex > 50} tld-extra-row{/if}" data-category="{foreach $price.categories as $category}|{$category}|{/foreach}">
                             <div class="col-md-4 two-row-center px-4">
-                                <strong>.{$tld}</strong>
+                                <strong>{if $lookupSLD}{$lookupSLD}.{/if}{$tld}</strong>
                                 {if $price.group}
                                     <span class="tld-sale-group tld-sale-group-{$price.group}">
                                         {lang key='domainCheckerSalesGroup.'|cat:$price.group}
                                     </span>
                                 {/if}
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="row">
                                     <div class="col-xs-4 col-4 text-center">
                                         {if isset($price.register) && current($price.register) > 0}
@@ -391,7 +606,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-1 text-center two-row-center">
+                                {if isset($price.register) && current($price.register) >= 0}
+                                    <button type="button" class="btn btn-add-to-cart btn-sm" data-whois="0" data-domain="{if $lookupSLD}{$lookupSLD}.{/if}{$tld}" title="{$LANG.addtocart}">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                {/if}
+                            </div>
                         </div>
+                        {/if}
                     {/foreach}
                     <div class="row tld-row no-tlds">
                         <div class="col-xs-12 col-12 text-center">
@@ -400,9 +623,67 @@
                             <br><br>
                         </div>
                     </div>
+                    <div class="text-center padding-10" id="show-more-tlds-wrapper" style="display:none;">
+                        <button type="button" class="btn btn-default btn-sm" id="show-more-tlds-btn">Show More TLDs</button>
+                    </div>
                 </div>
 
-                </div>{* /domain-search-advanced *}
+                {* --- Unregistry TLDs Section --- *}
+                <div class="bg-white margin-top-20" id="unregistry-tlds-section">
+                    <h4 class="font-size-18 margin-bottom-10" style="padding: 15px 15px 0;">Unregistry TLDs</h4>
+                    {foreach $pricing['pricing'] as $tld => $price}
+                        {assign var=isUnreg value=false}
+                        {if isset($unregistryTldModes[$tld])}{assign var=isUnreg value=true}{/if}
+                        {if in_array($tld, $unregistryDisabledTlds)}{assign var=isUnreg value=false}{/if}
+                        {if $isUnreg}
+                            {assign var=tldMode value=$unregistryTldModes[$tld]}
+                            <div class="row no-gutters tld-row" style="border-bottom: 1px solid #eee;">
+                                <div class="col-md-4 two-row-center px-4">
+                                    <strong>{if $lookupSLD}{$lookupSLD}.{/if}{$tld}</strong>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-4 text-center">
+                                            {if $tldMode == 'coming_soon' || $tldMode == 'presale' || $tldMode == 'reservation'}
+                                                <span class="label label-{if $tldMode == 'reservation'}warning{elseif $tldMode == 'presale'}info{else}primary{/if}">
+                                                    {if $tldMode == 'reservation'}Reservation{elseif $tldMode == 'presale'}Pre-Sale{else}Coming Soon{/if}
+                                                </span>
+                                            {elseif isset($price.register) && current($price.register) > 0}
+                                                {current($price.register)}<br>
+                                                <small>{key($price.register)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
+                                            {else}
+                                                <small>{lang key='na'}</small>
+                                            {/if}
+                                        </div>
+                                        <div class="col-xs-4 col-4 text-center">
+                                            {if isset($price.transfer) && current($price.transfer) > 0}
+                                                {current($price.transfer)}<br>
+                                                <small>{key($price.transfer)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
+                                            {else}
+                                                <small>{lang key='na'}</small>
+                                            {/if}
+                                        </div>
+                                        <div class="col-xs-4 col-4 text-center">
+                                            {if isset($price.renew) && current($price.renew) > 0}
+                                                {current($price.renew)}<br>
+                                                <small>{key($price.renew)} {if key($price.register) > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
+                                            {else}
+                                                <small>{lang key='na'}</small>
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 text-center two-row-center">
+                                    {if $tldMode == 'live' && isset($price.register) && current($price.register) >= 0}
+                                        <button type="button" class="btn btn-add-to-cart btn-sm" data-whois="0" data-domain="{if $lookupSLD}{$lookupSLD}.{/if}{$tld}" title="{$LANG.addtocart}">
+                                            <i class="fas fa-cart-plus"></i>
+                                        </button>
+                                    {/if}
+                                </div>
+                            </div>
+                        {/if}
+                    {/foreach}
+                </div>
 
             </div>
 
@@ -443,6 +724,16 @@ jQuery(document).ready(function() {
     jQuery('#DomainSearchResults').toggle();
     jQuery('.domain-invalid').toggle();
 {/if}
+
+    // Show More TLDs
+    jQuery('.tld-extra-row').hide();
+    if (jQuery('.tld-extra-row').length > 0) {
+        jQuery('#show-more-tlds-wrapper').show();
+    }
+    jQuery('#show-more-tlds-btn').on('click', function() {
+        jQuery('.tld-extra-row').show();
+        jQuery('#show-more-tlds-wrapper').hide();
+    });
 });
 
 {if $showAdvancedSearchOptions}
@@ -648,59 +939,4 @@ jQuery(document).ready(function() {
 .spotlight-tlds {
     display: none !important;
 }
-
-/* Domain Search View Toggle */
-.domain-pricing-renamed {
-    border: 1px solid var(--dr-border, #ddd);
-    border-radius: 0;
-    margin: 25px 0;
-    color: var(--dr-text-primary, #333);
-    padding: 20px;
-}
-
-/* Basic view - shown by default, hidden in advanced */
-.domain-search-basic {
-    display: block;
-}
-
-body.domain-search-advanced-visible .domain-search-basic {
-    display: none;
-}
-
-/* Advanced view - hidden by default, shown in advanced */
-.domain-search-advanced {
-    display: none;
-}
-
-body.domain-search-advanced-visible .domain-search-advanced {
-    display: block;
-}
 </style>
-
-<script>
-function toggleDomainView() {
-    var body = document.body;
-    var btn = document.getElementById('viewToggleBtn');
-    var txt = document.getElementById('viewToggleText');
-    
-    if (body.classList.contains('domain-search-advanced-visible')) {
-        body.classList.remove('domain-search-advanced-visible');
-        txt.textContent = 'Show Advanced';
-        btn.classList.remove('active');
-        localStorage.setItem('domainSearchView', 'basic');
-    } else {
-        body.classList.add('domain-search-advanced-visible');
-        txt.textContent = 'Show Basic';
-        btn.classList.add('active');
-        localStorage.setItem('domainSearchView', 'advanced');
-    }
-}
-
-jQuery(document).ready(function() {
-    if (localStorage.getItem('domainSearchView') === 'advanced') {
-        document.body.classList.add('domain-search-advanced-visible');
-        document.getElementById('viewToggleText').textContent = 'Show Basic';
-        document.getElementById('viewToggleBtn').classList.add('active');
-    }
-});
-</script>

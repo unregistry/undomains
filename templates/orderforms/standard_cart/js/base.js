@@ -1168,8 +1168,10 @@ jQuery(document).ready(function(){
 
         jQuery('.field-error-msg').hide();
         jQuery('.domain-checker-result-headline').show();
-        jQuery('.spotlight-tlds').show();
-        jQuery('.suggested-domains').show();
+
+        // Hide default suggestions - category filter will be the default view
+        jQuery('.spotlight-tlds').hide();
+        jQuery('.suggested-domains').hide();
 
         if (idnLanguage.is(':visible')) {
             idnLanguage.slideUp();
@@ -1177,6 +1179,10 @@ jQuery(document).ready(function(){
         }
 
         domainLookupCallCount = 0;
+
+        // Reset category cache on new search
+        suggestionCategoryState.checkedDomains = {};
+        suggestionCategoryState.currentCategory = null;
 
         if (!inputQuery.val().trim()) {
             inputQuery.tooltip('show');
@@ -1217,7 +1223,21 @@ jQuery(document).ready(function(){
             jQuery('.domain-pricing').fadeOut('fast', function() {
                 jQuery('#DomainSearchResults').fadeIn();
             });
+        }
 
+        // Show category filter and activate first category directly
+        jQuery('#suggestionCategorySection').show();
+        jQuery('#suggestionCategoryResults').show();
+
+        var firstBadge = jQuery('.suggestion-category-badge').first();
+        if (firstBadge.length && !suggestionCategoryState.currentCategory) {
+            var cat = firstBadge.data('suggestion-category');
+            firstBadge.addClass('badge-success');
+            suggestionCategoryState.currentCategory = cat;
+            var catInput = inputQuery.val() || '';
+            var catSld = catInput.split('.')[0].trim().toLowerCase();
+            suggestionCategoryState.sld = catSld;
+            showCategoryTlds(cat, catSld);
         }
 
         // primary lookup handler
@@ -1380,10 +1400,15 @@ jQuery(document).ready(function(){
         const suggestionDisplay = function(data) {
             if (typeof data != 'object' || data.result.length == 0 || data.result.error) {
                 jQuery('.domain-lookup-loader').hide();
-                jQuery('.domain-lookup-message').show();
+                if (!suggestionCategoryState.currentCategory) {
+                    jQuery('.domain-lookup-message').show();
+                }
                 return;
             } else {
-                jQuery('.suggested-domains').show();
+                // Only show suggestions if no category filter is active
+                if (!suggestionCategoryState.currentCategory) {
+                    jQuery('.suggested-domains').show();
+                }
             }
             var suggestionCount = 1;
             jQuery.each(data.result, function (index, domain) {
@@ -1575,6 +1600,317 @@ jQuery(document).ready(function(){
             }
         });
     });
+
+    // ========== Category Filter for Search Suggestions ==========
+    var suggestionCategoryState = {
+        currentCategory: null,
+        sld: '',
+        checkedDomains: {},
+        isChecking: false
+    };
+
+    jQuery(document).on('click', '.suggestion-category-badge', function(e) {
+        e.preventDefault();
+        var category = jQuery(this).data('suggestion-category');
+        if (suggestionCategoryState.currentCategory === category) {
+            return;
+        }
+
+        jQuery('.suggestion-category-badge').removeClass('badge-success');
+        jQuery(this).addClass('badge-success');
+        suggestionCategoryState.currentCategory = category;
+
+        var inputVal = jQuery('#inputDomain').val() || jQuery('#message').val() || '';
+        var sld = inputVal.split('.')[0].trim().toLowerCase();
+        suggestionCategoryState.sld = sld;
+
+        // Hide default spotlight and suggestions when category is active
+        jQuery('#spotlightTlds').hide();
+        jQuery('.suggested-domains').hide();
+
+        showCategoryTlds(category, sld);
+    });
+
+    function showCategoryTlds(category, sld) {
+        if (!sld) return;
+
+        // Hide all category rows
+        jQuery('.suggestion-category-row').hide();
+
+        // Show rows matching the selected category
+        var matchingRows = jQuery('.suggestion-category-row[data-cat-categories*="|' + category + '|"]');
+        matchingRows.show();
+
+        // Update full domain names on visible rows
+        matchingRows.each(function() {
+            var tld = jQuery(this).data('cat-tld');
+            var fullDomain = sld + '.' + tld;
+            jQuery(this).find('.cat-tld-fullname').text(fullDomain).attr('data-cat-full-domain', fullDomain);
+            jQuery(this).find('.cat-tld-add').attr('data-domain', fullDomain);
+        });
+
+        // Handle uTLDs and Web3 categories: show status for non-live, check availability for live
+        var web3Categories = ['uTLDs', 'Web3 (UD)', 'Web3 (FIO)', 'Web3 (ENS)', 'Pre-Reserve'];
+        if (web3Categories.indexOf(category) !== -1) {
+            matchingRows.each(function() {
+                var row = jQuery(this);
+                var tld = row.data('cat-tld');
+                var mode = row.data('cat-unregistry-mode') || '';
+                var fullDomain = sld + '.' + tld;
+                var price = row.data('cat-price') || 0;
+
+                if (mode === 'live') {
+                    row.find('.cat-tld-checking').show();
+                    row.find('.cat-tld-price').hide().text('');
+                    row.find('.cat-tld-add').hide();
+                    row.find('.cat-tld-na').hide();
+                } else {
+                    // Non-live mode: show price + mode badge, no availability check
+                    row.find('.cat-tld-checking').hide();
+                    if (price > 0) {
+                        row.find('.cat-tld-price').text('$' + parseFloat(price).toFixed(2)).show();
+                    }
+                    row.find('.cat-tld-add').hide();
+                    row.find('.cat-tld-na').hide();
+                    suggestionCategoryState.checkedDomains[fullDomain] = {
+                        available: false, price: price, status: 'unregistry_' + mode
+                    };
+                }
+            });
+
+            // Only run availability check for live-mode rows
+            var liveRows = matchingRows.filter('[data-cat-unregistry-mode="live"]');
+            if (liveRows.length > 0) {
+                jQuery('#suggestionCategoryLoader').show();
+                checkCategoryAvailability(liveRows, sld);
+            } else {
+                jQuery('#suggestionCategoryLoader').hide();
+                suggestionCategoryState.isChecking = false;
+            }
+            return;
+        }
+
+        // Default behavior for non-uTLDs categories
+        matchingRows.find('.cat-tld-checking').show();
+        matchingRows.find('.cat-tld-price').hide().text('');
+        matchingRows.find('.cat-tld-add').hide().find('span').hide().end().find('span.to-add').show();
+        matchingRows.find('.cat-tld-na').hide();
+
+        jQuery('#suggestionCategoryLoader').show();
+
+        checkCategoryAvailability(matchingRows, sld);
+    }
+
+    function checkCategoryAvailability(matchingRows, sld) {
+        if (suggestionCategoryState.isChecking) return;
+        suggestionCategoryState.isChecking = true;
+
+        var uncheckedRows = matchingRows.filter(function() {
+            var tld = jQuery(this).data('cat-tld');
+            var fullDomain = sld + '.' + tld;
+            return !suggestionCategoryState.checkedDomains[fullDomain];
+        });
+
+        if (uncheckedRows.length === 0) {
+            updateCategoryRowDisplay(matchingRows, sld);
+            jQuery('#suggestionCategoryLoader').hide();
+            suggestionCategoryState.isChecking = false;
+            return;
+        }
+
+        var queue = uncheckedRows.toArray();
+        var concurrency = 3;
+        var running = 0;
+        var completed = 0;
+        var total = queue.length;
+
+        function processNext() {
+            while (running < concurrency && queue.length > 0) {
+                running++;
+                let row = jQuery(queue.shift());
+                let tld = row.data('cat-tld');
+                let fullDomain = sld + '.' + tld;
+
+                WHMCS.http.jqClient.post(
+                    WHMCS.utils.getRouteUrl('/domain/check'),
+                    {
+                        domain: fullDomain,
+                        sld: sld,
+                        tld: '.' + tld,
+                        token: csrfToken,
+                        type: 'domain',
+                        source: 'cartAddDomain'
+                    },
+                    'json'
+                ).done(function(data) {
+                    try {
+                        var isAvailable = false;
+                        var price = 0;
+                        var status = 'na';
+
+                        if (data && data.result) {
+                            var domainResult = Array.isArray(data.result) ? data.result[0] : data.result;
+
+                            // Detect premium/aftermarket: WHMCS returns pricing as string "ContactUs"
+                            // OR pricing object where register value is "ContactUs"
+                            var isPremiumString = false;
+                            if (typeof domainResult !== 'string') {
+                                if (typeof domainResult.pricing === 'string') {
+                                    isPremiumString = true;
+                                } else if (domainResult.pricing && typeof domainResult.pricing === 'object') {
+                                    var pKeys = Object.keys(domainResult.pricing);
+                                    for (var pk = 0; pk < pKeys.length; pk++) {
+                                        var pVal = domainResult.pricing[pKeys[pk]];
+                                        if (pVal && typeof pVal === 'object' && pVal.register === 'ContactUs') {
+                                            isPremiumString = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (isPremiumString) {
+                                // Premium / aftermarket / contact us
+                                suggestionCategoryState.checkedDomains[fullDomain] = {
+                                    available: false,
+                                    price: 0,
+                                    status: 'premium_loading'
+                                };
+                                updateSingleCategoryRow(row, fullDomain);
+
+                                jQuery.getJSON('/domainpremiumcheck.php', {
+                                    domain: fullDomain,
+                                    t: Date.now()
+                                }).done(function(premiumData) {
+                                    if (premiumData && !premiumData.error) {
+                                        if (premiumData.premium) {
+                                            suggestionCategoryState.checkedDomains[fullDomain] = {
+                                                available: true,
+                                                price: premiumData.price,
+                                                status: 'premium'
+                                            };
+                                        } else if (premiumData.available) {
+                                            suggestionCategoryState.checkedDomains[fullDomain] = {
+                                                available: true,
+                                                price: premiumData.price,
+                                                status: 'available'
+                                            };
+                                        } else {
+                                            suggestionCategoryState.checkedDomains[fullDomain] = {
+                                                available: false,
+                                                price: 0,
+                                                status: 'na'
+                                            };
+                                        }
+                                    } else {
+                                        suggestionCategoryState.checkedDomains[fullDomain] = {
+                                            available: false,
+                                            price: 0,
+                                            status: 'na'
+                                        };
+                                    }
+                                    updateSingleCategoryRow(row, fullDomain);
+                                }).fail(function() {
+                                    suggestionCategoryState.checkedDomains[fullDomain] = {
+                                        available: false,
+                                        price: 0,
+                                        status: 'na'
+                                    };
+                                    updateSingleCategoryRow(row, fullDomain);
+                                });
+                                return; // Don't update row yet, wait for premium callback
+                            } else if (typeof domainResult !== 'string' && !domainResult.error && domainResult.isValidDomain) {
+                                if (domainResult.pricing) {
+                                    var pricingKeys = Object.keys(domainResult.pricing);
+                                    if (domainResult.isAvailable && pricingKeys.length > 0) {
+                                        isAvailable = true;
+                                        price = domainResult.pricing[pricingKeys[0]].register;
+                                    } else {
+                                        status = 'na';
+                                    }
+                                }
+                            }
+                        }
+
+                        suggestionCategoryState.checkedDomains[fullDomain] = {
+                            available: isAvailable,
+                            price: price,
+                            status: status
+                        };
+                    } catch(e) {
+                        suggestionCategoryState.checkedDomains[fullDomain] = {
+                            available: false,
+                            price: 0,
+                            status: 'na'
+                        };
+                    }
+
+                    updateSingleCategoryRow(row, fullDomain);
+                }).fail(function() {
+                    suggestionCategoryState.checkedDomains[fullDomain] = {
+                        available: false,
+                        price: 0,
+                        status: 'na'
+                    };
+                    updateSingleCategoryRow(row, fullDomain);
+                }).always(function() {
+                    running--;
+                    completed++;
+                    if (completed >= total) {
+                        jQuery('#suggestionCategoryLoader').hide();
+                        suggestionCategoryState.isChecking = false;
+                    } else {
+                        processNext();
+                    }
+                });
+            }
+        }
+
+        processNext();
+    }
+
+    function updateCategoryRowDisplay(rows, sld) {
+        rows.each(function() {
+            var row = jQuery(this);
+            var tld = row.data('cat-tld');
+            var fullDomain = sld + '.' + tld;
+            updateSingleCategoryRow(row, fullDomain);
+        });
+    }
+
+    function updateSingleCategoryRow(row, fullDomain) {
+        var cached = suggestionCategoryState.checkedDomains[fullDomain];
+        if (!cached) return;
+
+        // premium_loading: keep spinner visible while fetching price
+        if (cached.status === 'premium_loading') {
+            row.find('.cat-tld-checking').show();
+            row.find('.cat-tld-price').hide();
+            row.find('.cat-tld-add').hide();
+            row.find('.cat-tld-na').hide();
+            row.addClass('tld-unavailable');
+            return;
+        }
+
+        row.find('.cat-tld-checking').hide();
+
+        if (cached.available) {
+            row.find('.cat-tld-price').text(cached.price).show();
+            row.find('.cat-tld-add').attr('data-domain', fullDomain).show();
+            row.find('.cat-tld-na').hide();
+            row.removeClass('tld-unavailable');
+        } else if (cached.status === 'premium') {
+            row.find('.cat-tld-price').text(cached.price).show();
+            row.find('.cat-tld-add').hide();
+            row.find('.cat-tld-na').text(cached.price).show();
+            row.addClass('tld-unavailable');
+        } else {
+            row.find('.cat-tld-price').hide();
+            row.find('.cat-tld-add').hide();
+            row.find('.cat-tld-na').text('N/A').show();
+            row.addClass('tld-unavailable');
+        }
+    }
 
     jQuery('#frmDomainTransfer').submit(function (e) {
         e.preventDefault();

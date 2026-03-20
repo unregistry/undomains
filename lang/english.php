@@ -1860,6 +1860,7 @@ $_LANG['orderForm']['streetAddress'] = "Street Address";
 $_LANG['orderForm']['streetAddress2'] = "Street Address 2";
 $_LANG['orderForm']['submitTicket'] = "Submit a Ticket";
 $_LANG['orderForm']['suggestedDomains'] = "Suggested Domains";
+$_LANG['orderForm']['tldPricing'] = "TLD Pricing";
 $_LANG['orderForm']['totals'] = "Totals";
 $_LANG['orderForm']['transfer'] = "Transfer";
 $_LANG['orderForm']['transferAlternativelyRegister'] = "Alternatively, you can perform a search to register this domain.";
